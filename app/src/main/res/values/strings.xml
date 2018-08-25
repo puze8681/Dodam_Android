@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dodam</string>
+    <string name="survey_reason">why do you want to learn korean</string>
+    <string name="survey_country">where are you from</string>
+    <string name="survey_exp">have you ever learned korean</string>
+    <string name="positive">yes</string>
+    <string name="negative">no</string>
+    <string name="study_syllable">syllable</string>
+    <string name="study_phonogram">phonogram</string>
+    <string name="study_word">word</string>
+    <string name="study_chat_bot">chat_bot</string>
+    <string name="study_debate">debate</string>
+</resources>

@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="data_chat_theme"
+            type="kr.puze.dodam.Data.ChatThemeData"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="100dp">
+        <ImageView
+            tools:src="@mipmap/ic_launcher"
+            app:layout_constraintStart_toStartOf="parent"
+            android:id="@+id/data_chat_theme_image"
+            android:src="@{data_chat_theme.setimg()}"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+        <TextView
+            android:id="@+id/data_chat_theme_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data_chat_theme.title, default=title"
+            app:layout_constraintStart_toEndOf="@+id/data_chat_theme_image"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/data_chat_theme_sub_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{data_chat_theme.sub_title, default=sub_title"
+            app:layout_constraintStart_toEndOf="@+id/data_chat_theme_image"
+            app:layout_constraintTop_toBottomOf="@id/data_chat_theme_title" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

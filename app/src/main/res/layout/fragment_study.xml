@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <data>
+        <variable
+            name="study"
+            type="kr.puze.dodam.Fragment.StudyFragment"/>
+    </data>
+    <android.support.constraint.ConstraintLayout
+        android:layout_margin="16dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <Button
+            android:id="@+id/study_button_syllable"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/study_syllable"
+            app:layout_constraintBottom_toTopOf="@+id/study_button_phonogram" />
+        <Button
+            android:id="@+id/study_button_phonogram"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/study_phonogram"
+            app:layout_constraintBottom_toTopOf="@+id/study_button_word" />
+        <Button
+            android:id="@+id/study_button_word"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/study_word"
+            app:layout_constraintBottom_toTopOf="@+id/study_button_chat_bot" />
+        <Button
+            android:id="@+id/study_button_chat_bot"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/study_chat_bot"
+            app:layout_constraintBottom_toTopOf="@+id/study_button_debate" />
+        <Button
+            android:text="@string/study_debate"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/study_button_debate"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </android.support.constraint.ConstraintLayout>
+</layout>

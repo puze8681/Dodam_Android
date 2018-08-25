@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dodam</string>
+    <string name="survey_reason">왜 한국어를 배우려고 하시나요?</string>
+    <string name="survey_country">어느 나라에서 오셨나요?</string>
+    <string name="survey_exp">한국어를 배워본 적이 있으신가요?</string>
+    <string name="positive">네</string>
+    <string name="negative">아니요</string>
+    <string name="study_syllable">자음, 모음</string>
+    <string name="study_phonogram">표음문자</string>
+    <string name="study_word">단어</string>
+    <string name="study_chat_bot">챗봇</string>
+    <string name="study_debate">토론</string>
+</resources>
