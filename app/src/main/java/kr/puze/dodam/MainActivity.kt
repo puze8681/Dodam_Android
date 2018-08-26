@@ -1,6 +1,5 @@
 package kr.puze.dodam
 
-import android.databinding.DataBindingUtil
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
@@ -8,7 +7,6 @@ import android.support.v4.view.ViewPager
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.puze.dodam.Adapter.TapLayoutAdapter
 import kr.puze.dodam.Adapter.ViewPagerAdapter
-import kr.puze.dodam.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
 

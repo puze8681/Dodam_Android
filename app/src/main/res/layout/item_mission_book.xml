@@ -20,14 +20,14 @@
             android:id="@+id/data_mission_book_title"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="@{data_mission_book.title, default=title"
+            android:text="@{data_mission_book.title, default=title}"
             app:layout_constraintStart_toEndOf="@+id/data_mission_book_image"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/data_mission_book_status"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="@{data_mission_book.status, default=status"
+            android:text="@{data_mission_book.status, default=status}"
             app:layout_constraintStart_toEndOf="@+id/data_mission_book_image"
             app:layout_constraintTop_toBottomOf="@+id/data_mission_book_title" />
         <ProgressBar
@@ -36,6 +36,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
+            android:max="@{data_mission_book.aim, default=`100`}"
+            android:progress="@{data_mission_book.reach, default=`50`}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/data_mission_book_image"
