@@ -24,7 +24,9 @@
         <activity android:name=".Chat.ChatActivity" />
         <activity android:name=".Study.StudyInActivity" />
         <activity android:name=".Study.StudySelectActivity" />
-        <activity android:name=".Study.StudyAnswerActivity"></activity>
+        <activity android:name=".Study.StudyAnswerActivity" />
+        <activity android:name=".Study.StudyQuickImageToSoundActivity" />
+        <activity android:name=".Study.StudyQuickSoundToImageActivity"></activity>
     </application>
 
 </manifest>

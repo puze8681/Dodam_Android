@@ -29,7 +29,7 @@
             android:id="@+id/data_chat_theme_sub_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@{data_chat_theme.sub_title, default=sub_title"
+            android:text="@{data_chat_theme.subTitle, default=sub_title"
             app:layout_constraintStart_toEndOf="@+id/data_chat_theme_image"
             app:layout_constraintTop_toBottomOf="@id/data_chat_theme_title" />
     </android.support.constraint.ConstraintLayout>
