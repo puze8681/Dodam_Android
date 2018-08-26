@@ -7,7 +7,8 @@
             type="kr.puze.dodam.Data.ChatData"/>
     </data>
     <TextView xmlns:tools="http://schemas.android.com/tools"
-        tools:text="check"
+        android:text="@{data_chat.text, default=chat}"
+        android:textAlignment="viewStart"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 </layout>

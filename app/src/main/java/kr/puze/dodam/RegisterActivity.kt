@@ -14,6 +14,8 @@ class RegisterActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_register)
+        supportActionBar!!.title = "RegisterActivity"
+
         val binding: ActivityRegisterBinding = DataBindingUtil.setContentView(this, R.layout.activity_register)
         val languageStrings = arrayOf("한국어", "English")
         binding.registerSpinnerLanguage.adapter = ArrayAdapter(this, android.R.layout.simple_spinner_item, languageStrings)

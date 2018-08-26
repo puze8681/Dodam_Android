@@ -7,21 +7,21 @@ import kr.puze.dodam.Fragment.StudyFragment
 import kr.puze.dodam.Fragment.MissionBookFragment
 import kr.puze.dodam.Fragment.ReportFragment
 
-class TapLayoutAdapter(fm: FragmentManager, private val tapCount: Int) : FragmentStatePagerAdapter(fm) {
+class TapLayoutAdapter(fm: FragmentManager, private var tapCount: Int) : FragmentStatePagerAdapter(fm) {
 
     override fun getItem(position: Int): Fragment? {
         when (position) {
             0 -> {
-                return ReportFragment()
                 tapCount = position
+                return ReportFragment()
             }
             1 -> {
-                return StudyFragment()
                 tapCount = position
+                return StudyFragment()
             }
             2 -> {
-                return MissionBookFragment()
                 tapCount = position
+                return MissionBookFragment()
             }
             else -> return null
         }

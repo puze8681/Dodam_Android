@@ -16,6 +16,8 @@ class ChatThemeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_theme)
+        supportActionBar!!.title = "ChatThemeActivity"
+
         val binding: ActivityChatThemeBinding = DataBindingUtil.setContentView(this, R.layout.activity_chat_theme)
 
         var datas = ArrayList<ChatThemeData>()
@@ -25,7 +27,7 @@ class ChatThemeActivity : AppCompatActivity() {
         var chat = LastAdapter(datas, BR.data_chat_theme)
                 .map<ChatThemeData, ItemChatThemeBinding>(R.layout.item_chat_theme){
                     onClick {
-                        var item =it.binding.data_chat_theme
+                        var item =it.binding.dataChatTheme
                         startActivity(Intent(this@ChatThemeActivity, ChatActivity::class.java).putExtra("theme", item!!.title))
                     }
                 }

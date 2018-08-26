@@ -16,7 +16,7 @@
             android:id="@+id/register_text_language"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@{register.language, default=언어선택}"
+            android:text="@string/register_language"
             app:layout_constraintBottom_toTopOf="@+id/register_spinner_language"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" />

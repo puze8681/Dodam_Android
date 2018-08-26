@@ -9,5 +9,7 @@ class StudyQuickSoundToImageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_study_quick_sound_to_image)
+        supportActionBar!!.title = "StudyQuickSoundToImageActivity"
+
     }
 }

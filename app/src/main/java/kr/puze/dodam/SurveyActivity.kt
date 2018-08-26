@@ -11,6 +11,8 @@ class SurveyActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_survey)
+        supportActionBar!!.title = "SurveyActivity"
+
         val binding: ActivitySurveyBinding = DataBindingUtil.setContentView(this, R.layout.activity_survey)
         binding.surveyButtonPositive.setOnClickListener {
             startActivity(Intent(this@SurveyActivity, MainActivity::class.java))

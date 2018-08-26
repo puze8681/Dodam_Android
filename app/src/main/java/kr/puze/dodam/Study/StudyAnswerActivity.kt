@@ -9,5 +9,7 @@ class StudyAnswerActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_study_answer)
+        supportActionBar!!.title = "StudyAnswerActivity"
+
     }
 }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Dodam</string>
+    <string name="register_language">select your language</string>
     <string name="survey_reason">why do you want to learn korean</string>
     <string name="survey_country">where are you from</string>
     <string name="survey_exp">have you ever learned korean</string>
