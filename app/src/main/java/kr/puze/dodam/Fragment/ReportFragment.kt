@@ -28,6 +28,7 @@ class ReportFragment : Fragment() {
                 .map<ReportData, ItemReportBinding>(R.layout.item_report){
                 }
                 .into(binding.reportRecyclerView)
+        report.notifyDataSetChanged()
         return view
     }
 

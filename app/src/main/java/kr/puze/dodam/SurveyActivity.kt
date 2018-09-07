@@ -20,5 +20,10 @@ class SurveyActivity : AppCompatActivity() {
         binding.surveyButtonNegative.setOnClickListener {
             startActivity(Intent(this@SurveyActivity, MainActivity::class.java))
         }
+
+        binding.surveyButtonNegative.setOnClickListener {
+            val intent = Intent(this@SurveyActivity, MainActivity::class.java)
+            startActivity(intent)
+        }
     }
 }

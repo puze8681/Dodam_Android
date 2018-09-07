@@ -28,6 +28,7 @@ class MissionBookFragment: Fragment() {
                 .map<MissionBookData, ItemMissionBookBinding>(R.layout.item_mission_book){
                 }
                 .into(binding.missionBookRecyclerView)
+        missionBook.notifyDataSetChanged()
         return view
     }
 
