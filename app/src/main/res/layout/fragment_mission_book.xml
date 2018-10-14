@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <data>
         <variable
             name="mission_book"
             type="kr.puze.dodam.Fragment.MissionBookFragment"/>
     </data>
     <android.support.v7.widget.RecyclerView
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
         android:id="@+id/mission_book_recycler_view"
         android:layout_margin="16dp"
         android:layout_width="match_parent"

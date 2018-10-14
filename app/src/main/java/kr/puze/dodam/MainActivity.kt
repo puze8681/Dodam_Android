@@ -1,18 +1,24 @@
 package kr.puze.dodam
 
 import android.databinding.DataBindingUtil
+import android.graphics.Color
+import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.support.design.widget.TabLayout
 import android.support.v4.view.ViewPager
+import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_main.*
 import kr.puze.dodam.Adapter.TapLayoutAdapter
 import kr.puze.dodam.Adapter.ViewPagerAdapter
 
 class MainActivity : AppCompatActivity() {
 
+    private var time: Long = 0
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#fafafa")
         setContentView(R.layout.activity_main)
         supportActionBar!!.hide()
         val tabLayout = TapLayoutAdapter(supportFragmentManager, main_tap_layout.tabCount)
@@ -21,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         main_tap_layout.addTab(main_tap_layout.newTab().setText("report").setIcon(R.drawable.ic_report_select).setTag("report"), 0)
         main_tap_layout.addTab(main_tap_layout.newTab().setText("study").setIcon(R.drawable.ic_study_select).setTag("study"), 0)
         main_tap_layout.addTab(main_tap_layout.newTab().setText("missionbook").setIcon(R.drawable.ic_mission_book_select).setTag("missionbook"), 0)
+        main_tap_layout.setSelectedTabIndicatorColor(Color.parseColor("#ff5722"))
         main_tap_layout.tabGravity = TabLayout.GRAVITY_FILL
 
         main_view_pager.adapter = tabLayout
@@ -63,5 +70,14 @@ class MainActivity : AppCompatActivity() {
         main_tap_layout.getTabAt(0)?.setIcon(R.drawable.ic_report_unselect)
         main_tap_layout.getTabAt(1)?.setIcon(R.drawable.ic_study_unselect)
         main_tap_layout.getTabAt(2)?.setIcon(R.drawable.ic_mission_book_unselect)
+    }
+
+    override fun onBackPressed() {
+        if(System.currentTimeMillis()-time>=2000){
+            time=System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(),"뒤로 가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+        }else if(System.currentTimeMillis()-time<2000){
+            finish();
+        }
     }
 }

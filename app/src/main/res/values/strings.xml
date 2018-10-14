@@ -12,4 +12,9 @@
     <string name="study_word">word</string>
     <string name="study_chat_bot">chat_bot</string>
     <string name="study_debate">debate</string>
+    <string name="study_syllable_sub">Let\'s study syllable.</string>
+    <string name="study_phonogram_sub">Let\'s study phonogram.</string>
+    <string name="study_word_sub">Let\'s study word.</string>
+    <string name="study_chat_bot_sub">Let\'s study conversation with chat bot.</string>
+    <string name="study_debate_sub">Let\'s study for debate</string>
 </resources>

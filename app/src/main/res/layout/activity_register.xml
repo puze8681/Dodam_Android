@@ -8,83 +8,124 @@
             name="register"
             type="kr.puze.dodam.RegisterActivity" />
     </data>
-    <android.support.constraint.ConstraintLayout
-        android:layout_margin="16dp"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/register_text_language"
+        <LinearLayout
+            android:layout_alignParentTop="true"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/register_language"
-            app:layout_constraintBottom_toTopOf="@+id/register_spinner_language"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <Spinner
-            android:id="@+id/register_spinner_language"
-            android:spinnerMode="dialog"
-            android:entries="@array/Language"
-            android:tooltipText="Select Language"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toTopOf="@id/register_edit_name"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
-        <EditText
-            android:id="@+id/register_edit_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="enter your name"
-            app:layout_constraintBottom_toTopOf="@id/register_edit_email"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <EditText
-            android:id="@+id/register_edit_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="enter your email"
-            app:layout_constraintBottom_toTopOf="@id/register_edit_id"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <EditText
-            android:id="@+id/register_edit_id"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="enter your id"
-            app:layout_constraintBottom_toTopOf="@id/register_edit_pw"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <EditText
-            android:id="@+id/register_edit_pw"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:hint="enter your pw"
-            app:layout_constraintBottom_toTopOf="@id/register_button_cancel"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content">
+            <Button
+                android:id="@+id/register_button_cancel"
+                android:layout_marginBottom="16dp"
+                android:background="@drawable/ic_clear_black_24dp"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:layout_marginLeft="4dp"
+                android:textColor="#222222"
+                android:text="회원가입"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
-        <Button
-            android:id="@+id/register_button_cancel"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="취소"
-            app:layout_constraintBottom_toTopOf="@+id/register_button_register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            <TextView
+                android:layout_marginLeft="4dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="24dp"
+                android:textColor="#222222"
+                android:text="도담도담 서비스에 회원가입하기 위해선\n아래 정보를 입력하셔야 합니다."
+                android:textSize="14sp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
 
+            <TextView
+                android:text="이름(실명)"
+                android:textColor="#222222"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:backgroundTint="@color/colorMain"
+                android:textSize="14sp"
+                android:textAlignment="textStart"
+                android:id="@+id/register_edit_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="실명을 입력해주세요"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:text="이메일"
+                android:textColor="#222222"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:backgroundTint="@color/colorMain"
+                android:textSize="14sp"
+                android:textAlignment="textStart"
+                android:id="@+id/register_edit_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="example@example.com"
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:text="비밀번호"
+                android:textColor="#222222"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:backgroundTint="@color/colorMain"
+                android:textSize="14sp"
+                android:textAlignment="textStart"
+                android:id="@+id/register_edit_id"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="비밀번호를 입력해주세요."
+                tools:ignore="RtlCompat" />
+
+            <TextView
+                android:text="비밀번호 확인"
+                android:textColor="#222222"
+                android:layout_marginTop="8dp"
+                android:layout_marginLeft="4dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <EditText
+                android:backgroundTint="@color/colorMain"
+                android:textSize="14sp"
+                android:textAlignment="textStart"
+                android:id="@+id/register_edit_pw"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:hint="다시 한번 입력해주세요."
+                tools:ignore="RtlCompat" />
+        </LinearLayout>
         <Button
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorMain"
+            android:textSize="14sp"
+            android:textColor="@color/colorWhite"
             android:id="@+id/register_button_register"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:gravity="center"
-            android:text="회원가입"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:text="다음"/>
+    </RelativeLayout>
 </layout>

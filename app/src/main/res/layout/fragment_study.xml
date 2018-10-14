@@ -7,39 +7,191 @@
             name="study"
             type="kr.puze.dodam.Fragment.StudyFragment"/>
     </data>
-    <android.support.constraint.ConstraintLayout
-        android:layout_margin="16dp"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <Button
-            android:id="@+id/study_button_syllable"
+        <include layout="@layout/actionbar_study"/>
+        <ScrollView
+            android:scrollbars="none"
+            android:layout_margin="16dp"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/study_syllable"
-            app:layout_constraintBottom_toTopOf="@+id/study_button_phonogram" />
-        <Button
-            android:id="@+id/study_button_phonogram"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/study_phonogram"
-            app:layout_constraintBottom_toTopOf="@+id/study_button_word" />
-        <Button
-            android:id="@+id/study_button_word"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/study_word"
-            app:layout_constraintBottom_toTopOf="@+id/study_button_chat_bot" />
-        <Button
-            android:id="@+id/study_button_chat_bot"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/study_chat_bot"
-            app:layout_constraintBottom_toTopOf="@+id/study_button_debate" />
-        <Button
-            android:text="@string/study_debate"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:id="@+id/study_button_debate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </android.support.constraint.ConstraintLayout>
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                <RelativeLayout
+                    android:clickable="true"
+                    android:paddingLeft="12dp"
+                    android:paddingRight="16dp"
+                    android:paddingTop="25dp"
+                    android:paddingBottom="16dp"
+                    android:background="@drawable/layout_study_orange"
+                    android:layout_marginBottom="18dp"
+                    android:id="@+id/study_button_syllable"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_syllable"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/study_text_syllable_sub"
+                        android:text="@string/study_syllable" />
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_syllable_sub"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/study_syllable_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_pic_main_syllable"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:clickable="true"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="18dp"
+                    android:paddingTop="24dp"
+                    android:background="@drawable/layout_study_yellow"
+                    android:layout_marginBottom="18dp"
+                    android:id="@+id/study_button_phonogram"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_phonogram"
+                        android:layout_above="@+id/study_text_phonogram_sub"
+                        android:text="@string/study_phonogram"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_phonogram_sub"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/study_phonogram_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_pic_main_phonetic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:clickable="true"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="17dp"
+                    android:paddingTop="12dp"
+                    android:background="@drawable/layout_study_orange"
+                    android:layout_marginBottom="18dp"
+                    android:id="@+id/study_button_word"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_word"
+                        android:layout_above="@+id/study_text_word_sub"
+                        android:text="@string/study_word"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_word_sub"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/study_word_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/pic_main_voca"
+                        android:layout_width="160dp"
+                        android:layout_height="119dp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:clickable="true"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="11dp"
+                    android:paddingTop="30dp"
+                    android:background="@drawable/layout_study_yellow"
+                    android:layout_marginBottom="18dp"
+                    android:id="@+id/study_button_chat_bot"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_chat"
+                        android:layout_above="@+id/study_text_chat_sub"
+                        android:text="@string/study_chat_bot"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_chat_sub"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/study_chat_bot_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/pic_main_theme"
+                        android:layout_width="161dp"
+                        android:layout_height="54dp" />
+                </RelativeLayout>
+                <RelativeLayout
+                    android:clickable="true"
+                    android:paddingLeft="12dp"
+                    android:paddingBottom="16dp"
+                    android:paddingRight="24dp"
+                    android:paddingTop="25dp"
+                    android:background="@drawable/layout_study_orange"
+                    android:layout_marginBottom="18dp"
+                    android:id="@+id/study_button_debate"
+                    android:layout_width="match_parent"
+                    android:layout_height="144dp">
+                    <TextView
+                        android:textSize="20sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_debate"
+                        android:layout_above="@+id/study_text_debate_sub"
+                        android:text="@string/study_debate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"/>
+                    <TextView
+                        android:textSize="12sp"
+                        android:textColor="@color/colorWhite"
+                        android:id="@+id/study_text_debate_sub"
+                        android:layout_alignParentBottom="true"
+                        android:text="@string/study_debate_sub"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+                    <ImageView
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:src="@drawable/ic_pic_main_debate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RelativeLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
 </layout>

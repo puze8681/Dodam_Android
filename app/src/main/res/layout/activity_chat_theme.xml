@@ -1,17 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    android:layout_height="match_parent"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:background="@color/colorWhite"
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".Chat.ChatThemeActivity">
-    <data>
-        <variable
-            name="chat_them"
-            type="kr.puze.dodam.Chat.ChatThemeActivity"/>
-    </data>
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/chat_theme_recycler_view"
-        android:layout_margin="16dp"
+    tools:context=".Study.ChatThemeActivity">
+    <include layout="@layout/actionbar_white"/>
+    <LinearLayout
+        android:layout_marginRight="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-    </android.support.v7.widget.RecyclerView>
-</layout>
+        <TextView
+            android:text="테마 별 챗봇 학습"
+            android:textSize="24sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="16dp"
+            android:text="주어진 상황을 가정하여 대화를 연습합니다."
+            android:textSize="14sp"
+            android:textColor="@color/colorBlack"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <android.support.v7.widget.RecyclerView
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:id="@+id/chat_theme_recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

@@ -35,6 +35,7 @@
                 android:layout_height="match_parent" />
         </android.support.constraint.ConstraintLayout>
         <android.support.v7.widget.RecyclerView
+            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
             android:layout_margin="16dp"
             android:id="@+id/report_recycler_view"
             app:layout_constraintTop_toBottomOf="@id/report_layout_top"

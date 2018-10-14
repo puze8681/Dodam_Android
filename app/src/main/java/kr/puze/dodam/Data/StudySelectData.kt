@@ -6,11 +6,11 @@ import kr.puze.dodam.Utils.LoadImages
 
 class StudySelectData(var image: String, var title: String, var subTitle: String){
     fun setimg() : Any{
-        var image = LoadImages(image)
+        val image = LoadImages(image)
         image.start()
         image.join()
-        var d = image.getimg()
+        val d = image.getimg()
         val data : Drawable = BitmapDrawable(d)
-        return data!!
+        return data
     }
 }

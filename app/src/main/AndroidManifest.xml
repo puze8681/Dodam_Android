@@ -20,13 +20,15 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SurveyActivity" />
-        <activity android:name=".Chat.ChatThemeActivity" />
-        <activity android:name=".Chat.ChatActivity" />
+        <activity android:name=".Study.ChatThemeActivity" />
+        <activity android:name=".Study.ChatActivity" />
         <activity android:name=".Study.StudyInActivity" />
         <activity android:name=".Study.StudySelectActivity" />
         <activity android:name=".Study.StudyAnswerActivity" />
         <activity android:name=".Study.StudyQuickImageToSoundActivity" />
-        <activity android:name=".Study.StudyQuickSoundToImageActivity"></activity>
+        <activity android:name=".Study.StudyQuickSoundToImageActivity" />
+        <activity android:name=".Study.SyllableSelectActivity" />
+        <activity android:name=".Study.DebateActivity"></activity>
     </application>
 
 </manifest>

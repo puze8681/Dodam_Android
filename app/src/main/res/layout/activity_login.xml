@@ -8,48 +8,87 @@
             name="login"
             type="kr.puze.dodam.LoginActivity" />
     </data>
-    <android.support.constraint.ConstraintLayout
+    <LinearLayout
+        android:weightSum="4"
+        android:orientation="vertical"
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+        <View
+            android:layout_weight="2"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+        <ImageView
+            android:layout_gravity="center"
+            android:id="@+id/login_logo"
+            android:src="@drawable/ic_logo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+        <TextView
+            android:layout_margin="8dp"
+            android:layout_gravity="center"
+            android:id="@+id/login_slogun"
+            android:textSize="14sp"
+            android:textColor="#222222"
+            android:text="꺼내먹는 한국어, 도담도담"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"/>
 
         <EditText
+            android:textSize="14sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textAlignment="textStart"
+            android:layout_margin="4dp"
+            android:background="@drawable/layout_login_edit"
             android:id="@+id/login_edit_id"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:gravity="center"
-            android:hint="enter your id"
-            app:layout_constraintBottom_toTopOf="@+id/login_edit_pw"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:hint="이메일 입력"
+            tools:ignore="RtlCompat" />
 
         <EditText
+            android:textSize="14sp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:textAlignment="textStart"
+            android:layout_margin="4dp"
+            android:background="@drawable/layout_login_edit"
             android:id="@+id/login_edit_pw"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:gravity="center"
-            android:hint="enter your pw"
-            app:layout_constraintBottom_toTopOf="@+id/login_button_login"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:hint="비밀번호 입력"
+            tools:ignore="RtlCompat" />
 
         <Button
+            android:textColor="@color/colorWhite"
+            android:textSize="14sp"
+            android:background="@drawable/layout_login_button"
+            android:layout_margin="4dp"
             android:id="@+id/login_button_login"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:gravity="center"
-            android:text="로그인"
-            app:layout_constraintBottom_toTopOf="@+id/login_button_register"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <Button
-            android:id="@+id/login_button_register"
+            android:text="로그인"/>
+        <View
+            android:layout_weight="1"
             android:layout_width="match_parent"
+            android:layout_height="0dp"/>
+        <TextView
+            android:textSize="12sp"
+            android:background="@color/colorWhite"
+            android:layout_gravity="center"
+            android:id="@+id/login_button_register"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="회원가입"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:text="계정이 없으신가요?"/>
+    </LinearLayout>
 </layout>

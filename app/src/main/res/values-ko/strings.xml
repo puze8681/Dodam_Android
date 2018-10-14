@@ -7,9 +7,14 @@
     <string name="survey_exp">한국어를 배워본 적이 있으신가요?</string>
     <string name="positive">네</string>
     <string name="negative">아니요</string>
-    <string name="study_syllable">자음, 모음</string>
-    <string name="study_phonogram">표음문자</string>
-    <string name="study_word">단어</string>
-    <string name="study_chat_bot">챗봇</string>
-    <string name="study_debate">토론</string>
+    <string name="study_syllable">자모학습</string>
+    <string name="study_phonogram">표음학습</string>
+    <string name="study_word">단어학습</string>
+    <string name="study_chat_bot">테마 별 챗봇 학습</string>
+    <string name="study_debate">토론학습</string>
+    <string name="study_syllable_sub">한글의 자음, 모음을 학습해봅시다.</string>
+    <string name="study_phonogram_sub">자신의 모국어를 한글로 옮겨 적어봅시다.</string>
+    <string name="study_word_sub">한국어 단어를 연습해봅시다.</string>
+    <string name="study_chat_bot_sub">챗봇을 통해 상황에 따른 대화를 학습해봅시다.</string>
+    <string name="study_debate_sub">토론을 통해 학습해봅시다.</string>
 </resources>

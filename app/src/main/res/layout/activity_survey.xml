@@ -8,36 +8,149 @@
             name="survey"
             type="kr.puze.dodam.SurveyActivity" />
     </data>
-    <android.support.constraint.ConstraintLayout
-        android:layout_margin="16dp"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <TextView
-            android:id="@+id/survey_text_exp"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/survey_exp"
-            app:layout_constraintBottom_toTopOf="@+id/survey_button_positive"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_alignParentTop="true"
+                android:orientation="vertical"
+                android:layout_margin="16dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <Button
+                    android:id="@+id/survey_button_negative"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/ic_arrow_back_black_24dp"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp" />
+                <TextView
+                    android:layout_marginBottom="24dp"
+                    android:layout_marginLeft="4dp"
+                    android:textColor="#222222"
+                    android:text="추가 정보"
+                    android:textSize="24sp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <TextView
+                    android:text="한국어를 왜 배우려고 하나요?"
+                    android:textColor="#222222"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <EditText
+                    android:padding="4dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/layout_survey_edit"
+                    android:textSize="14sp"
+                    android:textAlignment="textStart"
+                    android:id="@+id/register_edit_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:gravity="left|top"
+                    android:hint="내용을 입력해주세요."
+                    tools:ignore="RtlCompat" />
+
+                <TextView
+                    android:text="국적 입력"
+                    android:textColor="#222222"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:padding="4dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/layout_survey_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp">
+                    <Spinner
+                        android:backgroundTint="@color/colorMain"
+                        android:id="@+id/survey_spinner_country"
+                        android:spinnerMode="dialog"
+                        android:entries="@array/country"
+                        android:tooltipText="Select Language"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="모국어 입력"
+                    android:textColor="#222222"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginBottom="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <LinearLayout
+                    android:padding="4dp"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/layout_survey_edit"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp">
+                    <Spinner
+                        android:backgroundTint="@color/colorMain"
+                        android:id="@+id/survey_spinner_language"
+                        android:spinnerMode="dialog"
+                        android:entries="@array/language"
+                        android:tooltipText="Select Language"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </LinearLayout>
+
+                <TextView
+                    android:text="한국어 학습경력 유무"
+                    android:textColor="#222222"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+
+                <LinearLayout
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left">
+                    <TextView
+                        android:id="@+id/survey_exp_true"
+                        android:gravity="center"
+                        android:layout_margin="4dp"
+                        android:textSize="10sp"
+                        android:textColor="@color/colorMain"
+                        android:background="@drawable/layout_survey_button"
+                        android:text="예"
+                        android:layout_width="40dp"
+                        android:layout_height="20dp" />
+                    <TextView
+                        android:id="@+id/survey_exp_false"
+                        android:gravity="center"
+                        android:layout_margin="4dp"
+                        android:textSize="10sp"
+                        android:background="@drawable/layout_survey_button_on"
+                        android:text="아니요"
+                        android:textColor="@color/colorWhite"
+                        android:layout_width="40dp"
+                        android:layout_height="20dp" />
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
         <Button
+            android:layout_alignParentBottom="true"
+            android:background="@color/colorMain"
+            android:textSize="14sp"
+            android:textColor="@color/colorWhite"
             android:id="@+id/survey_button_positive"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="52dp"
             android:gravity="center"
-            android:text="@string/positive"
-            app:layout_constraintBottom_toTopOf="@+id/survey_button_negative"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-        <Button
-            android:id="@+id/survey_button_negative"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="@string/negative"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent" />
-    </android.support.constraint.ConstraintLayout>
+            android:text="완료"/>
+    </RelativeLayout>
 </layout>
