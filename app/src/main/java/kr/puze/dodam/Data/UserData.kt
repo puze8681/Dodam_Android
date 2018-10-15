@@ -1,4 +1,3 @@
 package kr.puze.dodam.Data
 
-class UserData {
-}
+data class UserData(var name: String, var gender: String, var access_token: String, var refresh_token: String)

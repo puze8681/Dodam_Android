@@ -1,12 +1,686 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="country">
-        <item>한국</item>
-        <item>United Kingdom</item>
+        <item>가나</item>
+        <item>가봉</item>
+        <item>가이아나	</item>
+        <item>감비아</item>
+        <item>건지 섬	</item>
+        <item>과들루프	</item>
+        <item>과테말라	</item>
+        <item>괌	</item>
+        <item>그레나다	</item>
+        <item>그리스</item>
+        <item>그린란드	</item>
+        <item>기니</item>
+        <item>기니비사우</item>
+        <item>나미비아	</item>
+        <item>나우루</item>
+        <item>나이지리아</item>
+        <item>남극</item>
+        <item>남수단</item>
+        <item>남아프리카 공화국</item>
+        <item>네덜란드	</item>
+        <item>네덜란드령 안틸레스	</item>
+        <item>네팔</item>
+        <item>노르웨이	</item>
+        <item>노퍽 섬	</item>
+        <item>누벨칼레도니</item>
+        <item>뉴질랜드	</item>
+        <item>니우에</item>
+        <item>니제르</item>
+        <item>니카라과	</item>
+        <item>대한민국	</item>
+        <item>덴마크</item>
+        <item>도미니카 공화국</item>
+        <item>도미니카 연방	</item>
+        <item>독일</item>
+        <item>동티모르	</item>
+        <item>라오스</item>
+        <item>라이베리아</item>
+        <item>라트비아	</item>
+        <item>러시아</item>
+        <item>레바논</item>
+        <item>레소토</item>
+        <item>레위니옹	</item>
+        <item>루마니아	</item>
+        <item>룩셈부르크</item>
+        <item>르완다</item>
+        <item>리비아</item>
+        <item>리투아니아</item>
+        <item>리히텐슈타인</item>
+        <item>마다가스카르</item>
+        <item>마르티니크</item>
+        <item>마셜 제도</item>
+        <item>마요트</item>
+        <item>마카오</item>
+        <item>마케도니아 공화국</item>
+        <item>말라위</item>
+        <item>말레이시아</item>
+        <item>말리</item>
+        <item>맨 섬</item>
+        <item>멕시코</item>
+        <item>모나코</item>
+        <item>모로코</item>
+        <item>모리셔스	</item>
+        <item>모리타니	</item>
+        <item>모잠비크	</item>
+        <item>몬테네그로</item>
+        <item>몬트세랫	</item>
+        <item>몰도바</item>
+        <item>몰디브</item>
+        <item>몰타</item>
+        <item>몽골</item>
+        <item>미국</item>
+        <item>미국령 군소 제도</item>
+        <item>미국령 버진아일랜드	</item>
+        <item>미얀마</item>
+        <item>미크로네시아 연방</item>
+        <item>바누아투	</item>
+        <item>바레인</item>
+        <item>바베이도스</item>
+        <item>바티칸 시국</item>
+        <item>바하마</item>
+        <item>방글라데시</item>
+        <item>버뮤다</item>
+        <item>베냉</item>
+        <item>베네수엘라</item>
+        <item>베트남</item>
+        <item>벨기에</item>
+        <item>벨라루스	</item>
+        <item>벨리즈</item>
+        <item>보스니아 헤르체고비나</item>
+        <item>보츠와나	</item>
+        <item>볼리비아	</item>
+        <item>부룬디</item>
+        <item>부르키나파소</item>
+        <item>부베 섬	</item>
+        <item>부탄</item>
+        <item>북마리아나 제도</item>
+        <item>불가리아	</item>
+        <item>브라질</item>
+        <item>브루나이	</item>
+        <item>사모아</item>
+        <item>사우디아라비아</item>
+        <item>사우스조지아 사우스샌드위치 제도</item>
+        <item>산마리노	</item>
+        <item>상투메 프린시페</item>
+        <item>생피에르 미클롱</item>
+        <item>서사하라	</item>
+        <item>세네갈</item>
+        <item>세르비아	</item>
+        <item>세이셸</item>
+        <item>세인트루시아</item>
+        <item>세인트빈센트 그레나딘</item>
+        <item>세인트키츠 네비스</item>
+        <item>세인트헬레나</item>
+        <item>소말리아	</item>
+        <item>솔로몬 제도</item>
+        <item>수단</item>
+        <item>수리남</item>
+        <item>스리랑카	</item>
+        <item>스발바르 얀마옌</item>
+        <item>스와질란드</item>
+        <item>스웨덴</item>
+        <item>스위스</item>
+        <item>스페인</item>
+        <item>슬로바키아</item>
+        <item>슬로베니아</item>
+        <item>시리아</item>
+        <item>시에라리온</item>
+        <item>신트마르턴</item>
+        <item>싱가포르	</item>
+        <item>아랍에미리트</item>
+        <item>아루바</item>
+        <item>아르메니아</item>
+        <item>아르헨티나</item>
+        <item>아메리칸사모아</item>
+        <item>아이슬란드</item>
+        <item>아이티</item>
+        <item>아일랜드	</item>
+        <item>아제르바이잔</item>
+        <item>아프가니스탄</item>
+        <item>안도라</item>
+        <item>알바니아	</item>
+        <item>알제리</item>
+        <item>앙골라</item>
+        <item>앤티가 바부다	</item>
+        <item>앵귈라</item>
+        <item>에리트레아</item>
+        <item>에스토니아</item>
+        <item>에콰도르	</item>
+        <item>에티오피아</item>
+        <item>엘살바도르</item>
+        <item>영국</item>
+        <item>영국령 버진아일랜드	</item>
+        <item>영국령 인도양 지역	</item>
+        <item>예멘</item>
+        <item>오만</item>
+        <item>오스트레일리아</item>
+        <item>오스트리아</item>
+        <item>온두라스	</item>
+        <item>올란드 제도</item>
+        <item>요르단</item>
+        <item>우간다</item>
+        <item>우루과이	</item>
+        <item>우즈베키스탄</item>
+        <item>우크라이나</item>
+        <item>왈리스 퓌튀나	</item>
+        <item>이라크</item>
+        <item>이란</item>
+        <item>이스라엘	</item>
+        <item>이집트</item>
+        <item>이탈리아	</item>
+        <item>인도네시아</item>
+        <item>인도</item>
+        <item>일본</item>
+        <item>자메이카	</item>
+        <item>잠비아</item>
+        <item>저지 섬</item>
+        <item>적도 기니</item>
+        <item>조선민주주의인민공화국</item>
+        <item>조지아</item>
+        <item>중앙아프리카 공화국	</item>
+        <item>중화민국	</item>
+        <item>중화인민공화국</item>
+        <item>지부티</item>
+        <item>지브롤터	</item>
+        <item>짐바브웨	</item>
+        <item>차드</item>
+        <item>체코</item>
+        <item>칠레</item>
+        <item>카메룬</item>
+        <item>카보베르데</item>
+        <item>카자흐스탄</item>
+        <item>카타르</item>
+        <item>캄보디아	</item>
+        <item>캐나다</item>
+        <item>케냐</item>
+        <item>케이맨 제도</item>
+        <item>코모로</item>
+        <item>코스타리카</item>
+        <item>코코스 제도</item>
+        <item>코트디부아르</item>
+        <item>콜롬비아	</item>
+        <item>콩고 공화국</item>
+        <item>콩고 민주 공화국</item>
+        <item>쿠바</item>
+        <item>쿠웨이트	</item>
+        <item>쿡 제도</item>
+        <item>크로아티아</item>
+        <item>크리스마스 섬	</item>
+        <item>키르기스스탄</item>
+        <item>키리바시	</item>
+        <item>키프로스	</item>
+        <item>태국</item>
+        <item>타지키스탄</item>
+        <item>탄자니아	</item>
+        <item>터크스 케이커스 제도</item>
+        <item>터키</item>
+        <item>토고</item>
+        <item>토켈라우	</item>
+        <item>통가</item>
+        <item>투르크메니스탄</item>
+        <item>투발루</item>
+        <item>튀니지</item>
+        <item>트리니다드 토바고</item>
+        <item>파나마</item>
+        <item>파라과이</item>
+        <item>파키스탄</item>
+        <item>파푸아뉴기니</item>
+        <item>팔라우</item>
+        <item>팔레스타인</item>
+        <item>페로 제도</item>
+        <item>페루</item>
+        <item>포르투갈	</item>
+        <item>포클랜드 제도	</item>
+        <item>폴란드</item>
+        <item>푸에르토리코</item>
+        <item>프랑스</item>
+        <item>프랑스령 기아나</item>
+        <item>프랑스령 남방 및 남극</item>
+        <item>프랑스령 폴리네시아	</item>
+        <item>피지</item>
+        <item>핀란드</item>
+        <item>필리핀</item>
+        <item>핏케언 제도</item>
+        <item>허드 맥도널드 제도	</item>
+        <item>헝가리</item>
+        <item>홍콩</item>
+    </string-array>
+    <string-array name="country_code">
+        <item>GH</item>
+        <item>GA</item>
+        <item>GY</item>
+        <item>GM</item>
+        <item>GG</item>
+        <item>GP</item>
+        <item>GT</item>
+        <item>GU</item>
+        <item>GD</item>
+        <item>GR</item>
+        <item>GL</item>
+        <item>GN</item>
+        <item>GW</item>
+        <item>NA</item>
+        <item>NR</item>
+        <item>NG</item>
+        <item>AQ</item>
+        <item>SS</item>
+        <item>ZA</item>
+        <item>NL</item>
+        <item>AN</item>
+        <item>NP</item>
+        <item>NO</item>
+        <item>NF</item>
+        <item>NC</item>
+        <item>NZ</item>
+        <item>NU</item>
+        <item>NE</item>
+        <item>NI</item>
+        <item>KR</item>
+        <item>DK</item>
+        <item>DO</item>
+        <item>DM</item>
+        <item>DE</item>
+        <item>TL</item>
+        <item>LA</item>
+        <item>LR</item>
+        <item>LV</item>
+        <item>RU</item>
+        <item>LB</item>
+        <item>LS</item>
+        <item>RE</item>
+        <item>RO</item>
+        <item>LU</item>
+        <item>RW</item>
+        <item>LY</item>
+        <item>LT</item>
+        <item>LI</item>
+        <item>MG</item>
+        <item>MQ</item>
+        <item>MH</item>
+        <item>YT</item>
+        <item>MO</item>
+        <item>MK</item>
+        <item>MW</item>
+        <item>MY</item>
+        <item>ML</item>
+        <item>IM</item>
+        <item>MX</item>
+        <item>MC</item>
+        <item>MA</item>
+        <item>MU</item>
+        <item>MR</item>
+        <item>MZ</item>
+        <item>ME</item>
+        <item>MS</item>
+        <item>MD</item>
+        <item>MV</item>
+        <item>MT</item>
+        <item>MN</item>
+        <item>US</item>
+        <item>UM</item>
+        <item>VI</item>
+        <item>MM</item>
+        <item>FM</item>
+        <item>VU</item>
+        <item>BH</item>
+        <item>BB</item>
+        <item>VA</item>
+        <item>BS</item>
+        <item>BD</item>
+        <item>BM</item>
+        <item>BJ</item>
+        <item>VE</item>
+        <item>VN</item>
+        <item>BE</item>
+        <item>BY</item>
+        <item>BZ</item>
+        <item>BA</item>
+        <item>BW</item>
+        <item>BO</item>
+        <item>BI</item>
+        <item>BF</item>
+        <item>BV</item>
+        <item>BT</item>
+        <item>MP</item>
+        <item>BG</item>
+        <item>BR</item>
+        <item>BN</item>
+        <item>WS</item>
+        <item>SA</item>
+        <item>GS</item>
+        <item>SM</item>
+        <item>ST</item>
+        <item>PM</item>
+        <item>EH</item>
+        <item>SN</item>
+        <item>RS</item>
+        <item>SC</item>
+        <item>LC</item>
+        <item>VC</item>
+        <item>KN</item>
+        <item>SH</item>
+        <item>SO</item>
+        <item>SB</item>
+        <item>SD</item>
+        <item>SR</item>
+        <item>LK</item>
+        <item>SJ</item>
+        <item>SZ</item>
+        <item>SE</item>
+        <item>CH</item>
+        <item>ES</item>
+        <item>SK</item>
+        <item>SI</item>
+        <item>SY</item>
+        <item>SL</item>
+        <item>SX</item>
+        <item>SG</item>
+        <item>AE</item>
+        <item>AW</item>
+        <item>AM</item>
+        <item>AR</item>
+        <item>AS</item>
+        <item>IS</item>
+        <item>HT</item>
+        <item>IE</item>
+        <item>AZ</item>
+        <item>AF</item>
+        <item>AD</item>
+        <item>AL</item>
+        <item>DZ</item>
+        <item>AO</item>
+        <item>AG</item>
+        <item>AI</item>
+        <item>ER</item>
+        <item>EE</item>
+        <item>EC</item>
+        <item>ET</item>
+        <item>SV</item>
+        <item>GB</item>
+        <item>VG</item>
+        <item>IO</item>
+        <item>YE</item>
+        <item>OM</item>
+        <item>AU</item>
+        <item>AT</item>
+        <item>HN</item>
+        <item>AX</item>
+        <item>JO</item>
+        <item>UG</item>
+        <item>UY</item>
+        <item>UZ</item>
+        <item>UA</item>
+        <item>WF</item>
+        <item>IQ</item>
+        <item>IR</item>
+        <item>IL</item>
+        <item>EG</item>
+        <item>IT</item>
+        <item>ID</item>
+        <item>IN</item>
+        <item>JP</item>
+        <item>JM</item>
+        <item>ZM</item>
+        <item>JE</item>
+        <item>GQ</item>
+        <item>KP</item>
+        <item>GE</item>
+        <item>CF</item>
+        <item>TW</item>
+        <item>CN</item>
+        <item>DJ</item>
+        <item>GI</item>
+        <item>ZW</item>
+        <item>TD</item>
+        <item>CZ</item>
+        <item>CL</item>
+        <item>CM</item>
+        <item>CV</item>
+        <item>KZ</item>
+        <item>QA</item>
+        <item>KH</item>
+        <item>CA</item>
+        <item>KE</item>
+        <item>KY</item>
+        <item>KM</item>
+        <item>CR</item>
+        <item>CC</item>
+        <item>CI</item>
+        <item>CO</item>
+        <item>CG</item>
+        <item>CD</item>
+        <item>CU</item>
+        <item>KW</item>
+        <item>CK</item>
+        <item>HR</item>
+        <item>CX</item>
+        <item>KG</item>
+        <item>KI</item>
+        <item>CY</item>
+        <item>TH</item>
+        <item>TJ</item>
+        <item>TZ</item>
+        <item>TC</item>
+        <item>TR</item>
+        <item>TG</item>
+        <item>TK</item>
+        <item>TO</item>
+        <item>TM</item>
+        <item>TV</item>
+        <item>TN</item>
+        <item>TT</item>
+        <item>PA</item>
+        <item>PY</item>
+        <item>PK</item>
+        <item>PG</item>
+        <item>PW</item>
+        <item>PS</item>
+        <item>FO</item>
+        <item>PE</item>
+        <item>PT</item>
+        <item>FK</item>
+        <item>PL</item>
+        <item>PR</item>
+        <item>FR</item>
+        <item>GF</item>
+        <item>TF</item>
+        <item>PF</item>
+        <item>FJ</item>
+        <item>FI</item>
+        <item>PH</item>
+        <item>PN</item>
+        <item>HM</item>
+        <item>HU</item>
+        <item>HK</item>
     </string-array>
     <string-array name="language">
-        <item>한국어</item>
+        <item>Afar</item>
+        <item>Abkhazian</item>
+        <item>Avestan</item>
+        <item>Afrikaans</item>
+        <item>Akan</item>
+        <item>Amharic</item>
+        <item>Aragonese</item>
+        <item>Arabic</item>
+        <item>Assamese</item>
+        <item>Avaric</item>
+        <item>Aymara</item>
+        <item>Azerbaijani</item>
+        <item>Bashkir</item>
+        <item>Belarusian</item>
+        <item>Bulgarian</item>
+        <item>Bihari languages</item>
+        <item>Bambara</item>
+        <item>Bislama</item>
+        <item>Bengali</item>
+        <item>Tibetan</item>
+        <item>Breton</item>
+        <item>Bosnian</item>
+        <item>Catalan; Valencian</item>
+        <item>Chechen</item>
+        <item>Chamorro</item>
+        <item>Corsican</item>
+        <item>Cree</item>
+        <item>Czech</item>
+        <item>Church Slavic; Old Slavonic; Church Slavonic; Old Bulgarian; Old Church Slavonic</item>
+        <item>Chuvash</item>
+        <item>Welsh</item>
+        <item>Danish</item>
+        <item>German</item>
+        <item>Divehi; Dhivehi; Maldivian</item>
+        <item>Dzongkha</item>
+        <item>Ewe</item>
+        <item>Greek, Modern (1453-)</item>
         <item>English</item>
+        <item>Esperanto</item>
+        <item>Spanish; Castilian</item>
+        <item>Estonian</item>
+        <item>Basque</item>
+        <item>Persian</item>
+        <item>Fulah</item>
+        <item>Finnish</item>
+        <item>Fijian</item>
+        <item>Faroese</item>
+        <item>French</item>
+        <item>Western Frisian</item>
+        <item>Irish</item>
+        <item>Gaelic; Scottish Gaelic</item>
+        <item>Galician</item>
+        <item>Guarani</item>
+        <item>Gujarati</item>
+        <item>Manx</item>
+        <item>Hausa</item>
+        <item>Hebrew</item>
+        <item>Hindi</item>
+        <item>Hiri Motu</item>
+        <item>Croatian</item>
+        <item>Haitian; Haitian Creole</item>
+        <item>Hungarian</item>
+        <item>Armenian</item>
+        <item>Herero</item>
+        <item>Interlingua (International Auxiliary Language Association)</item>
+        <item>Indonesian</item>
+        <item>Interlingue; Occidental</item>
+        <item>Igbo</item>
+        <item>Sichuan Yi; Nuosu</item>
+        <item>Inupiaq</item>
+        <item>Ido</item>
+        <item>Icelandic</item>
+        <item>Italian</item>
+        <item>Inuktitut</item>
+        <item>Japanese</item>
+        <item>Javanese</item>
+        <item>Georgian</item>
+        <item>Kongo</item>
+        <item>Kikuyu; Gikuyu</item>
+        <item>Kuanyama; Kwanyama</item>
+        <item>Kazakh</item>
+        <item>Kalaallisut; Greenlandic</item>
+        <item>Central Khmer</item>
+        <item>Kannada</item>
+        <item>Korean</item>
+        <item>Kanuri</item>
+        <item>Kashmiri</item>
+        <item>Kurdish</item>
+        <item>Komi</item>
+        <item>Cornish</item>
+        <item>Kirghiz; Kyrgyz</item>
+        <item>Latin</item>
+        <item>Luxembourgish; Letzeburgesch</item>
+        <item>Ganda</item>
+        <item>Limburgan; Limburger; Limburgish</item>
+        <item>Lingala</item>
+        <item>Lao</item>
+        <item>Lithuanian</item>
+        <item>Luba-Katanga</item>
+        <item>Latvian</item>
+        <item>Malagasy</item>
+        <item>Marshallese</item>
+        <item>Maori</item>
+        <item>Macedonian</item>
+        <item>Malayalam</item>
+        <item>Mongolian</item>
+        <item>Marathi</item>
+        <item>Malay</item>
+        <item>Maltese</item>
+        <item>Burmese</item>
+        <item>Nauru</item>
+        <item>Bokmål, Norwegian; Norwegian Bokmål</item>
+        <item>Ndebele, North; North Ndebele</item>
+        <item>Nepali</item>
+        <item>Ndonga</item>
+        <item>Dutch; Flemish</item>
+        <item>Norwegian Nynorsk; Nynorsk, Norwegian</item>
+        <item>Norwegian</item>
+        <item>Ndebele, South; South Ndebele</item>
+        <item>Navajo; Navaho</item>
+        <item>Chichewa; Chewa; Nyanja</item>
+        <item>Occitan (post 1500); Provençal</item>
+        <item>Ojibwa</item>
+        <item>Oromo</item>
+        <item>Oriya</item>
+        <item>Ossetian; Ossetic</item>
+        <item>Panjabi; Punjabi</item>
+        <item>Pali</item>
+        <item>Polish</item>
+        <item>Pushto; Pashto</item>
+        <item>Portuguese</item>
+        <item>Quechua</item>
+        <item>Romansh</item>
+        <item>Rundi</item>
+        <item>Romanian; Moldavian; Moldovan</item>
+        <item>Russian</item>
+        <item>Kinyarwanda</item>
+        <item>Sanskrit</item>
+        <item>Sardinian</item>
+        <item>Sindhi</item>
+        <item>Northern Sami</item>
+        <item>Sango</item>
+        <item>Sinhala; Sinhalese</item>
+        <item>Slovak</item>
+        <item>Slovenian</item>
+        <item>Samoan</item>
+        <item>Shona</item>
+        <item>Somali</item>
+        <item>Albanian</item>
+        <item>Serbian</item>
+        <item>Swati</item>
+        <item>Sotho, Southern</item>
+        <item>Sundanese</item>
+        <item>Swedish</item>
+        <item>Swahili</item>
+        <item>Tamil</item>
+        <item>Telugu</item>
+        <item>Tajik</item>
+        <item>Thai</item>
+        <item>Tigrinya</item>
+        <item>Turkmen</item>
+        <item>Tagalog</item>
+        <item>Tswana</item>
+        <item>Tonga (Tonga Islands)</item>
+        <item>Turkish</item>
+        <item>Tsonga</item>
+        <item>Tatar</item>
+        <item>Twi</item>
+        <item>Tahitian</item>
+        <item>Uighur; Uyghur</item>
+        <item>Ukrainian</item>
+        <item>Urdu</item>
+        <item>Uzbek</item>
+        <item>Venda</item>
+        <item>Vietnamese</item>
+        <item>Volapük</item>
+        <item>Walloon</item>
+        <item>Wolof</item>
+        <item>Xhosa</item>
+        <item>Yiddish</item>
+        <item>Yoruba</item>
+        <item>Zhuang; Chuang</item>
+        <item>Chinese</item>
+        <item>Zulu</item>
     </string-array>
     <string-array name="syllable">
         <item>ㄱ</item>

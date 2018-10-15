@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="data_mission_book"
-            type="kr.puze.dodam.Data.MissionBookData"/>
-    </data>
     <android.support.constraint.ConstraintLayout
         android:layout_margin="16dp"
         android:layout_width="match_parent"
@@ -20,14 +18,14 @@
             android:id="@+id/data_mission_book_title"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="@{data_mission_book.title, default=title}"
+            android:text="title"
             app:layout_constraintStart_toEndOf="@+id/data_mission_book_image"
             app:layout_constraintTop_toTopOf="parent"/>
         <TextView
             android:id="@+id/data_mission_book_status"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:text="@{data_mission_book.status, default=status}"
+            android:text="status"
             app:layout_constraintStart_toEndOf="@+id/data_mission_book_image"
             app:layout_constraintTop_toBottomOf="@+id/data_mission_book_title" />
         <ProgressBar
@@ -36,11 +34,11 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:max="@{data_mission_book.aim, default=`100`}"
-            android:progress="@{data_mission_book.reach, default=`50`}"
+            android:max="100"
+            android:progress="50"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/data_mission_book_image"
             app:layout_constraintTop_toBottomOf="@+id/data_mission_book_status" />
     </android.support.constraint.ConstraintLayout>
-</layout>
+</LinearLayout>

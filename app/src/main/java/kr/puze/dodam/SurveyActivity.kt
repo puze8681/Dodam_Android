@@ -16,7 +16,6 @@ class SurveyActivity : AppCompatActivity() {
     private var time: Long = 0
     private var exp: Boolean = true
 
-    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -60,15 +59,6 @@ class SurveyActivity : AppCompatActivity() {
             survey_exp_false.setTextColor(Color.parseColor("#ff5722"))
             survey_exp_true.setBackgroundResource(R.drawable.layout_survey_button_on)
             survey_exp_true.setTextColor(Color.WHITE)
-        }
-    }
-
-    override fun onBackPressed() {
-        if(System.currentTimeMillis()-time>=2000){
-            time=System.currentTimeMillis();
-            Toast.makeText(getApplicationContext(),"뒤로 가기 버튼을 한번 더 누르면 종료됩니다.",Toast.LENGTH_SHORT).show();
-        }else if(System.currentTimeMillis()-time<2000){
-            finish();
         }
     }
 }

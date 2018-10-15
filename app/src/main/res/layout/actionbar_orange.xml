@@ -4,6 +4,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:layout_height="?android:attr/actionBarSize">
     <ImageView
+        android:id="@+id/actionbar_back_white"
         android:paddingLeft="16dp"
         android:src="@drawable/ic_arrow_back_white_24dp"
         android:layout_centerInParent="true"

@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
     xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="data_report"
-            type="kr.puze.dodam.Data.ReportData"/>
-    </data>
     <android.support.constraint.ConstraintLayout
         android:layout_margin="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <TextView
             android:id="@+id/data_report_title"
-            android:text="@{data_report.title, default=title}"
+            android:text="title"
             app:layout_constraintTop_toTopOf="parent"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/data_report_content"
-            android:text="@{data_report.content, default=content"
+            android:text="content"
             app:layout_constraintTop_toBottomOf="@id/data_report_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </android.support.constraint.ConstraintLayout>
-</layout>
+</LinearLayout>

@@ -4,7 +4,7 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import kotlinx.android.synthetic.main.actionbar_white.*
+import kotlinx.android.synthetic.main.actionbar_orange.*
 import kr.puze.dodam.R
 
 class DebateActivity : AppCompatActivity() {
@@ -15,7 +15,7 @@ class DebateActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#ff5722")
         supportActionBar!!.hide()
 
-        actionbar_back.setOnClickListener {
+        actionbar_back_white.setOnClickListener {
             finish()
         }
     }

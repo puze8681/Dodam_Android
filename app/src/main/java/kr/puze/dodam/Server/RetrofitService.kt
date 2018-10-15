@@ -34,7 +34,7 @@ interface RetrofitService {
     fun post_user_login(
             @Field("username") username: String,
             @Field("password") password: String
-    ): retrofit2.Call<String>
+    ): retrofit2.Call<UserData>
     //response 형식 바꾸기
 
     @FormUrlEncoded

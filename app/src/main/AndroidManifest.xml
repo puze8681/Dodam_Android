@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="kr.puze.dodam">
 
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,24 +12,21 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".LoginActivity">
+        <activity android:name=".SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SplashActivity" />
+        <activity android:name=".LoginActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".SurveyActivity" />
         <activity android:name=".Study.ChatThemeActivity" />
         <activity android:name=".Study.ChatActivity" />
         <activity android:name=".Study.StudyInActivity" />
-        <activity android:name=".Study.StudySelectActivity" />
         <activity android:name=".Study.StudyAnswerActivity" />
-        <activity android:name=".Study.StudyQuickImageToSoundActivity" />
-        <activity android:name=".Study.StudyQuickSoundToImageActivity" />
         <activity android:name=".Study.SyllableSelectActivity" />
         <activity android:name=".Study.DebateActivity"></activity>
     </application>
