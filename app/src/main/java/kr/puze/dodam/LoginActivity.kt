@@ -63,7 +63,6 @@ class LoginActivity : AppCompatActivity() {
         }
 
         prefManager = PrefManager(this@LoginActivity)
-
         autoLogin()
         retrofitSetting()
     }

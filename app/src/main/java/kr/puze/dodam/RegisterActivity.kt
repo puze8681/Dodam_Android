@@ -6,15 +6,11 @@ import android.graphics.Color
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_register.*
 import kr.puze.dodam.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
-
-    private var time: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -28,8 +24,31 @@ class RegisterActivity : AppCompatActivity() {
         binding.registerButtonCancel.setOnClickListener {
             finish()
         }
+
         binding.registerButtonRegister.setOnClickListener {
-            startActivity(Intent(this@RegisterActivity, SurveyActivity::class.java))
+            if(checkInput()){
+                val registerIntent = Intent(this@RegisterActivity, SurveyActivity::class.java)
+                registerIntent.putExtra("name", register_edit_name.text.toString())
+                registerIntent.putExtra("id", register_edit_email.text.toString())
+                registerIntent.putExtra("pw", register_edit_pw_check.text.toString())
+                startActivity(registerIntent)
+            }else{
+                Toast.makeText(applicationContext, "빈칸을 채워주세요.", Toast.LENGTH_LONG).show()
+            }
         }
+    }
+
+    private fun checkInput(): Boolean {
+        if (register_edit_name.text.toString().isEmpty())
+            return false
+        if (register_edit_email.text.toString().isEmpty())
+            return false
+        if (register_edit_pw.text.toString().isEmpty())
+            return false
+        if (register_edit_pw_check.text.toString().isEmpty())
+            return false
+        if (register_edit_pw.text.toString() != register_edit_pw_check.text.toString())
+            return false
+        return true
     }
 }

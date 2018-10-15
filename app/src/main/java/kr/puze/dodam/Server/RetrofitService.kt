@@ -13,12 +13,12 @@ interface RetrofitService {
     fun post_users(
             @Field("username") username: String,
             @Field("gender") gender: String,
+            @Field("id") email: String,
             @Field("password") password: String,
             @Field("country") country: String,
             @Field("mother_lang") mother_lang: String,
-            @Field("birth") birth: String,
             @Field("account_type") account_type: String
-    ): retrofit2.Call<String>
+    ): retrofit2.Call<UserData>
     //gender, country, mother_lang, account_type --> enum
     //response 형식 바꾸기
 

@@ -106,7 +106,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="한국어 학습경력 유무"
+                    android:text="성별"
                     android:textColor="#222222"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="4dp"
@@ -120,22 +120,22 @@
                     android:layout_height="wrap_content"
                     android:gravity="left">
                     <TextView
-                        android:id="@+id/survey_exp_true"
+                        android:id="@+id/survey_gender_male"
                         android:gravity="center"
                         android:layout_margin="4dp"
                         android:textSize="10sp"
                         android:textColor="@color/colorMain"
                         android:background="@drawable/layout_survey_button"
-                        android:text="예"
+                        android:text="남"
                         android:layout_width="40dp"
                         android:layout_height="20dp" />
                     <TextView
-                        android:id="@+id/survey_exp_false"
+                        android:id="@+id/survey_gender_female"
                         android:gravity="center"
                         android:layout_margin="4dp"
                         android:textSize="10sp"
                         android:background="@drawable/layout_survey_button_on"
-                        android:text="아니요"
+                        android:text="여"
                         android:textColor="@color/colorWhite"
                         android:layout_width="40dp"
                         android:layout_height="20dp" />
