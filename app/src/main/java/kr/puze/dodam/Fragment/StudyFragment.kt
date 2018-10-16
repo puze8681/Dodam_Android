@@ -15,6 +15,7 @@ import android.R.menu
 import android.annotation.SuppressLint
 import android.widget.PopupMenu
 import android.widget.Toast
+import kotlinx.android.synthetic.main.actionbar_study.view.*
 
 
 class StudyFragment: Fragment() {
@@ -22,8 +23,8 @@ class StudyFragment: Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_study, container, false)
 
-        setting.setOnClickListener {
-            var popupMenu = PopupMenu(activity, setting)
+        view.actionbar_setting.setOnClickListener {
+            val popupMenu = PopupMenu(activity, view.actionbar_setting)
             popupMenu.menuInflater.inflate(R.menu.country_menu, popupMenu.menu)
 
             popupMenu.setOnMenuItemClickListener {

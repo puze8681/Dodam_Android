@@ -33,7 +33,7 @@ class RegisterActivity : AppCompatActivity() {
                 registerIntent.putExtra("pw", register_edit_pw_check.text.toString())
                 startActivity(registerIntent)
             }else{
-                Toast.makeText(applicationContext, "빈칸을 채워주세요.", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, "입력창을 확인 해주세요.", Toast.LENGTH_LONG).show()
             }
         }
     }

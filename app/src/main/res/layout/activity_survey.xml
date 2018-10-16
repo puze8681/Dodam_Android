@@ -15,6 +15,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <LinearLayout
+                android:focusable="true"
+                android:focusableInTouchMode="true"
                 android:layout_alignParentTop="true"
                 android:orientation="vertical"
                 android:layout_margin="16dp"
@@ -45,6 +47,7 @@
                     android:layout_height="wrap_content" />
 
                 <EditText
+                    android:focusedByDefault="false"
                     android:padding="4dp"
                     android:layout_margin="4dp"
                     android:background="@drawable/layout_survey_edit"
@@ -127,8 +130,8 @@
                         android:textColor="@color/colorMain"
                         android:background="@drawable/layout_survey_button"
                         android:text="남"
-                        android:layout_width="40dp"
-                        android:layout_height="20dp" />
+                        android:layout_width="80dp"
+                        android:layout_height="40dp" />
                     <TextView
                         android:id="@+id/survey_gender_female"
                         android:gravity="center"
@@ -137,8 +140,8 @@
                         android:background="@drawable/layout_survey_button_on"
                         android:text="여"
                         android:textColor="@color/colorWhite"
-                        android:layout_width="40dp"
-                        android:layout_height="20dp" />
+                        android:layout_width="80dp"
+                        android:layout_height="40dp" />
                 </LinearLayout>
             </LinearLayout>
         </ScrollView>

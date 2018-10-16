@@ -4,17 +4,19 @@
     android:layout_height="match_parent"
     android:layout_width="match_parent"
     android:background="@color/colorWhite"
+    android:weightSum="10"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".Study.ChatActivity">
     <include layout="@layout/actionbar_white"/>
     <LinearLayout
+        android:layout_weight="10"
         android:layout_marginRight="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginBottom="16dp"
         android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp">
         <TextView
             android:id="@+id/chat_title"
             android:text="테마 : 병원 (hospital)"
@@ -31,12 +33,45 @@
             android:layout_height="wrap_content" />
         <TextView
             android:id="@+id/chat_grade"
-            android:layout_marginBottom="32dp"
+            android:layout_marginBottom="8dp"
             android:text="등급 : A"
             android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+        <TextView
+            android:layout_marginBottom="8dp"
+            android:id="@+id/chat_theme"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="#어제"
+            android:textColor="@color/colorSub"
+            android:background="@drawable/layout_study_in_button"
+            android:layout_width="match_parent"
+            android:layout_height="52dp" />
+        <ScrollView
+            android:scrollbars="none"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/chat_recycler_view"
+                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+            </android.support.v7.widget.RecyclerView>
+        </ScrollView>
     </LinearLayout>
+    <Button
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorMain"
+        android:textSize="14sp"
+        android:textColor="@color/colorWhite"
+        android:id="@+id/register_button_register"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:gravity="center"
+        android:text="다음"/>
 </LinearLayout>

@@ -24,7 +24,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.net.ConnectivityManager
-
+import kr.puze.dodam.Utils.Hasher
 
 
 class LoginActivity : AppCompatActivity() {
@@ -50,18 +50,23 @@ class LoginActivity : AppCompatActivity() {
 
         val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.loginButtonLogin.setOnClickListener {
-            if(checkNetwork() && checkInput()){
-                setProgressDialog()
-                login(login_edit_id.text.toString(), login_edit_pw.text.toString())
-                finish()
+            if(checkInput()){
+                if(checkNetwork()){
+                    setProgressDialog()
+                    login(login_edit_id.text.toString(), login_edit_pw.text.toString())
+                    finish()
+                }else{
+                    Toast.makeText(this@LoginActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
+                }
             }else{
-                Toast.makeText(this@LoginActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
+                Toast.makeText(this@LoginActivity, "입력창을 확인해주세요.", Toast.LENGTH_LONG).show()
             }
         }
         binding.loginButtonRegister.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
         }
 
+        context = applicationContext
         prefManager = PrefManager(this@LoginActivity)
         autoLogin()
         retrofitSetting()
@@ -74,7 +79,9 @@ class LoginActivity : AppCompatActivity() {
     }
 
     private fun login(id: String, pw: String) {
-        call = retrofitService.post_user_login(id,pw)
+        val hash = Hasher()
+        val sha_pw = hash.sha256(pw)
+        call = retrofitService.post_user_login(id,sha_pw)
         call.enqueue(object : Callback<UserData> {
             override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
                 progressDialog.dismiss()
@@ -120,7 +127,7 @@ class LoginActivity : AppCompatActivity() {
     private fun checkNetwork(): Boolean{
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
+        return activeNetwork.isConnectedOrConnecting
     }
 
     private fun retrofitSetting() {

@@ -12,6 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:layout_alignParentTop="true"
             android:layout_margin="16dp"
             android:orientation="vertical"
@@ -88,6 +90,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:inputType="textPassword"
                 android:backgroundTint="@color/colorMain"
                 android:textSize="14sp"
                 android:textAlignment="textStart"
@@ -107,6 +110,7 @@
                 android:layout_height="wrap_content" />
 
             <EditText
+                android:inputType="textPassword"
                 android:backgroundTint="@color/colorMain"
                 android:textSize="14sp"
                 android:textAlignment="textStart"

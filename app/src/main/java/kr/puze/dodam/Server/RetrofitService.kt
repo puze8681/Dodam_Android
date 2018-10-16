@@ -12,15 +12,14 @@ interface RetrofitService {
     @POST("/users")
     fun post_users(
             @Field("username") username: String,
+            @Field("email") email: String,
             @Field("gender") gender: String,
-            @Field("id") email: String,
             @Field("password") password: String,
+            @Field("api_key") api_key: String,
             @Field("country") country: String,
             @Field("mother_lang") mother_lang: String,
             @Field("account_type") account_type: String
     ): retrofit2.Call<UserData>
-    //gender, country, mother_lang, account_type --> enum
-    //response 형식 바꾸기
 
     @FormUrlEncoded
     @POST("/user/facebook")

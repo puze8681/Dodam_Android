@@ -17,6 +17,7 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.activity_survey.*
 import kr.puze.dodam.Data.UserData
 import kr.puze.dodam.Server.RetrofitService
+import kr.puze.dodam.Utils.Hasher
 import kr.puze.dodam.Utils.PrefManager
 import kr.puze.dodam.databinding.ActivitySurveyBinding
 import retrofit2.Call
@@ -74,22 +75,23 @@ class SurveyActivity : AppCompatActivity() {
                 val name = intent.getStringExtra("name")
                 val id = intent.getStringExtra("id")
                 val pw = intent.getStringExtra("pw")
+                val hash = Hasher()
+                val sha_pw = hash.sha256(pw)
                 val gender: String
                 val code = country_code()
                 val mother_lang = survey_spinner_language.selectedItem.toString()
-                if(exp){
-                    gender = "M"
+                gender = if(exp){
+                    "M"
                 }else{
-                    gender = "F"
+                    "F"
                 }
-                register(name, gender, id, pw, code, mother_lang, "email")
-                finish()
+                register(name, id, gender, sha_pw, "", code, mother_lang, "email")
             }else{
                 Toast.makeText(this@SurveyActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
             }
-            startActivity(Intent(this@SurveyActivity, MainActivity::class.java))
         }
 
+        context = applicationContext
         prefManager = PrefManager(this@SurveyActivity)
         genderSetting()
         retrofitSetting()
@@ -111,8 +113,8 @@ class SurveyActivity : AppCompatActivity() {
         return codes[position]
     }
 
-    private fun register(name: String, gender: String, id: String, pw: String, country: String, mother_lang: String, account_type: String){
-        call = retrofitService.post_users(name, gender, id, pw, country, mother_lang, account_type)
+    private fun register(name: String, id: String, gender: String, pw: String, api_key: String, country: String, mother_lang: String, account_type: String){
+        call = retrofitService.post_users(name, id, gender,pw, api_key, country, mother_lang, account_type)
         call.enqueue(object : Callback<UserData> {
             override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
                 progressDialog.dismiss()
@@ -126,19 +128,20 @@ class SurveyActivity : AppCompatActivity() {
                         intent.putExtra("token", user.access_token)
                         LoginActivity::finish
                         RegisterActivity::finish
+                        Toast.makeText(this@SurveyActivity, "회원가입 성공 : "+response!!.code().toString(), Toast.LENGTH_LONG).show()
                         startActivity(Intent(this@SurveyActivity, MainActivity::class.java))
                         finish()
                     }
                 } else {
                     Toast.makeText(this@SurveyActivity, "회원가입 실패 : "+response!!.code().toString(), Toast.LENGTH_LONG).show()
-                    Log.d("login_code", response.code().toString())
+                    Log.d("register_code", response.code().toString())
                 }
             }
 
             override fun onFailure(call: Call<UserData>?, t: Throwable?) {
                 progressDialog.dismiss()
                 Toast.makeText(this@SurveyActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
-                Log.d("login_call", t.toString())
+                Log.d("register_call", t.toString())
             }
         })
     }
@@ -150,9 +153,10 @@ class SurveyActivity : AppCompatActivity() {
     }
 
     private fun checkNetwork(): Boolean{
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = LoginActivity.context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
-        return activeNetwork != null && activeNetwork.isConnectedOrConnecting
+        return activeNetwork.isConnectedOrConnecting
+
     }
 
     private fun retrofitSetting() {
