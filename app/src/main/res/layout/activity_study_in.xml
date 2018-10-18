@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    android:background="@color/colorWhite"
-    android:layout_height="match_parent"
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:orientation="vertical"
     tools:context=".Study.StudyInActivity">
+
     <include layout="@layout/actionbar_white" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -33,75 +34,86 @@
             android:text="Study"
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
+
         <ScrollView
-            android:scrollbars="none"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:scrollbars="none">
+
             <LinearLayout
-                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:paddingBottom="8dp">
+
                 <RelativeLayout
-                    android:gravity="center"
-                    android:background="@drawable/layout_study_problem"
-                    android:layout_marginBottom="20dp"
                     android:layout_width="match_parent"
-                    android:layout_height="186dp">
+                    android:layout_height="186dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/layout_study_problem"
+                    android:gravity="center">
+
                     <ImageView
                         android:id="@+id/study_image"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content" />
+
                     <TextView
                         android:id="@+id/study_text"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="Hotel"
-                        android:textStyle="bold"
-                        android:textSize="20sp"
                         android:textColor="@color/colorMain"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
                 </RelativeLayout>
+
                 <Button
                     android:id="@+id/study_problem_one"
-                    android:text="study_problem_one"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
                     android:layout_marginTop="12dp"
-                    android:textStyle="bold"
+                    android:background="@drawable/layout_study_in_button"
+                    android:text="study_problem_one"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:background="@drawable/layout_study_in_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp" />
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/study_problem_two"
-                    android:text="study_problem_two"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
                     android:layout_marginTop="12dp"
-                    android:textStyle="bold"
+                    android:background="@drawable/layout_study_in_button"
+                    android:text="study_problem_two"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:background="@drawable/layout_study_in_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp" />
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/study_problem_three"
-                    android:text="study_problem_three"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
                     android:layout_marginTop="12dp"
-                    android:textStyle="bold"
+                    android:background="@drawable/layout_study_in_button"
+                    android:text="study_problem_three"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:background="@drawable/layout_study_in_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp" />
+                    android:textStyle="bold" />
+
                 <Button
                     android:id="@+id/study_problem_four"
-                    android:text="study_problem_four"
+                    android:layout_width="match_parent"
+                    android:layout_height="52dp"
                     android:layout_marginTop="12dp"
-                    android:textStyle="bold"
+                    android:background="@drawable/layout_study_in_button"
+                    android:text="study_problem_four"
                     android:textColor="@color/colorWhite"
                     android:textSize="16sp"
-                    android:background="@drawable/layout_study_in_button"
-                    android:layout_width="match_parent"
-                    android:layout_height="52dp" />
+                    android:textStyle="bold" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
+    <include layout="@layout/item_study_bottom"/>
 </LinearLayout>

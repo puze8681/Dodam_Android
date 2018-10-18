@@ -14,10 +14,11 @@
         <include layout="@layout/actionbar_study"/>
         <ScrollView
             android:scrollbars="none"
-            android:layout_margin="16dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <LinearLayout
+                android:paddingHorizontal="16dp"
+                android:layout_marginTop="16dp"
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
@@ -164,7 +165,7 @@
                     android:paddingRight="24dp"
                     android:paddingTop="25dp"
                     android:background="@drawable/layout_study_orange"
-                    android:layout_marginBottom="18dp"
+                    android:layout_marginBottom="34dp"
                     android:id="@+id/study_button_debate"
                     android:layout_width="match_parent"
                     android:layout_height="144dp">

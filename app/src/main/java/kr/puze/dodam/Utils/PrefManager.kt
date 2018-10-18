@@ -31,6 +31,13 @@ class PrefManager(context: Context) {
             editor.apply()
         }
 
+    var wordId: Int
+        get() = preferences.getInt("wordId", 0)
+        set(value) {
+            editor.putInt("wordId", value)
+            editor.apply()
+        }
+
     var checkedLogs: ArrayList<String> = ArrayList()
         get() = gson.fromJson<ArrayList<String>>(preferences.getString("checkedLogs", "[]"), object : TypeToken<ArrayList<String>>() {}.type)
         private set

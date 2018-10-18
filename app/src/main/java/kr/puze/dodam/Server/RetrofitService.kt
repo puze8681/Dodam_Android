@@ -1,9 +1,6 @@
 package kr.puze.dodam.Server
 
-import kr.puze.dodam.Data.CharData
-import kr.puze.dodam.Data.QuizData
-import kr.puze.dodam.Data.UserData
-import kr.puze.dodam.Data.WordData
+import kr.puze.dodam.Data.*
 import retrofit2.http.*
 
 interface RetrofitService {
@@ -59,22 +56,22 @@ interface RetrofitService {
     //response 형식 바꾸기
 
     @GET("/users")
-    fun get_users(): retrofit2.Call<WordData>
+    fun get_users(): retrofit2.Call<WordListData>
 
     @GET("/user/profile")
-    fun get_user_profile(): retrofit2.Call<WordData>
+    fun get_user_profile(): retrofit2.Call<WordListData>
 
     @GET("/reports")
-    fun get_reports(): retrofit2.Call<WordData>
+    fun get_reports(): retrofit2.Call<WordListData>
 
     @GET("/reports/<id>")
-    fun get_reports_id(): retrofit2.Call<WordData>
+    fun get_reports_id(): retrofit2.Call<WordListData>
 
     @GET("/missions")
-    fun get_missions(): retrofit2.Call<WordData>
+    fun get_missions(): retrofit2.Call<WordListData>
 
     @GET("/test")
-    fun get_test(): retrofit2.Call<WordData>
+    fun get_test(): retrofit2.Call<WordListData>
 
     @GET("/word/quiz")
     fun get_word_quiz(): retrofit2.Call<QuizData>
@@ -82,13 +79,13 @@ interface RetrofitService {
     @GET("/char")
     fun get_char(): retrofit2.Call<CharData>
 
-    @GET("/char/<id>")
+    @GET("/char")
     fun get_char_id(@Query("id") id: String): retrofit2.Call<CharData>
 
     @GET("/word")
-    fun get_word(): retrofit2.Call<WordData>
+    fun get_word(): retrofit2.Call<WordListData>
 
-    @GET("/word/<id>")
-    fun get_word_id(): retrofit2.Call<WordData>
+    @GET("/word")
+    fun get_word_id(@Query("id") id: String): retrofit2.Call<WordData>
 
 }
