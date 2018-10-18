@@ -113,7 +113,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_word_sub"
                         android:layout_alignParentBottom="true"
-                        android:text="Let’s learn useful Korean words."
+                        android:text="Let’s learn useful Korean words"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView

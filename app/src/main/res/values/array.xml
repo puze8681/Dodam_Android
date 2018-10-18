@@ -926,4 +926,30 @@
         <item>으</item>
         <item>이</item>
     </string-array>
+    <string-array name="syllable_id">
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+        <item>980e6d90a0129c2c3e3a4ef85415523edeb89ddef39732fb6b57dd20523cb784</item>
+    </string-array>
 </resources>

@@ -10,8 +10,11 @@ import android.util.Log
 import kotlinx.android.synthetic.main.actionbar_white.*
 import kotlinx.android.synthetic.main.activity_syllable_select.*
 import kr.puze.dodam.Adapter.SyllableSelectGridViewAdapter
+import kr.puze.dodam.Data.CharData
 import kr.puze.dodam.Item.SyllableSelectItem
 import kr.puze.dodam.R
+import kr.puze.dodam.Server.RetrofitService
+import retrofit2.Call
 
 class SyllableSelectActivity : AppCompatActivity() {
 
@@ -26,10 +29,11 @@ class SyllableSelectActivity : AppCompatActivity() {
         var resources: Resources = resources
         var titles: Array<String> = resources.getStringArray(R.array.syllable)
         var subs: Array<String> = resources.getStringArray(R.array.syllable_sub)
+        var ids: Array<String> = resources.getStringArray(R.array.syllable_id)
 
         for(i in 0..(titles.size-1)){
-            items.add(SyllableSelectItem(titles[i], subs[i]))
-            Log.d("SYLLABLE", titles[i]+" "+subs[i]+"\n")
+            items.add(SyllableSelectItem(titles[i], subs[i], ids[i]))
+            Log.d("SYLLABLE", titles[i]+" "+subs[i]+" "+ids[i]+"\n")
         }
 
         val adapter = SyllableSelectGridViewAdapter(items)
@@ -39,6 +43,7 @@ class SyllableSelectActivity : AppCompatActivity() {
             var intent = Intent(this@SyllableSelectActivity, StudyInActivity::class.java)
             intent.putExtra("study", "syllable")
             intent.putExtra("syllable", items.get(i).title)
+            intent.putExtra("syllable_id", items.get(i).id)
             startActivity(intent)
         }
 

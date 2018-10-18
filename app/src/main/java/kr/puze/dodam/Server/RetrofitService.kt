@@ -83,7 +83,7 @@ interface RetrofitService {
     fun get_char(): retrofit2.Call<CharData>
 
     @GET("/char/<id>")
-    fun get_char_id(): retrofit2.Call<CharData>
+    fun get_char_id(@Query("id") id: String): retrofit2.Call<CharData>
 
     @GET("/word")
     fun get_word(): retrofit2.Call<WordData>
