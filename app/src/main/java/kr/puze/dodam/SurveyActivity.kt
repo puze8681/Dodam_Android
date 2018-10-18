@@ -75,17 +75,15 @@ class SurveyActivity : AppCompatActivity() {
                 val name = intent.getStringExtra("name")
                 val id = intent.getStringExtra("id")
                 val pw = intent.getStringExtra("pw")
-                val hash = Hasher()
-                val sha_pw = hash.sha256(pw)
                 val gender: String
-                val code = country_code()
-                val mother_lang = survey_spinner_language.selectedItem.toString()
+                val country_code = country_code()
+                val mother_lang_code = mother_lang_code()
                 gender = if(exp){
                     "M"
                 }else{
                     "F"
                 }
-                register(name, id, gender, sha_pw, "", code, mother_lang, "email")
+                register(name, id, gender, pw, "", country_code, mother_lang_code, "email")
             }else{
                 Toast.makeText(this@SurveyActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
             }
@@ -113,8 +111,18 @@ class SurveyActivity : AppCompatActivity() {
         return codes[position]
     }
 
-    private fun register(name: String, id: String, gender: String, pw: String, api_key: String, country: String, mother_lang: String, account_type: String){
-        call = retrofitService.post_users(name, id, gender,pw, api_key, country, mother_lang, account_type)
+    private fun mother_lang_code(): String{
+        val res = resources
+        val codes = res.getStringArray(R.array.mother_lang_code)
+        val position = survey_spinner_language.selectedItemPosition
+
+        return codes[position]
+    }
+
+    private fun register(username: String, id: String, gender: String, pw: String, api_key: String, country: String, mother_lang: String, account_type: String){
+        val hash = Hasher()
+        val sha_pw = hash.sha256(pw)
+        call = retrofitService.post_user(username, id, gender, sha_pw, api_key, country, mother_lang, account_type)
         call.enqueue(object : Callback<UserData> {
             override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
                 progressDialog.dismiss()
@@ -135,6 +143,8 @@ class SurveyActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this@SurveyActivity, "회원가입 실패 : "+response!!.code().toString(), Toast.LENGTH_LONG).show()
                     Log.d("register_code", response.code().toString())
+                    Log.d("register_result", username+id+gender+pw+api_key+country+mother_lang+account_type)
+                    Log.d("register_mother_lang", mother_lang)
                 }
             }
 
@@ -165,7 +175,7 @@ class SurveyActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("https://dodam.koreacentral.cloudapp.azure.com")
+                .baseUrl("http://dodam.koreacentral.cloudapp.azure.com")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

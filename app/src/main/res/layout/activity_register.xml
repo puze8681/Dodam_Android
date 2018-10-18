@@ -28,7 +28,7 @@
             <TextView
                 android:layout_marginLeft="4dp"
                 android:textColor="#222222"
-                android:text="회원가입"
+                android:text="Sign up"
                 android:textSize="24sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -38,13 +38,13 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
                 android:textColor="#222222"
-                android:text="도담도담 서비스에 회원가입하기 위해선\n아래 정보를 입력하셔야 합니다."
+                android:text="Please enter your information \nfor sign up our service, Dodam Dodam."
                 android:textSize="14sp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
             <TextView
-                android:text="이름(실명)"
+                android:text="Name"
                 android:textColor="#222222"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="4dp"
@@ -59,11 +59,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="실명을 입력해주세요"
+                android:hint="full name"
                 tools:ignore="RtlCompat" />
 
             <TextView
-                android:text="이메일"
+                android:text="e-mail"
                 android:textColor="#222222"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="4dp"
@@ -82,7 +82,7 @@
                 tools:ignore="RtlCompat" />
 
             <TextView
-                android:text="비밀번호"
+                android:text="Password"
                 android:textColor="#222222"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="4dp"
@@ -98,11 +98,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="비밀번호를 입력해주세요."
+                android:hint="password"
                 tools:ignore="RtlCompat" />
 
             <TextView
-                android:text="비밀번호 확인"
+                android:text="Confirm Password"
                 android:textColor="#222222"
                 android:layout_marginTop="8dp"
                 android:layout_marginLeft="4dp"
@@ -118,7 +118,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:hint="다시 한번 입력해주세요."
+                android:hint="password"
                 tools:ignore="RtlCompat" />
         </LinearLayout>
         <Button
@@ -130,6 +130,6 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
-            android:text="다음"/>
+            android:text="Next"/>
     </RelativeLayout>
 </layout>

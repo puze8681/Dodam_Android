@@ -9,8 +9,8 @@ import retrofit2.http.*
 interface RetrofitService {
 
     @FormUrlEncoded
-    @POST("/users")
-    fun post_users(
+    @POST("/user")
+    fun  post_user(
             @Field("username") username: String,
             @Field("email") email: String,
             @Field("gender") gender: String,
@@ -31,7 +31,7 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/user/login")
     fun post_user_login(
-            @Field("username") username: String,
+            @Field("email") username: String,
             @Field("password") password: String
     ): retrofit2.Call<UserData>
     //response 형식 바꾸기

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".LoginActivity">
     <data>
@@ -30,7 +29,7 @@
             android:id="@+id/login_slogun"
             android:textSize="14sp"
             android:textColor="#222222"
-            android:text="꺼내먹는 한국어, 도담도담"
+            android:text="Grab-a-Korean, dodam"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -50,10 +49,11 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
-            android:hint="이메일 입력"
+            android:hint="E-mail address"
             tools:ignore="RtlCompat" />
 
         <EditText
+            android:inputType="textPassword"
             android:textSize="14sp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
@@ -64,7 +64,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
-            android:hint="비밀번호 입력"
+            android:hint="Password"
             tools:ignore="RtlCompat" />
 
         <Button
@@ -76,7 +76,7 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
-            android:text="로그인"/>
+            android:text="Sign in"/>
         <View
             android:layout_weight="1"
             android:layout_width="match_parent"
@@ -89,6 +89,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
-            android:text="계정이 없으신가요?"/>
+            android:text="Register"/>
     </LinearLayout>
 </layout>

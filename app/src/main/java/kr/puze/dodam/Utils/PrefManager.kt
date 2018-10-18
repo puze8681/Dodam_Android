@@ -43,4 +43,9 @@ class PrefManager(context: Context) {
             editor.apply()
         }
     }
+
+    fun logout(){
+        preferences.edit().clear().commit()
+        editor.clear().commit()
+    }
 }

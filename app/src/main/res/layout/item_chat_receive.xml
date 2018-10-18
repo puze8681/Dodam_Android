@@ -6,12 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <Button
-        android:textColor="@color/colorWhite"
+        android:textColor="@color/colorMain"
         android:textSize="14sp"
         android:clickable="false"
-        android:text="머리가 아프고 열이나요"
-        android:background="@drawable/ic_chat_send"
-        android:layout_gravity="right"
+        android:text="어떻게 오셨나요?"
+        android:background="@drawable/ic_chat_receive"
+        android:layout_gravity="left"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

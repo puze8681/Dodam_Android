@@ -39,13 +39,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_above="@+id/study_text_syllable_sub"
-                        android:text="@string/study_syllable" />
+                        android:text="Alphabet" />
                     <TextView
                         android:textSize="12sp"
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_syllable_sub"
                         android:layout_alignParentBottom="true"
-                        android:text="@string/study_syllable_sub"
+                        android:text="Let’s learn alphabets of Korean!"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView
@@ -71,7 +71,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_phonogram"
                         android:layout_above="@+id/study_text_phonogram_sub"
-                        android:text="@string/study_phonogram"
+                        android:text="Phonetic"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -79,7 +79,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_phonogram_sub"
                         android:layout_alignParentBottom="true"
-                        android:text="@string/study_phonogram_sub"
+                        android:text="Korean dictation with mother tongue"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView
@@ -105,7 +105,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_word"
                         android:layout_above="@+id/study_text_word_sub"
-                        android:text="@string/study_word"
+                        android:text="Vocabulary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -113,7 +113,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_word_sub"
                         android:layout_alignParentBottom="true"
-                        android:text="@string/study_word_sub"
+                        android:text="Let’s learn useful Korean words."
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView
@@ -139,7 +139,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_chat"
                         android:layout_above="@+id/study_text_chat_sub"
-                        android:text="@string/study_chat_bot"
+                        android:text="Chatbot"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -147,7 +147,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_chat_sub"
                         android:layout_alignParentBottom="true"
-                        android:text="@string/study_chat_bot_sub"
+                        android:text="Theme conversation with chatbot"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView
@@ -173,7 +173,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_debate"
                         android:layout_above="@+id/study_text_debate_sub"
-                        android:text="@string/study_debate"
+                        android:text="Debate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"/>
                     <TextView
@@ -181,7 +181,7 @@
                         android:textColor="@color/colorWhite"
                         android:id="@+id/study_text_debate_sub"
                         android:layout_alignParentBottom="true"
-                        android:text="@string/study_debate_sub"
+                        android:text="Talk with other friends in Korean!"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                     <ImageView

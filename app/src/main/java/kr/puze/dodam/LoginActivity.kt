@@ -45,6 +45,7 @@ class LoginActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = Color.parseColor("#ffffffff")
         }
+
         setContentView(R.layout.activity_login)
         supportActionBar!!.hide()
 
@@ -52,9 +53,7 @@ class LoginActivity : AppCompatActivity() {
         binding.loginButtonLogin.setOnClickListener {
             if(checkInput()){
                 if(checkNetwork()){
-                    setProgressDialog()
                     login(login_edit_id.text.toString(), login_edit_pw.text.toString())
-                    finish()
                 }else{
                     Toast.makeText(this@LoginActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
                 }
@@ -68,17 +67,19 @@ class LoginActivity : AppCompatActivity() {
 
         context = applicationContext
         prefManager = PrefManager(this@LoginActivity)
-        autoLogin()
         retrofitSetting()
+        autoLogin()
     }
 
     private fun autoLogin(){
         if(prefManager.isLogin){
+            Log.d("login_auto : ", prefManager.userId + prefManager.userPassword)
             login(prefManager.userId, prefManager.userPassword)
         }
     }
 
     private fun login(id: String, pw: String) {
+        setProgressDialog()
         val hash = Hasher()
         val sha_pw = hash.sha256(pw)
         call = retrofitService.post_user_login(id,sha_pw)
@@ -99,6 +100,7 @@ class LoginActivity : AppCompatActivity() {
                 } else {
                     Toast.makeText(this@LoginActivity, "로그인 실패 : "+response!!.code().toString(), Toast.LENGTH_LONG).show()
                     Log.d("login_code", response.code().toString())
+                    Log.d("login_result", id + pw)
                 }
             }
 
@@ -136,7 +138,7 @@ class LoginActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("https://dodam.koreacentral.cloudapp.azure.com")
+                .baseUrl("http://dodam.koreacentral.cloudapp.azure.com")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)
@@ -145,7 +147,7 @@ class LoginActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if(System.currentTimeMillis()-time>=2000){
             time=System.currentTimeMillis();
-            Toast.makeText(getApplicationContext(),"뒤로 가기 버튼을 한번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(),"Press the Back button again to exit.", Toast.LENGTH_SHORT).show();
         }else if(System.currentTimeMillis()-time<2000){
             finish();
         }

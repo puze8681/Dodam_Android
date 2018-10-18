@@ -21,7 +21,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="자음 모음 학습"
+            android:text="Alphabet"
             android:textColor="@color/colorBlack"
             android:textSize="24sp" />
 
@@ -30,7 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
             android:layout_marginTop="8dp"
-            android:text="학습하실 자음, 모음을 선택해주세요."
+            android:text="Select the alphabet to learn"
             android:textColor="@color/colorBlack"
             android:textSize="14sp" />
 

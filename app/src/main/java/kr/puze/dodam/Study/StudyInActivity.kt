@@ -6,6 +6,7 @@ import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import kotlinx.android.synthetic.main.actionbar_white.*
+import kotlinx.android.synthetic.main.activity_study_in.*
 import kr.puze.dodam.R
 
 class StudyInActivity : AppCompatActivity() {
@@ -21,13 +22,16 @@ class StudyInActivity : AppCompatActivity() {
 
         when(title){
             "syllable"->{
-
+                study_title.text = "Alphabet"
+                study_sub.text = "Learn Korean with pictures"
             }
             "phonogram"->{
-
+                study_title.text = "Phonetic"
+                study_sub.text = "Choose the right pronunciation"
             }
             "word"->{
-
+                study_title.text = "Word"
+                study_sub.text = "Choose the right word to fill in the blank"
             }
             else->finish()
         }

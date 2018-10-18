@@ -14,7 +14,7 @@
         android:id="@+id/chat_voice_text"
         android:textColor="#41222222"
         android:textSize="12sp"
-        android:text="음성을 입력해주세요."
+        android:text="Tell me your sentence."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 </LinearLayout>

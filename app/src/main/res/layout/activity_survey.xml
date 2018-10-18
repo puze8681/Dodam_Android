@@ -32,13 +32,13 @@
                     android:layout_marginBottom="24dp"
                     android:layout_marginLeft="4dp"
                     android:textColor="#222222"
-                    android:text="추가 정보"
+                    android:text="Information"
                     android:textSize="24sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <TextView
-                    android:text="한국어를 왜 배우려고 하나요?"
+                    android:text="The reason why you learn Korean"
                     android:textColor="#222222"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="4dp"
@@ -57,11 +57,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="150dp"
                     android:gravity="left|top"
-                    android:hint="내용을 입력해주세요."
+                    android:hint="Please enter your details"
                     tools:ignore="RtlCompat" />
 
                 <TextView
-                    android:text="국적 입력"
+                    android:text="Nationality"
                     android:textColor="#222222"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="4dp"
@@ -85,7 +85,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="모국어 입력"
+                    android:text="Mother Language"
                     android:textColor="#222222"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="4dp"
@@ -109,7 +109,7 @@
                 </LinearLayout>
 
                 <TextView
-                    android:text="성별"
+                    android:text="Gender"
                     android:textColor="#222222"
                     android:layout_marginTop="8dp"
                     android:layout_marginLeft="4dp"
@@ -129,7 +129,7 @@
                         android:textSize="10sp"
                         android:textColor="@color/colorMain"
                         android:background="@drawable/layout_survey_button"
-                        android:text="남"
+                        android:text="Male"
                         android:layout_width="80dp"
                         android:layout_height="40dp" />
                     <TextView
@@ -138,7 +138,7 @@
                         android:layout_margin="4dp"
                         android:textSize="10sp"
                         android:background="@drawable/layout_survey_button_on"
-                        android:text="여"
+                        android:text="Female"
                         android:textColor="@color/colorWhite"
                         android:layout_width="80dp"
                         android:layout_height="40dp" />
@@ -154,6 +154,6 @@
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:gravity="center"
-            android:text="완료"/>
+            android:text="Sign up"/>
     </RelativeLayout>
 </layout>

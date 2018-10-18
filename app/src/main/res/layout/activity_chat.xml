@@ -19,14 +19,14 @@
         android:layout_height="0dp">
         <TextView
             android:id="@+id/chat_title"
-            android:text="테마 : 병원 (hospital)"
+            android:text="THEME : 병원 (hospital)"
             android:textSize="24sp"
             android:textColor="@color/colorBlack"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
         <TextView
             android:layout_marginTop="8dp"
-            android:text="키워드가 포함된 문장을 입력해주세요."
+            android:text="Make a sentence with given keyword"
             android:textSize="14sp"
             android:textColor="@color/colorBlack"
             android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         <TextView
             android:id="@+id/chat_grade"
             android:layout_marginBottom="8dp"
-            android:text="등급 : A"
+            android:text=""
             android:textStyle="bold"
             android:textSize="14sp"
             android:textColor="@color/colorBlack"
@@ -55,13 +55,21 @@
             android:scrollbars="none"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/chat_recycler_view"
-                app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+            <LinearLayout
+                android:orientation="vertical"
+                android:weightSum="1"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
+                <android.support.v7.widget.RecyclerView
+                    android:layout_weight="1"
+                    android:id="@+id/chat_recycler_view"
+                    app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp">
+                </android.support.v7.widget.RecyclerView>
+                <include layout="@layout/item_chat_voice"/>
+            </LinearLayout>
 
-            </android.support.v7.widget.RecyclerView>
         </ScrollView>
     </LinearLayout>
     <Button
@@ -73,5 +81,5 @@
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:gravity="center"
-        android:text="다음"/>
+        android:text="Next"/>
 </LinearLayout>

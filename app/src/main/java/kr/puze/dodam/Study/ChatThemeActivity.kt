@@ -22,8 +22,8 @@ class ChatThemeActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#fafafa")
         supportActionBar!!.hide()
 
-        items.add(ChatThemeItem(R.drawable.ic_logo, "#병원", "일상적인 의사와 환자 간의 대화를 학습합니다."))
-        items.add(ChatThemeItem(R.drawable.ic_logo, "#학교", "학교에서 선생님과 학생과의 대화를 학습합니다."))
+        items.add(ChatThemeItem(R.drawable.ic_logo, "#HOSPITAL", "Conversation between a doctor and a patient at hospital."))
+        items.add(ChatThemeItem(R.drawable.ic_logo, "#SCHOOL", "Conversation between a teacher and a student at school."))
 
         val adapter = ChatThemRecyclerViewAdapter(items, this)
 

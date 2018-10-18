@@ -18,7 +18,7 @@ class ChatActivity : AppCompatActivity() {
 
         val intent = getIntent()
         val title = intent.getStringExtra("theme")
-        chat_title.text = "테마 : "+title
+        chat_title.text = "THEME : "+title
 
         actionbar_back.setOnClickListener {
             finish()

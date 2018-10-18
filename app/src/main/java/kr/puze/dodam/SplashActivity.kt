@@ -21,6 +21,7 @@ class SplashActivity : AppCompatActivity() {
 
         splash_image.setOnClickListener {
             startActivity(Intent(this@SplashActivity, LoginActivity::class.java))
+            finish()
         }
     }
 }
