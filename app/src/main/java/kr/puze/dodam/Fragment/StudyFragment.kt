@@ -59,7 +59,9 @@ class StudyFragment: Fragment() {
             startActivity(intent)
         }
         view.study_button_chat_bot.setOnClickListener {
-            startActivity(Intent(activity, ChatThemeActivity::class.java))
+            val intent = Intent(activity, ChatThemeActivity::class.java)
+            intent.putExtra("token", intent.getStringExtra("token"))
+            startActivity(intent)
         }
         view.study_button_debate.setOnClickListener {
             startActivity(Intent(activity, DebateActivity::class.java))

@@ -17,6 +17,20 @@ class PrefManager(context: Context) {
             editor.apply()
         }
 
+    var loginType: Int
+        get() = preferences.getInt("type", 0)
+        set(value) {
+            editor.putInt("isLogin", value)
+            editor.apply()
+        }
+
+    var userName: String
+        get() = preferences.getString("userName", "")
+        set(value) {
+            editor.putString("userName", value)
+            editor.apply()
+        }
+
     var userId: String
         get() = preferences.getString("userId", "")
         set(value) {
@@ -28,6 +42,13 @@ class PrefManager(context: Context) {
         get() = preferences.getString("userPassword", "")
         set(value) {
             editor.putString("userPassword", value)
+            editor.apply()
+        }
+
+    var fbToken: String
+        get() = preferences.getString("fbToken", "")
+        set(value) {
+            editor.putString("fbToken", value)
             editor.apply()
         }
 

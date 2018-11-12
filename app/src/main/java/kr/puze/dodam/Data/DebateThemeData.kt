@@ -4,7 +4,7 @@ import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import kr.puze.dodam.Utils.LoadImages
 
-class ChatThemeData(var image: String, var title: String, var subTitle: String){
+class DebateThemeData(var blue: String, var red: String, var id: String, var deadline: String, var image: String){
     fun setimg() : Any{
         var image = LoadImages(image)
         image.start()

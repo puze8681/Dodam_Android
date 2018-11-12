@@ -24,7 +24,11 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 import android.net.ConnectivityManager
+import android.view.View
+import com.facebook.*
 import kr.puze.dodam.Utils.Hasher
+import com.facebook.appevents.AppEventsLogger
+import com.facebook.login.LoginResult
 
 
 class LoginActivity : AppCompatActivity() {
@@ -38,6 +42,8 @@ class LoginActivity : AppCompatActivity() {
         lateinit var retrofitService: RetrofitService
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
+        lateinit var callbackManager: CallbackManager
+        lateinit var token: String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -45,24 +51,57 @@ class LoginActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = Color.parseColor("#ffffffff")
         }
-
+        FacebookSdk.sdkInitialize(this.getApplicationContext());
         setContentView(R.layout.activity_login)
         supportActionBar!!.hide()
 
         val binding: ActivityLoginBinding = DataBindingUtil.setContentView(this, R.layout.activity_login)
         binding.loginButtonLogin.setOnClickListener {
-            if(checkInput()){
-                if(checkNetwork()){
+            if (checkInput()) {
+                if (checkNetwork()) {
                     login(login_edit_id.text.toString(), login_edit_pw.text.toString())
-                }else{
+                } else {
                     Toast.makeText(this@LoginActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
                 }
-            }else{
+            } else {
                 Toast.makeText(this@LoginActivity, "입력창을 확인해주세요.", Toast.LENGTH_LONG).show()
             }
         }
         binding.loginButtonRegister.setOnClickListener {
             startActivity(Intent(this@LoginActivity, RegisterActivity::class.java))
+        }
+
+        facebook_login.visibility = View.GONE
+        callbackManager = CallbackManager.Factory.create()!!
+
+        facebook_login.setReadPermissions("email")
+        facebook_login.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
+            override fun onSuccess(result: LoginResult?) {
+                val accessToken: AccessToken = result!!.accessToken
+                token = accessToken.token
+                Log.d("facebook_login", token)
+                login(token)
+                Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show();
+            }
+
+            override fun onCancel() {
+                Log.d("facebook_login", "onCancel")
+                Toast.makeText(this@LoginActivity, "로그인 취소", Toast.LENGTH_SHORT).show();
+            }
+
+            override fun onError(error: FacebookException?) {
+                Log.d("facebook_login", "onError")
+                error!!.printStackTrace()
+                if (checkNetwork()) {
+                    Toast.makeText(this@LoginActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@LoginActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
+                }
+            }
+        })
+
+        login_button_facebook.setOnClickListener {
+            facebook_login.performClick()
         }
 
         context = applicationContext
@@ -71,34 +110,87 @@ class LoginActivity : AppCompatActivity() {
         autoLogin()
     }
 
-    private fun autoLogin(){
-        if(prefManager.isLogin){
-            Log.d("login_auto : ", prefManager.userId + prefManager.userPassword)
-            login(prefManager.userId, prefManager.userPassword)
+    private fun autoLogin() {
+        if (prefManager.isLogin) {
+            when(prefManager.loginType){
+                1->{
+                    Log.d("login_auto : ", prefManager.userId + prefManager.userPassword)
+                    login(prefManager.userId, prefManager.userPassword)
+                }
+                2->{
+                    Log.d("login_auto : ", prefManager.fbToken)
+                    login(prefManager.fbToken)
+                }
+            }
+
         }
+    }
+
+    //fbToken 값을 보냈을때 신규유저면 Survey 로, 기존 유저면 로그인
+    private fun login(token: String) {
+        Log.d("login_fun", "running")
+        call = retrofitService.post_user_facebook(token)
+        call.enqueue(object : Callback<UserData> {
+            override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
+                Log.d("login_call", "onResponse")
+                Log.d("login_token", token)
+                if (response?.code() == 200) {
+                    val user = response.body()
+                    if (user != null) {
+                        if(user.access_token.equals("0")){
+                            intent.putExtra("fbToken", token)
+                            intent.putExtra("loginType", 2)
+                            startActivity(Intent(this@LoginActivity, SurveyActivity::class.java))
+                        }else{
+                            prefManager.userName = "fb"
+                            prefManager.fbToken = token
+                            prefManager.isLogin = true
+                            prefManager.loginType = 2
+
+                            intent.putExtra("token", user.access_token)
+                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+
+                        }
+                        finish()
+                    }
+                } else if (response?.code() == 401) {
+                    Log.d("login_call", "401")
+                } else {
+                    Log.d("login_call", "else")
+                    Log.d("login_code", response!!.code().toString())
+                }
+            }
+
+            override fun onFailure(call: Call<UserData>?, t: Throwable?) {
+                Log.d("login_call", "onFailure")
+                Log.d("login_call", t.toString())
+            }
+        })
     }
 
     private fun login(id: String, pw: String) {
         setProgressDialog()
         val hash = Hasher()
         val sha_pw = hash.sha256(pw)
-        call = retrofitService.post_user_login(id,sha_pw)
+        call = retrofitService.post_user_login(id, sha_pw)
         call.enqueue(object : Callback<UserData> {
             override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
                 progressDialog.dismiss()
                 if (response?.code() == 200) {
                     val user = response.body()
                     if (user != null) {
+                        prefManager.userName = "email"
                         prefManager.userId = id
                         prefManager.userPassword = pw
                         prefManager.isLogin = true
+                        prefManager.loginType = 1
 
                         intent.putExtra("token", user.access_token)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))
                         finish()
                     }
                 } else {
-                    Toast.makeText(this@LoginActivity, "로그인 실패 : "+response!!.code().toString(), Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@LoginActivity, "로그인 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
                     Log.d("login_code", response.code().toString())
                     Log.d("login_result", id + pw)
                 }
@@ -126,7 +218,7 @@ class LoginActivity : AppCompatActivity() {
         return true
     }
 
-    private fun checkNetwork(): Boolean{
+    private fun checkNetwork(): Boolean {
         val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork.isConnectedOrConnecting
@@ -145,10 +237,10 @@ class LoginActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if(System.currentTimeMillis()-time>=2000){
-            time=System.currentTimeMillis();
-            Toast.makeText(getApplicationContext(),"Press the Back button again to exit.", Toast.LENGTH_SHORT).show();
-        }else if(System.currentTimeMillis()-time<2000){
+        if (System.currentTimeMillis() - time >= 2000) {
+            time = System.currentTimeMillis();
+            Toast.makeText(getApplicationContext(), "Press the Back button again to exit.", Toast.LENGTH_SHORT).show();
+        } else if (System.currentTimeMillis() - time < 2000) {
             finish();
         }
     }

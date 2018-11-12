@@ -18,11 +18,30 @@ interface RetrofitService {
             @Field("account_type") account_type: String
     ): retrofit2.Call<UserData>
 
+    @GET("/auth/user")
+    fun get_auth_user(): retrofit2.Call<UserData>
+    //서버 독스 필요
+
+    @PUT("/auth/users")
+    fun put_auth_user(): retrofit2.Call<UserData>
+    //서버 독스 필요
+
+    @PUT("/auth/user/password")
+    fun put_auth_user_password(
+            @Field("current_password") current_password: String,
+            @Field("next_password") next_password: String
+    ): retrofit2.Call<String>
+    //서버 독스 필요
+
+    @GET("/auth/user/profile")
+    fun get_auth_user_profile(): retrofit2.Call<String>
+    //서버 독스 필요
+
     @FormUrlEncoded
     @POST("/user/facebook")
     fun post_user_facebook(
             @Field("access_token") access_token: String
-    ): retrofit2.Call<String>
+    ): retrofit2.Call<UserData>
     //response 형식 바꾸기
 
     @FormUrlEncoded
@@ -88,4 +107,28 @@ interface RetrofitService {
     @GET("/word")
     fun get_word_id(@Query("id") id: String): retrofit2.Call<WordData>
 
+    @GET("/theme")
+    fun get_debate_theme(): retrofit2.Call<DebateThemeListData>
+
+    @FormUrlEncoded
+    @POST("/theme")
+    fun post_debate_theme(
+            @Field("blue") blue: String,
+            @Field("red") red: String,
+            @Field("deadline") deadline: String
+    ): retrofit2.Call<String>
+
+    @FormUrlEncoded
+    @POST("/theme/join")
+    fun post_debate_theme_join(
+            @Field("theme_id") theme_id: String,
+            @Field("team") team: String
+    ): retrofit2.Call<String>
+    //team 에 red 혹은 blue 를 넣어야함
+
+    @GET("/room")
+    fun get_room(@Query("room_id") room_id: String): retrofit2.Call<RoomData>
+
+    @GET("/room/<room_id>/quit")
+    fun get_room_quit(@Query("room_id") room_id: String): retrofit2.Call<RoomData>
 }

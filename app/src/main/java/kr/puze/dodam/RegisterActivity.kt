@@ -31,6 +31,7 @@ class RegisterActivity : AppCompatActivity() {
                 registerIntent.putExtra("name", register_edit_name.text.toString())
                 registerIntent.putExtra("id", register_edit_email.text.toString())
                 registerIntent.putExtra("pw", register_edit_pw_check.text.toString())
+                registerIntent.putExtra("loginType", 1)
                 startActivity(registerIntent)
             }else{
                 Toast.makeText(applicationContext, "입력창을 확인 해주세요.", Toast.LENGTH_LONG).show()

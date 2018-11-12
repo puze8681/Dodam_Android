@@ -72,9 +72,29 @@ class SurveyActivity : AppCompatActivity() {
         binding.surveyButtonPositive.setOnClickListener {
             if(checkNetwork()){
                 setProgressDialog()
-                val name = intent.getStringExtra("name")
-                val id = intent.getStringExtra("id")
-                val pw = intent.getStringExtra("pw")
+                val loginType = intent.getIntExtra("loginType", 0)
+                var fbToken = ""
+                var account_type = ""
+                var name = ""
+                var id = ""
+                var pw = ""
+                when(loginType){
+                    1-> {
+                        account_type = "email"
+                        fbToken = ""
+                        name = intent.getStringExtra("name")
+                        id = intent.getStringExtra("id")
+                        pw = intent.getStringExtra("pw")
+                    }
+                    2-> {
+                        account_type = "fb"
+                        fbToken = intent.getStringExtra("fbToken")
+                        name = "fb"
+                        id = "fb"
+                        pw = "fb"
+                    }
+                }
+
                 val gender: String
                 val country_code = country_code()
                 val mother_lang_code = mother_lang_code()
@@ -83,7 +103,7 @@ class SurveyActivity : AppCompatActivity() {
                 }else{
                     "F"
                 }
-                register(name, id, gender, pw, "", country_code, mother_lang_code, "email")
+                register(name, id, gender, pw, fbToken, country_code, mother_lang_code, account_type, loginType)
             }else{
                 Toast.makeText(this@SurveyActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
             }
@@ -119,7 +139,7 @@ class SurveyActivity : AppCompatActivity() {
         return codes[position]
     }
 
-    private fun register(username: String, id: String, gender: String, pw: String, api_key: String, country: String, mother_lang: String, account_type: String){
+    private fun register(username: String, id: String, gender: String, pw: String, api_key: String, country: String, mother_lang: String, account_type: String, loginType: Int){
         val hash = Hasher()
         val sha_pw = hash.sha256(pw)
         call = retrofitService.post_user(username, id, gender, sha_pw, api_key, country, mother_lang, account_type)
@@ -129,9 +149,11 @@ class SurveyActivity : AppCompatActivity() {
                 if (response?.code() == 200) {
                     val user = response.body()
                     if (user != null) {
+                        prefManager.userName = username
                         prefManager.userId = id
                         prefManager.userPassword = pw
                         prefManager.isLogin = true
+                        prefManager.loginType = loginType
 
                         intent.putExtra("token", user.access_token)
                         LoginActivity::finish

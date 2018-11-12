@@ -72,12 +72,19 @@
 
         </ScrollView>
     </LinearLayout>
+    <EditText
+        android:id="@+id/chat_edit_text"
+        android:hint="enter message"
+        android:textSize="14sp"
+        android:textColor="@color/colorBlack"
+        android:layout_width="match_parent"
+        android:layout_height="52dp" />
     <Button
         android:layout_alignParentBottom="true"
         android:background="@color/colorMain"
         android:textSize="14sp"
         android:textColor="@color/colorWhite"
-        android:id="@+id/register_button_register"
+        android:id="@+id/chat_send_button"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:gravity="center"

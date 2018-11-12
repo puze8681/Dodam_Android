@@ -85,10 +85,23 @@
             android:textSize="12sp"
             android:background="@color/colorWhite"
             android:layout_gravity="center"
+            android:id="@+id/login_button_facebook"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Login with Facebook"/>
+        <TextView
+            android:textSize="12sp"
+            android:background="@color/colorWhite"
+            android:layout_gravity="center"
             android:id="@+id/login_button_register"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="Register"/>
+        <com.facebook.login.widget.LoginButton
+            android:id="@+id/facebook_login"
+            android:layout_width="0dp"
+            android:layout_height="0dp" />
     </LinearLayout>
 </layout>

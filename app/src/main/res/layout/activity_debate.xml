@@ -18,7 +18,7 @@
         <TextView
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:id="@+id/chat_title"
+            android:id="@+id/debate_title"
             android:text="짜장 vs 짬뽕"
             android:textStyle="bold"
             android:textSize="24sp"
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
+                android:id="@+id/debate_recycler_view"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">

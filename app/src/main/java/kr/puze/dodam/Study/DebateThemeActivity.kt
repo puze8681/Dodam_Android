@@ -15,7 +15,7 @@ import android.widget.Toast
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.actionbar_white.*
-import kotlinx.android.synthetic.main.activity_chat_theme.*
+import kotlinx.android.synthetic.main.activity_debate_theme.*
 import kr.puze.dodam.Adapter.DebateThemeRecyclerViewAdapter
 import kr.puze.dodam.Data.DebateThemeData
 import kr.puze.dodam.Data.DebateThemeListData
@@ -28,7 +28,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class ChatThemeActivity : AppCompatActivity() {
+class DebateThemeActivity : AppCompatActivity() {
 
     companion object {
         lateinit var prefManager: PrefManager
@@ -37,18 +37,18 @@ class ChatThemeActivity : AppCompatActivity() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         lateinit var call: Call<DebateThemeListData>
-        lateinit var chat_theme_intent: Intent
+        lateinit var debate_theme_intent: Intent
         lateinit var token: String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_chat_theme)
+        setContentView(R.layout.activity_debate_theme)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#fafafa")
         supportActionBar!!.hide()
 
-        chat_theme_intent = intent
-        token = chat_theme_intent.getStringExtra("token")
+        debate_theme_intent = intent
+        token = debate_theme_intent.getStringExtra("token")
 
         actionbar_back.setOnClickListener {
             finish()
@@ -70,7 +70,7 @@ class ChatThemeActivity : AppCompatActivity() {
                     if (response?.code() == 200) {
                         val data = response.body()
                         if (data != null) {
-                            Toast.makeText(this@ChatThemeActivity, "단어 리스트 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@DebateThemeActivity, "단어 리스트 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
                             for (i in data.list){
                                 items.add(i)
                             }
@@ -78,7 +78,7 @@ class ChatThemeActivity : AppCompatActivity() {
                             setRecyclerView(items)
                         }
                     } else {
-                        Toast.makeText(this@ChatThemeActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
+                        Toast.makeText(this@DebateThemeActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
                         Log.d("word_list_code", response.code().toString())
                         Log.e("word_list_err", response.message())
                     }
@@ -86,25 +86,25 @@ class ChatThemeActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<DebateThemeListData>?, t: Throwable?) {
                     progressDialog.dismiss()
-                    Toast.makeText(this@ChatThemeActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
+                    Toast.makeText(this@DebateThemeActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
                     Log.d("word_list_call", t.toString())
                 }
             })
         } else {
             finish()
-            Toast.makeText(this@ChatThemeActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
+            Toast.makeText(this@DebateThemeActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
         }
     }
 
     private fun setRecyclerView(items: ArrayList<DebateThemeData>){
         val adapter = DebateThemeRecyclerViewAdapter(items, this)
 
-        chat_theme_recycler_view.adapter = adapter
-        chat_theme_recycler_view.adapter.notifyDataSetChanged()
+        debate_theme_recycler_view.adapter = adapter
+        debate_theme_recycler_view.adapter.notifyDataSetChanged()
 
         adapter.itemClick = object : DebateThemeRecyclerViewAdapter.ItemClick {
             override fun onItemClick(view: View?, position: Int) {
-                val intent = Intent(this@ChatThemeActivity, ChatActivity::class.java)
+                val intent = Intent(this@DebateThemeActivity, DebateActivity::class.java)
                 intent.putExtra("theme_id", items[position].id)
                 intent.putExtra("theme_title", items[position].red + " vs " + items[position].blue)
                 intent.putExtra("token", token)
