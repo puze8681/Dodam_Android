@@ -7,41 +7,48 @@ interface RetrofitService {
 
     @FormUrlEncoded
     @POST("/user")
-    fun  post_user(
+    fun post_user(
             @Field("username") username: String,
             @Field("email") email: String,
             @Field("gender") gender: String,
             @Field("password") password: String,
             @Field("api_key") api_key: String,
+            @Field("third_user_id") third_user_id: String,
             @Field("country") country: String,
             @Field("mother_lang") mother_lang: String,
             @Field("account_type") account_type: String
     ): retrofit2.Call<UserData>
 
-    @GET("/auth/user")
-    fun get_auth_user(): retrofit2.Call<UserData>
+    @GET("/user")
+    fun get_user(
+            @Header("Authorization") auth_token: String
+    ): retrofit2.Call<UserData>
     //서버 독스 필요
 
-    @PUT("/auth/users")
-    fun put_auth_user(): retrofit2.Call<UserData>
+    @PUT("/users")
+    fun put_user(
+            @Path("Authorization") auth_token: String
+    ): retrofit2.Call<UserData>
     //서버 독스 필요
 
-    @PUT("/auth/user/password")
-    fun put_auth_user_password(
+    @PUT("/user/password")
+    fun put_user_password(
             @Field("current_password") current_password: String,
             @Field("next_password") next_password: String
     ): retrofit2.Call<String>
     //서버 독스 필요
 
-    @GET("/auth/user/profile")
-    fun get_auth_user_profile(): retrofit2.Call<String>
+    @GET("/user/profile")
+    fun get_user_profile(
+            @Path("Authorization") auth_token: String
+    ): retrofit2.Call<String>
     //서버 독스 필요
 
     @FormUrlEncoded
     @POST("/user/facebook")
     fun post_user_facebook(
             @Field("access_token") access_token: String
-    ): retrofit2.Call<UserData>
+    ): retrofit2.Call<FacebookUserData>
     //response 형식 바꾸기
 
     @FormUrlEncoded
@@ -96,23 +103,47 @@ interface RetrofitService {
     fun get_word_quiz(): retrofit2.Call<QuizData>
 
     @GET("/char")
-    fun get_char(): retrofit2.Call<CharData>
+    fun get_char(
+            @Header("Authorization") auth_token: String
+    ): retrofit2.Call<CharData>
 
-    @GET("/char")
-    fun get_char_id(@Query("id") id: String): retrofit2.Call<CharData>
+    @GET("/char/{id}")
+    fun get_char_id(
+            @Header("Authorization") auth_token: String,
+            @Path("id") id: String
+    ): retrofit2.Call<CharData>
+
+    @GET("/phonetic")
+    fun get_phonetic(
+            @Header("Authorization") auth_token: String
+    ): retrofit2.Call<PhoneticListData>
+
+    @GET("/phonetic/{phonetic_id}")
+    fun get_phonetic_id(
+            @Header("Authorization") auth_token: String,
+            @Path("phonetic_id") id: String
+    ): retrofit2.Call<PhoneticData>
 
     @GET("/word")
-    fun get_word(): retrofit2.Call<WordListData>
+    fun get_word(
+            @Header("Authorization") auth_token: String
+    ): retrofit2.Call<WordListData>
 
-    @GET("/word")
-    fun get_word_id(@Query("id") id: String): retrofit2.Call<WordData>
+    @GET("/word/{id}")
+    fun get_word_id(
+            @Header("Authorization") auth_token: String,
+            @Path("id") id: String
+    ): retrofit2.Call<WordDataList>
 
     @GET("/theme")
-    fun get_debate_theme(): retrofit2.Call<DebateThemeListData>
+    fun get_debate_theme(
+            @Header("Authorization") auth_token: String
+    ): retrofit2.Call<DebateThemeListData>
 
     @FormUrlEncoded
     @POST("/theme")
     fun post_debate_theme(
+            @Header("Authorization") auth_token: String,
             @Field("blue") blue: String,
             @Field("red") red: String,
             @Field("deadline") deadline: String
@@ -121,14 +152,21 @@ interface RetrofitService {
     @FormUrlEncoded
     @POST("/theme/join")
     fun post_debate_theme_join(
+            @Header("Authorization") auth_token: String,
             @Field("theme_id") theme_id: String,
             @Field("team") team: String
-    ): retrofit2.Call<String>
+    ): retrofit2.Call<RoomData>
     //team 에 red 혹은 blue 를 넣어야함
 
-    @GET("/room")
-    fun get_room(@Query("room_id") room_id: String): retrofit2.Call<RoomData>
+    @GET("/room/{room_id}")
+    fun get_room(
+            @Header("Authorization") auth_token: String,
+            @Path("room_id") room_id: String
+    ): retrofit2.Call<RoomData>
 
-    @GET("/room/<room_id>/quit")
-    fun get_room_quit(@Query("room_id") room_id: String): retrofit2.Call<RoomData>
+    @GET("/room/{room_id}/quit")
+    fun get_room_quit(
+            @Header("Authorization") auth_token: String,
+            @Path("room_id") room_id: String
+    ): retrofit2.Call<RoomData>
 }

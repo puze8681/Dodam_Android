@@ -35,9 +35,7 @@ class ChatThemeActivity : AppCompatActivity() {
         lateinit var progressDialog: ProgressDialog
         lateinit var retrofitService: RetrofitService
         @SuppressLint("StaticFieldLeak")
-        lateinit var context: Context
         lateinit var call: Call<DebateThemeListData>
-        lateinit var chat_theme_intent: Intent
         lateinit var token: String
     }
 
@@ -46,9 +44,9 @@ class ChatThemeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_chat_theme)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#fafafa")
         supportActionBar!!.hide()
+        prefManager = PrefManager(this@ChatThemeActivity)
 
-        chat_theme_intent = intent
-        token = chat_theme_intent.getStringExtra("token")
+        token = prefManager.access_token
 
         actionbar_back.setOnClickListener {
             finish()
@@ -63,7 +61,7 @@ class ChatThemeActivity : AppCompatActivity() {
             setProgressDialog("채팅 테마 리스트 로딩 중")
 
             val items : ArrayList<DebateThemeData> = ArrayList()
-            call = retrofitService.get_debate_theme()
+            call = retrofitService.get_debate_theme(token)
             call.enqueue(object : Callback<DebateThemeListData> {
                 override fun onResponse(call: Call<DebateThemeListData>?, response: Response<DebateThemeListData>?) {
                     progressDialog.dismiss()
@@ -120,7 +118,7 @@ class ChatThemeActivity : AppCompatActivity() {
     }
 
     private fun checkNetwork(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = this@ChatThemeActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork.isConnectedOrConnecting
     }
@@ -131,7 +129,7 @@ class ChatThemeActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dev.juung.me")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

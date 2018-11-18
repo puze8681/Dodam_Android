@@ -1,47 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
-    <data>
-        <variable
-            name="report"
-            type="kr.puze.dodam.Fragment.ReportFragment"/>
-    </data>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/report_layout_top"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <android.support.constraint.ConstraintLayout
-            android:id="@+id/report_layout_top"
-            android:layout_width="match_parent"
-            android:layout_height="?android:attr/actionBarSize">
-            <ImageView
-                android:id="@+id/report_button_left"
-                android:src="@drawable/ic_report_left"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-            <TextView
-                android:id="@+id/report_text_date"
-                android:gravity="center"
-                android:text="today"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                app:layout_constraintStart_toEndOf="@+id/report_button_left"
-                app:layout_constraintEnd_toStartOf="@+id/report_button_right" />
-            <ImageView
-                android:id="@+id/report_button_right"
-                android:src="@drawable/ic_report_right"
-                app:layout_constraintEnd_toEndOf="parent"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent" />
-        </android.support.constraint.ConstraintLayout>
-        <android.support.v7.widget.RecyclerView
-            app:layoutManager="android.support.v7.widget.LinearLayoutManager"
-            android:layout_margin="16dp"
-            android:id="@+id/report_recycler_view"
-            app:layout_constraintTop_toBottomOf="@id/report_layout_top"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="match_parent"
-            android:layout_height="0dp">
-        </android.support.v7.widget.RecyclerView>
+        android:layout_height="?android:attr/actionBarSize">
+
+        <ImageView
+            android:id="@+id/report_button_left"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_report_left"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <TextView
+            android:id="@+id/report_text_date"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:text="today"
+            app:layout_constraintEnd_toStartOf="@+id/report_button_right"
+            app:layout_constraintStart_toEndOf="@+id/report_button_left" />
+
+        <ImageView
+            android:id="@+id/report_button_right"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:src="@drawable/ic_report_right"
+            app:layout_constraintEnd_toEndOf="parent" />
     </android.support.constraint.ConstraintLayout>
-</layout>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/report_recycler_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="16dp"
+        app:layoutManager="android.support.v7.widget.LinearLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/report_layout_top">
+    </android.support.v7.widget.RecyclerView>
+</LinearLayout>

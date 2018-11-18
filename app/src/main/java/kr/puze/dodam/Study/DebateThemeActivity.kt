@@ -35,7 +35,6 @@ class DebateThemeActivity : AppCompatActivity() {
         lateinit var progressDialog: ProgressDialog
         lateinit var retrofitService: RetrofitService
         @SuppressLint("StaticFieldLeak")
-        lateinit var context: Context
         lateinit var call: Call<DebateThemeListData>
         lateinit var debate_theme_intent: Intent
         lateinit var token: String
@@ -47,8 +46,9 @@ class DebateThemeActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#fafafa")
         supportActionBar!!.hide()
 
+        prefManager = PrefManager(this@DebateThemeActivity)
         debate_theme_intent = intent
-        token = debate_theme_intent.getStringExtra("token")
+        token = prefManager.access_token
 
         actionbar_back.setOnClickListener {
             finish()
@@ -63,7 +63,7 @@ class DebateThemeActivity : AppCompatActivity() {
             setProgressDialog("채팅 테마 리스트 로딩 중")
 
             val items : ArrayList<DebateThemeData> = ArrayList()
-            call = retrofitService.get_debate_theme()
+            call = retrofitService.get_debate_theme(token)
             call.enqueue(object : Callback<DebateThemeListData> {
                 override fun onResponse(call: Call<DebateThemeListData>?, response: Response<DebateThemeListData>?) {
                     progressDialog.dismiss()
@@ -101,16 +101,6 @@ class DebateThemeActivity : AppCompatActivity() {
 
         debate_theme_recycler_view.adapter = adapter
         debate_theme_recycler_view.adapter.notifyDataSetChanged()
-
-        adapter.itemClick = object : DebateThemeRecyclerViewAdapter.ItemClick {
-            override fun onItemClick(view: View?, position: Int) {
-                val intent = Intent(this@DebateThemeActivity, DebateActivity::class.java)
-                intent.putExtra("theme_id", items[position].id)
-                intent.putExtra("theme_title", items[position].red + " vs " + items[position].blue)
-                intent.putExtra("token", token)
-                startActivity(intent)
-            }
-        }
     }
 
     private fun setProgressDialog(message: String) {
@@ -120,7 +110,7 @@ class DebateThemeActivity : AppCompatActivity() {
     }
 
     private fun checkNetwork(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = this@DebateThemeActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork.isConnectedOrConnecting
     }
@@ -131,7 +121,7 @@ class DebateThemeActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dev.juung.me")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

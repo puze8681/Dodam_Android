@@ -20,13 +20,12 @@ import com.google.gson.GsonBuilder
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
-import kotlinx.android.synthetic.main.actionbar_orange.*
-import kotlinx.android.synthetic.main.actionbar_white.*
+import kotlinx.android.synthetic.main.actionbar_orange_debate.*
 import kotlinx.android.synthetic.main.activity_debate.*
-import kotlinx.android.synthetic.main.activity_debate_theme.*
 import kotlinx.android.synthetic.main.item_debate_input.*
 import kr.puze.dodam.Adapter.ChatMessageAdapter
 import kr.puze.dodam.Data.ChatMessage
+import kr.puze.dodam.Data.RoomData
 import kr.puze.dodam.R
 import kr.puze.dodam.Server.RetrofitService
 import kr.puze.dodam.Utils.Constants
@@ -48,7 +47,7 @@ class DebateActivity : AppCompatActivity() {
         lateinit var retrofitService: RetrofitService
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
-        lateinit var call: Call<String>
+        lateinit var call: Call<RoomData>
 
         lateinit var mSocket: Socket
         lateinit var userName: String
@@ -71,19 +70,20 @@ class DebateActivity : AppCompatActivity() {
             finish()
         }
 
-        chat_intent = intent
-        token = chat_intent.getStringExtra("token")
         prefManager = PrefManager(this@DebateActivity)
+        chat_intent = intent
+        token = prefManager.access_token
         userName = prefManager.userName
 
         constants = Constants()
         val theme_id = intent.getStringExtra("theme_id")
+        Log.d("theme_id", intent.getStringExtra("theme_id"))
         val theme_title = intent.getStringExtra("theme_title")
         val theme_team = intent.getStringExtra("theme_team")
         debate_title.text = "THEME : $theme_title"
 
         getThemeRoom(theme_id, theme_team)
-        actionbar_back.setOnClickListener {
+        actionbar_back_white.setOnClickListener {
             finish()
         }
 
@@ -98,8 +98,8 @@ class DebateActivity : AppCompatActivity() {
 
     @SuppressLint("ResourceAsColor")
     private fun initializeView() {
+        debate_exit.isEnabled = false
         debate_send.isEnabled = false
-
         debate_edit.addTextChangedListener(object : TextWatcher {
             override fun beforeTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {}
 
@@ -114,9 +114,9 @@ class DebateActivity : AppCompatActivity() {
         mAdapter = ChatMessageAdapter()
         mAdapter.ChatMessageAdapter(this)
         val layoutManager = LinearLayoutManager(this)
-        debate_theme_recycler_view.setHasFixedSize(true)
-        debate_theme_recycler_view.layoutManager = layoutManager
-        debate_theme_recycler_view.adapter = mAdapter
+        debate_recycler_view.adapter = mAdapter
+        debate_recycler_view.setHasFixedSize(true)
+        debate_recycler_view.layoutManager = layoutManager
 
         debate_recycler_view.addOnLayoutChangeListener { view: View, newLeft: Int, newTop: Int, newRight: Int, newBottom: Int, oldLeft: Int, oldTop: Int, oldRight: Int, oldBottom: Int ->
             if (newBottom < oldBottom) {
@@ -152,6 +152,32 @@ class DebateActivity : AppCompatActivity() {
             sendData.put("room", room_id)
             sendData.put("user", token)
             mSocket.emit(constants.EVENT_ENTERED_ROOM, sendData)
+
+            debate_exit.isEnabled = true
+            debate_exit.setOnClickListener {
+                if (checkNetwork()) {
+                    setProgressDialog("채팅 방 종료 중")
+
+                    call = retrofitService.get_room_quit(token, room_id)
+                    call.enqueue(object : Callback<RoomData> {
+                        override fun onResponse(call: Call<RoomData>?, response: Response<RoomData>?) {
+                            progressDialog.dismiss()
+                            if (response?.code() == 200) {
+                                Toast.makeText(this@DebateActivity, "채팅 방 나가기 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
+                            } else {
+                                Toast.makeText(this@DebateActivity, "채팅 방 나가기 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
+                            }
+                        }
+                        override fun onFailure(call: Call<RoomData>?, t: Throwable?) {
+                            progressDialog.dismiss()
+                            Toast.makeText(this@DebateActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
+                        }
+                    })
+                } else {
+                    finish()
+                    Toast.makeText(this@DebateActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
+                }
+            }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
@@ -216,16 +242,16 @@ class DebateActivity : AppCompatActivity() {
         if (checkNetwork()) {
             setProgressDialog("채팅 방 로딩 중")
 
-            call = retrofitService.post_debate_theme_join(theme_id, team)
-            call.enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>?, response: Response<String>?) {
+            call = retrofitService.post_debate_theme_join(token, theme_id, team)
+            call.enqueue(object : Callback<RoomData> {
+                override fun onResponse(call: Call<RoomData>?, response: Response<RoomData>?) {
                     progressDialog.dismiss()
                     if (response?.code() == 200) {
                         val data = response.body()
                         if (data != null) {
                             Toast.makeText(this@DebateActivity, "채팅 방 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
-                            Log.d("chat_room_id", data[0].toString())
-                            room_id = data[0].toString()
+                            Log.d("chat_room_id", data.room_id)
+                            room_id = data.room_id
                         }
                     } else {
                         Toast.makeText(this@DebateActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
@@ -234,7 +260,7 @@ class DebateActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<String>?, t: Throwable?) {
+                override fun onFailure(call: Call<RoomData>?, t: Throwable?) {
                     progressDialog.dismiss()
                     Toast.makeText(this@DebateActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
                     Log.d("word_list_call", t.toString())
@@ -253,7 +279,7 @@ class DebateActivity : AppCompatActivity() {
     }
 
     private fun checkNetwork(): Boolean {
-        val cm = context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+        val cm = this@DebateActivity.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val activeNetwork = cm.activeNetworkInfo
         return activeNetwork.isConnectedOrConnecting
     }
@@ -264,7 +290,7 @@ class DebateActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dev.juung.me")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

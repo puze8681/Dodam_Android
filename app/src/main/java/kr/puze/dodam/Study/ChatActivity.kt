@@ -36,6 +36,7 @@ import org.json.JSONObject
 import io.socket.client.IO
 import io.socket.client.Socket
 import io.socket.emitter.Emitter
+import kr.puze.dodam.Data.RoomData
 
 class ChatActivity : AppCompatActivity() {
 
@@ -45,7 +46,7 @@ class ChatActivity : AppCompatActivity() {
         lateinit var retrofitService: RetrofitService
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
-        lateinit var call: Call<String>
+        lateinit var call: Call<RoomData>
 
         lateinit var mSocket: Socket
         lateinit var userName: String
@@ -66,9 +67,9 @@ class ChatActivity : AppCompatActivity() {
         supportActionBar!!.hide()
 
         chat_intent = intent
-        token = chat_intent.getStringExtra("token")
         prefManager = PrefManager(this@ChatActivity)
         userName = prefManager.userName
+        token = prefManager.access_token
 
         constants = Constants()
         val theme_id = intent.getStringExtra("theme_id")
@@ -217,16 +218,16 @@ class ChatActivity : AppCompatActivity() {
         if (checkNetwork()) {
             setProgressDialog("채팅 방 로딩 중")
 
-            call = retrofitService.post_debate_theme_join(theme_id, team)
-            call.enqueue(object : Callback<String> {
-                override fun onResponse(call: Call<String>?, response: Response<String>?) {
+            call = retrofitService.post_debate_theme_join(token, theme_id, team)
+            call.enqueue(object : Callback<RoomData> {
+                override fun onResponse(call: Call<RoomData>?, response: Response<RoomData>?) {
                     progressDialog.dismiss()
                     if (response?.code() == 200) {
                         val data = response.body()
                         if (data != null) {
                             Toast.makeText(this@ChatActivity, "채팅 방 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
-                            Log.d("chat_room_id", data[0].toString())
-                            room_id = data[0].toString()
+                            Log.d("chat_room_id", data.theme_id)
+                            room_id = data.theme_id
                         }
                     } else {
                         Toast.makeText(this@ChatActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
@@ -235,7 +236,7 @@ class ChatActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<String>?, t: Throwable?) {
+                override fun onFailure(call: Call<RoomData>?, t: Throwable?) {
                     progressDialog.dismiss()
                     Toast.makeText(this@ChatActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
                     Log.d("word_list_call", t.toString())
@@ -265,7 +266,7 @@ class ChatActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dev.juung.me")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

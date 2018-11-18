@@ -1,52 +1,49 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="312dp"
-    android:layout_height="196dp"
-    android:layout_gravity="center"
-    android:layout_marginBottom="16dp"
-    android:padding="16dp"
-    android:background="@drawable/layout_debate_theme"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_centerHorizontal="true"
     android:orientation="vertical">
-
-    <TextView
-        android:id="@+id/theme_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="#병원"
-        android:textColor="@color/colorMain"
-        android:textSize="32sp"
-        android:textStyle="bold" />
-
-    <TextView
-        android:id="@+id/theme_sub"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/theme_title"
-        android:layout_centerHorizontal="true"
-        android:text="아래의 버튼으로 토론 방에 입장해주세요."
-        android:textColor="@color/colorMain"
-        android:textSize="12sp" />
     <LinearLayout
-        android:orientation="horizontal"
-        android:weightSum="2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:paddingTop="16dp"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"
+        android:background="@drawable/layout_debate_theme"
+        android:layout_width="312dp"
+        android:layout_height="196dp">
         <TextView
-            android:id="@+id/debate_theme_red"
-            android:textColor="#ff0000"
-            android:gravity="center"
-            android:text="RED"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
-        <TextView
-            android:id="@+id/debate_theme_blue"
-            android:textColor="#0000ff"
-            android:gravity="center"
-            android:text="BLUE"
-            android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="match_parent" />
+            android:id="@+id/theme_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="#병원"
+            android:textColor="@color/colorMain"
+            android:textSize="32sp"
+            android:textStyle="bold" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:weightSum="2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <TextView
+                android:id="@+id/debate_theme_red"
+                android:textColor="#ff0000"
+                android:gravity="center"
+                android:text="RED"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+            <TextView
+                android:id="@+id/debate_theme_blue"
+                android:textColor="#0000ff"
+                android:gravity="center"
+                android:text="BLUE"
+                android:layout_weight="1"
+                android:layout_width="0dp"
+                android:layout_height="match_parent" />
+        </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>

@@ -5,16 +5,13 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import kotlinx.android.synthetic.main.fragment_study.view.*
-import kr.puze.dodam.Study.ChatThemeActivity
 import kr.puze.dodam.R
-import kr.puze.dodam.Study.DebateActivity
-import kr.puze.dodam.Study.StudyInActivity
-import kr.puze.dodam.Study.SyllableSelectActivity
 import android.app.AlertDialog
 import android.util.Log
 import android.widget.Toast
 import kotlinx.android.synthetic.main.actionbar_study.view.*
 import kr.puze.dodam.LoginActivity
+import kr.puze.dodam.Study.*
 import kr.puze.dodam.Utils.PrefManager
 
 
@@ -64,7 +61,7 @@ class StudyFragment: Fragment() {
             startActivity(intent)
         }
         view.study_button_debate.setOnClickListener {
-            startActivity(Intent(activity, DebateActivity::class.java))
+            startActivity(Intent(activity, DebateThemeActivity::class.java))
         }
         return view
     }

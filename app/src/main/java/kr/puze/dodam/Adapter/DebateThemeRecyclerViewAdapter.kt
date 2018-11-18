@@ -48,12 +48,12 @@ class DebateThemeRecyclerViewAdapter(var items: ArrayList<DebateThemeData>, var 
             }
 
             itemView.debate_theme_blue.setOnClickListener {
-                val intent = Intent(itemView.context, DebateActivity::class.java)
-                intent.putExtra("theme_id", item.id)
-                intent.putExtra("theme_title", item.red + " vs " + item.blue)
-                intent.putExtra("theme_team", "blue")
-                intent.putExtra("token", DebateThemeActivity.token)
-                itemView.context.startActivity(intent)
+                val adapter_intent = Intent(itemView.context, DebateActivity::class.java)
+                adapter_intent.putExtra("theme_id", item.id)
+                adapter_intent.putExtra("theme_title", item.red + " vs " + item.blue)
+                adapter_intent.putExtra("theme_team", "blue")
+                adapter_intent.putExtra("token", DebateThemeActivity.token)
+                itemView.context.startActivity(adapter_intent)
             }
         }
     }

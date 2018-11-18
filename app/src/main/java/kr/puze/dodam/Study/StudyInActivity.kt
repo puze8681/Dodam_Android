@@ -18,10 +18,7 @@ import com.google.gson.GsonBuilder
 import kotlinx.android.synthetic.main.actionbar_white.*
 import kotlinx.android.synthetic.main.activity_study_in.*
 import kotlinx.android.synthetic.main.item_study_bottom.*
-import kr.puze.dodam.Data.CharData
-import kr.puze.dodam.Data.WordData
-import kr.puze.dodam.Data.WordListData
-import kr.puze.dodam.Data.WordListIndexData
+import kr.puze.dodam.Data.*
 import kr.puze.dodam.R
 import kr.puze.dodam.R.id.study_problem_one
 import kr.puze.dodam.Server.RetrofitService
@@ -36,6 +33,7 @@ import java.util.*
 class StudyInActivity : AppCompatActivity() {
 
     var word_index: Int = 0
+    var phonetic_index: Int = 0
 
     companion object {
         lateinit var prefManager: PrefManager
@@ -44,10 +42,13 @@ class StudyInActivity : AppCompatActivity() {
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
         lateinit var call_char: Call<CharData>
-        lateinit var call_word: Call<WordData>
+        lateinit var call_word: Call<WordDataList>
         lateinit var call_word_list: Call<WordListData>
+        lateinit var call_phonetic_list: Call<PhoneticListData>
+        lateinit var call_phonetic: Call<PhoneticData>
         lateinit var tts: TextToSpeech
         lateinit var word_list: List<WordListIndexData>
+        lateinit var phonetic_list: List<PhoneticListIndexData>
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -56,7 +57,7 @@ class StudyInActivity : AppCompatActivity() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) window.statusBarColor = Color.parseColor("#fafafa")
         supportActionBar!!.hide()
 
-        val intent = getIntent()
+        val intent = intent
         val title = intent.getStringExtra("study")
 
         context = applicationContext
@@ -79,7 +80,8 @@ class StudyInActivity : AppCompatActivity() {
             "phonogram" -> {
                 study_title.text = "Phonetic"
                 study_sub.text = "Choose the right pronunciation"
-                callPhonetic()
+                phonetic_index = prefManager.phoneticId
+                callPhoneticList()
             }
             "word" -> {
                 study_title.text = "Word"
@@ -110,7 +112,8 @@ class StudyInActivity : AppCompatActivity() {
                 tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
             }
             val syllableId = intent.getStringExtra("syllable_id")
-            call_char = retrofitService.get_char_id(syllableId)
+            Log.d("syllable_id", syllableId)
+            call_char = retrofitService.get_char_id(prefManager.access_token, syllableId)
             call_char.enqueue(object : Callback<CharData> {
                 override fun onResponse(call: Call<CharData>?, response: Response<CharData>?) {
                     progressDialog.dismiss()
@@ -123,9 +126,9 @@ class StudyInActivity : AppCompatActivity() {
 //                                    .load(user.list[0].image)
 //                                    .into(study_image)
                             Glide.with(context)
-                                    .load("http://placid-pancake.surge.sh/images/glove.jpg")
+                                    .load(user.list[0].image)
                                     .into(study_image)
-                            Log.d("syllable_data", user.list[0].toString())
+                            Log.d("syllable_data", user.list[0].image + user.list[0].char)
                         }
                     } else {
                         Toast.makeText(this@StudyInActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
@@ -146,27 +149,185 @@ class StudyInActivity : AppCompatActivity() {
         }
     }
 
-    private fun callPhonetic() {
-        study_image.visibility = View.GONE
-        study_text.text = "Hotel"
-        study_problem_one.text = "자델"
-        study_problem_two.text = "호델"
-        study_problem_three.text = "후델"
-        study_problem_four.text = "호텔"
-        study_next.visibility = View.GONE
-        study_back.visibility = View.GONE
+    private fun callPhonetic(index: Int) {
+        Log.d("call_phonetic_index", index.toString())
+        if (checkNetwork()) {
+            study_image.visibility = View.GONE
+            study_text.text = "Hotel"
+            study_problem_one.text = "자델"
+            study_problem_two.text = "호델"
+            study_problem_three.text = "후델"
+            study_problem_four.text = "호텔"
+            study_next.visibility = View.GONE
+            study_back.visibility = View.GONE
 
-        study_problem_one.setOnClickListener {
-            tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+            var phonetic_index = 0
+
+            call_phonetic = retrofitService.get_phonetic_id(prefManager.access_token, phonetic_list[index].id)
+            call_phonetic.enqueue(object : Callback<PhoneticData> {
+                override fun onResponse(call: Call<PhoneticData>?, response: Response<PhoneticData>?) {
+                    progressDialog.dismiss()
+                    fun setView(phonetic: PhoneticData, question_index: Int) {
+                        var question = phonetic.questions[question_index]
+                        var answer = question.answer.number
+                        study_text.text = question.sentence
+                        study_problem_one.run {
+                            study_problem_one.text = question.examples[0]
+                            setOnClickListener {
+                                tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+                                if (answer == 0) {
+                                    Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
+                                    if (phonetic_index == phonetic.questions.size) {
+                                        if (index == phonetic_list.size - 1) {
+                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                        } else {
+                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                            prefManager.phoneticId = (index + 1)
+                                            callPhonetic(index + 1)
+                                        }
+                                    } else {
+                                        phonetic_index += 1
+                                        setView(phonetic, phonetic_index)
+                                    }
+                                }else{
+                                    Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+
+                        study_problem_two.run {
+                            study_problem_two.text = question.examples[1]
+                            setOnClickListener {
+                                tts.speak(study_problem_two.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+                                if (answer == 1) {
+                                    Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
+                                    if (phonetic_index == phonetic.questions.size) {
+                                        if (index == phonetic_list.size - 1) {
+                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                        } else {
+                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                            prefManager.phoneticId = (index + 1)
+                                            callPhonetic(index + 1)
+                                        }
+                                    } else {
+                                        phonetic_index += 1
+                                        setView(phonetic, phonetic_index)
+                                    }
+                                }else{
+                                    Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+
+                        study_problem_three.run {
+                            study_problem_three.text = question.examples[2]
+                            setOnClickListener {
+                                tts.speak(study_problem_three.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+                                if (answer == 2) {
+                                    Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
+                                    if (phonetic_index == phonetic.questions.size) {
+                                        if (index == phonetic_list.size - 1) {
+                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                        } else {
+                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                            prefManager.phoneticId = (index + 1)
+                                            callPhonetic(index + 1)
+                                        }
+                                    } else {
+                                        phonetic_index += 1
+                                        setView(phonetic, phonetic_index)
+                                    }
+                                }else{
+                                    Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+
+                        study_problem_four.run {
+
+                            study_problem_four.text = question.examples[3]
+                            setOnClickListener {
+                                tts.speak(study_problem_four.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+                                if (answer == 3) {
+                                    Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
+                                    if (phonetic_index == phonetic.questions.size) {
+                                        if (index == phonetic_list.size - 1) {
+                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                        } else {
+                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                            prefManager.phoneticId = (index + 1)
+                                            callPhonetic(index + 1)
+                                        }
+                                    } else {
+                                        phonetic_index += 1
+                                        setView(phonetic, phonetic_index)
+                                    }
+                                }else{
+                                    Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
+                                }
+                            }
+                        }
+                    }
+
+                    if (response?.code() == 200) {
+                        val phonetic = response.body()
+                        if (phonetic != null) {
+                            Toast.makeText(this@StudyInActivity, "표음 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
+                            setView(phonetic, phonetic_index)
+                            Log.d("phonetic_data", phonetic.toString())
+                        }
+                    } else {
+                        Toast.makeText(this@StudyInActivity, "표음 로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
+                        Log.d("phonetic_code", response.code().toString())
+                        Log.e("phonetic_err", response.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<PhoneticData>?, t: Throwable?) {
+                    progressDialog.dismiss()
+                    Toast.makeText(this@StudyInActivity, "표음 연동 실패", Toast.LENGTH_LONG).show()
+                    Log.d("phonetic_call", t.toString())
+                }
+            })
+        } else {
+            finish()
+            Toast.makeText(this@StudyInActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
         }
-        study_problem_two.setOnClickListener {
-            tts.speak(study_problem_two.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
-        }
-        study_problem_three.setOnClickListener {
-            tts.speak(study_problem_three.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
-        }
-        study_problem_four.setOnClickListener {
-            tts.speak(study_problem_four.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+    }
+
+    private fun callPhoneticList() {
+        if (checkNetwork()) {
+            setProgressDialog("단어 리스트 로딩 중")
+            call_phonetic_list = retrofitService.get_phonetic(prefManager.access_token)
+            call_phonetic_list.enqueue(object : Callback<PhoneticListData> {
+                override fun onResponse(call: Call<PhoneticListData>?, response: Response<PhoneticListData>?) {
+                    progressDialog.dismiss()
+                    if (response?.code() == 200) {
+                        val user = response.body()
+                        if (user != null) {
+                            Toast.makeText(this@StudyInActivity, "표음 리스트 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
+                            phonetic_list = user.lectures
+                            Log.d("phonetic_list_data", phonetic_list.toString())
+                            Log.d("phonetic_list_data_size", phonetic_list.size.toString())
+                            Log.d("phonetic_index", phonetic_list.toString())
+                            callPhonetic(phonetic_index)
+                        }
+                    } else {
+                        Toast.makeText(this@StudyInActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
+                        Log.d("phonetic_list_code", response.code().toString())
+                        Log.e("phonetic_list_err", response.message())
+                    }
+                }
+
+                override fun onFailure(call: Call<PhoneticListData>?, t: Throwable?) {
+                    progressDialog.dismiss()
+                    Toast.makeText(this@StudyInActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
+                    Log.d("phonetic_list_call", t.toString())
+                }
+            })
+        } else {
+            finish()
+            Toast.makeText(this@StudyInActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -181,43 +342,58 @@ class StudyInActivity : AppCompatActivity() {
             study_problem_one.setOnClickListener {
                 tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
             }
-            call_word = retrofitService.get_word_id(word_list[index].id)
-            call_word.enqueue(object : Callback<WordData> {
-                override fun onResponse(call: Call<WordData>?, response: Response<WordData>?) {
+
+            var word_index = 0
+
+            call_word = retrofitService.get_word_id(prefManager.access_token, word_list[index].id)
+            call_word.enqueue(object : Callback<WordDataList> {
+                override fun onResponse(call: Call<WordDataList>?, response: Response<WordDataList>?) {
                     progressDialog.dismiss()
+                    fun setView(image: String, text: String) {
+                        Glide.with(context)
+                                .load(image)
+                                .into(study_image)
+                        study_problem_one.run {
+                            //text = word.word
+                            study_problem_one.text = text
+                            setOnClickListener {
+                                tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
+                            }
+                        }
+                    }
                     if (response?.code() == 200) {
                         val word = response.body()
                         if (word != null) {
                             Toast.makeText(this@StudyInActivity, "단어 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
-                            //이것도 나중에 서버연동 제대로
-//                            Glide.with(context)
-//                                    .load(word.image)
-//                                    .into(study_image)
-                            Glide.with(context)
-                                    .load("http://undesirable-growth.surge.sh/images/water.jpg")
-                                    .into(study_image)
-                            study_problem_one.run {
-                                //text = word.word
-                                text = "물"
-                                setOnClickListener {
-                                    tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
-                                }
-                            }
+
+                            setView(word.list[word_index].image, word.list[word_index].word)
 
                             study_next.setOnClickListener {
-                                if (index == word_list.size - 1) {
-                                    Toast.makeText(this@StudyInActivity, "더 이상 앞으로 갈 수 없습니다. " + response.code().toString(), Toast.LENGTH_LONG).show()
+                                if (word_index == word.list.size) {
+                                    if (index == word_list.size - 1) {
+                                        Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. " + response.code().toString(), Toast.LENGTH_LONG).show()
+                                    } else {
+                                        Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다." + response.code().toString(), Toast.LENGTH_LONG).show()
+                                        prefManager.wordId = (index + 1)
+                                        callWord(index + 1)
+                                    }
                                 } else {
-                                    prefManager.wordId = (index + 1)
-                                    callWord(index + 1)
+                                    word_index += 1
+                                    setView(word.list[word_index].image, word.list[word_index].word)
                                 }
                             }
                             study_back.setOnClickListener {
-                                if (index == 0) {
-                                    Toast.makeText(this@StudyInActivity, "더 이상 뒤로 갈 수 없습니다. " + response.code().toString(), Toast.LENGTH_LONG).show()
+                                if (word_index == 0) {
+                                    if (index == 0) {
+                                        Toast.makeText(this@StudyInActivity, "더 이상 이전 챕터로 갈 수 없습니다. " + response.code().toString(), Toast.LENGTH_LONG).show()
+                                    } else {
+                                        Toast.makeText(this@StudyInActivity, "이전 챕터로 넘어갑니다. " + response.code().toString(), Toast.LENGTH_LONG).show()
+                                        prefManager.wordId = (index - 1)
+                                        callWord(index - 1)
+                                    }
                                 } else {
-                                    prefManager.wordId = (index - 1)
-                                    callWord(index - 1)
+                                    word_index -= 1
+                                    setView(word.list[word_index].image, word.list[word_index].word)
                                 }
                             }
 
@@ -230,7 +406,7 @@ class StudyInActivity : AppCompatActivity() {
                     }
                 }
 
-                override fun onFailure(call: Call<WordData>?, t: Throwable?) {
+                override fun onFailure(call: Call<WordDataList>?, t: Throwable?) {
                     progressDialog.dismiss()
                     Toast.makeText(this@StudyInActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
                     Log.d("word_call", t.toString())
@@ -245,8 +421,7 @@ class StudyInActivity : AppCompatActivity() {
     private fun callWordList() {
         if (checkNetwork()) {
             setProgressDialog("단어 리스트 로딩 중")
-
-            call_word_list = retrofitService.get_word()
+            call_word_list = retrofitService.get_word(prefManager.access_token)
             call_word_list.enqueue(object : Callback<WordListData> {
                 override fun onResponse(call: Call<WordListData>?, response: Response<WordListData>?) {
                     progressDialog.dismiss()
@@ -256,6 +431,8 @@ class StudyInActivity : AppCompatActivity() {
                             Toast.makeText(this@StudyInActivity, "단어 리스트 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
                             word_list = user.list
                             Log.d("word_list_data", word_list.toString())
+                            Log.d("word_list_data_size", word_list.size.toString())
+                            Log.d("word_index", word_index.toString())
                             callWord(word_index)
                         }
                     } else {
@@ -295,7 +472,7 @@ class StudyInActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dev.juung.me")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

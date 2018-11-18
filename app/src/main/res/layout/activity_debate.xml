@@ -9,7 +9,7 @@
     android:orientation="vertical"
     android:weightSum="1"
     tools:context=".Study.DebateActivity">
-    <include layout="@layout/actionbar_orange"/>
+    <include layout="@layout/actionbar_orange_debate"/>
     <LinearLayout
         android:orientation="vertical"
         android:background="@color/colorMain"
@@ -47,6 +47,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             <android.support.v7.widget.RecyclerView
+                android:layout_gravity="center"
                 android:id="@+id/debate_recycler_view"
                 app:layoutManager="android.support.v7.widget.LinearLayoutManager"
                 android:layout_width="match_parent"

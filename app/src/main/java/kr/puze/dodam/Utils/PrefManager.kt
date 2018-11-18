@@ -17,10 +17,17 @@ class PrefManager(context: Context) {
             editor.apply()
         }
 
-    var loginType: Int
-        get() = preferences.getInt("type", 0)
+    var access_token: String
+        get() = preferences.getString("access_token", "")
         set(value) {
-            editor.putInt("isLogin", value)
+            editor.putString("access_token", value)
+            editor.apply()
+        }
+
+    var loginType: Int
+        get() = preferences.getInt("type", -1)
+        set(value) {
+            editor.putInt("type", value)
             editor.apply()
         }
 
@@ -35,6 +42,13 @@ class PrefManager(context: Context) {
         get() = preferences.getString("userId", "")
         set(value) {
             editor.putString("userId", value)
+            editor.apply()
+        }
+
+    var thirdUserId: String
+        get() = preferences.getString("thirdUserId", "")
+        set(value) {
+            editor.putString("thirdUserId", value)
             editor.apply()
         }
 
@@ -56,6 +70,13 @@ class PrefManager(context: Context) {
         get() = preferences.getInt("wordId", 0)
         set(value) {
             editor.putInt("wordId", value)
+            editor.apply()
+        }
+
+    var phoneticId: Int
+        get() = preferences.getInt("phoneticId", 0)
+        set(value) {
+            editor.putInt("phoneticId", value)
             editor.apply()
         }
 

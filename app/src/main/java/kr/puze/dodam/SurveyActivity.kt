@@ -29,6 +29,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 class SurveyActivity : AppCompatActivity() {
 
     var exp: Boolean = true
+    var loginType: Int = -1
 
     companion object {
         lateinit var prefManager: PrefManager
@@ -46,6 +47,9 @@ class SurveyActivity : AppCompatActivity() {
         }
         setContentView(R.layout.activity_survey)
         supportActionBar!!.hide()
+
+        prefManager = PrefManager(this@SurveyActivity)
+        loginType = prefManager.loginType
 
         val binding: ActivitySurveyBinding = DataBindingUtil.setContentView(this, R.layout.activity_survey)
 
@@ -72,26 +76,29 @@ class SurveyActivity : AppCompatActivity() {
         binding.surveyButtonPositive.setOnClickListener {
             if(checkNetwork()){
                 setProgressDialog()
-                val loginType = intent.getIntExtra("loginType", 0)
+                Log.d("loginType", loginType.toString())
                 var fbToken = ""
                 var account_type = ""
                 var name = ""
                 var id = ""
                 var pw = ""
+                var third = ""
                 when(loginType){
+                    0-> {
+                        account_type = "fb"
+                        fbToken = prefManager.fbToken
+                        name = prefManager.userName
+                        id = prefManager.userId
+                        pw = "fb"
+                        third = prefManager.thirdUserId
+                    }
                     1-> {
                         account_type = "email"
                         fbToken = ""
                         name = intent.getStringExtra("name")
                         id = intent.getStringExtra("id")
                         pw = intent.getStringExtra("pw")
-                    }
-                    2-> {
-                        account_type = "fb"
-                        fbToken = intent.getStringExtra("fbToken")
-                        name = "fb"
-                        id = "fb"
-                        pw = "fb"
+                        third = ""
                     }
                 }
 
@@ -103,7 +110,7 @@ class SurveyActivity : AppCompatActivity() {
                 }else{
                     "F"
                 }
-                register(name, id, gender, pw, fbToken, country_code, mother_lang_code, account_type, loginType)
+                register(name, id, gender, pw, fbToken, third, country_code, mother_lang_code, account_type, loginType)
             }else{
                 Toast.makeText(this@SurveyActivity, "인터넷 연결 상태를 확인하세요.", Toast.LENGTH_LONG).show()
             }
@@ -139,10 +146,10 @@ class SurveyActivity : AppCompatActivity() {
         return codes[position]
     }
 
-    private fun register(username: String, id: String, gender: String, pw: String, api_key: String, country: String, mother_lang: String, account_type: String, loginType: Int){
+    private fun register(username: String, id: String, gender: String, pw: String, api_key: String, third_user_id: String, country: String, mother_lang: String, account_type: String, loginType: Int){
         val hash = Hasher()
         val sha_pw = hash.sha256(pw)
-        call = retrofitService.post_user(username, id, gender, sha_pw, api_key, country, mother_lang, account_type)
+        call = retrofitService.post_user(username, id, gender, sha_pw, api_key, third_user_id,country, mother_lang, account_type)
         call.enqueue(object : Callback<UserData> {
             override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
                 progressDialog.dismiss()
@@ -197,7 +204,7 @@ class SurveyActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dodam.koreacentral.cloudapp.azure.com")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)

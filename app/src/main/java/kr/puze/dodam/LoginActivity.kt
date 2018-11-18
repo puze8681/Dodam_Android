@@ -27,8 +27,8 @@ import android.net.ConnectivityManager
 import android.view.View
 import com.facebook.*
 import kr.puze.dodam.Utils.Hasher
-import com.facebook.appevents.AppEventsLogger
 import com.facebook.login.LoginResult
+import kr.puze.dodam.Data.FacebookUserData
 
 
 class LoginActivity : AppCompatActivity() {
@@ -39,6 +39,7 @@ class LoginActivity : AppCompatActivity() {
         lateinit var prefManager: PrefManager
         lateinit var progressDialog: ProgressDialog
         lateinit var call: Call<UserData>
+        lateinit var fb_call: Call<FacebookUserData>
         lateinit var retrofitService: RetrofitService
         @SuppressLint("StaticFieldLeak")
         lateinit var context: Context
@@ -81,12 +82,12 @@ class LoginActivity : AppCompatActivity() {
                 token = accessToken.token
                 Log.d("facebook_login", token)
                 login(token)
-                Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this@LoginActivity, "로그인 성공", Toast.LENGTH_SHORT).show()
             }
 
             override fun onCancel() {
                 Log.d("facebook_login", "onCancel")
-                Toast.makeText(this@LoginActivity, "로그인 취소", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this@LoginActivity, "로그인 취소", Toast.LENGTH_SHORT).show()
             }
 
             override fun onError(error: FacebookException?) {
@@ -128,30 +129,56 @@ class LoginActivity : AppCompatActivity() {
 
     //fbToken 값을 보냈을때 신규유저면 Survey 로, 기존 유저면 로그인
     private fun login(token: String) {
+        setProgressDialog()
         Log.d("login_fun", "running")
-        call = retrofitService.post_user_facebook(token)
-        call.enqueue(object : Callback<UserData> {
-            override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
+        fb_call = retrofitService.post_user_facebook(token)
+        fb_call.enqueue(object : Callback<FacebookUserData> {
+            override fun onResponse(call: Call<FacebookUserData>?, response: Response<FacebookUserData>?) {
                 Log.d("login_call", "onResponse")
                 Log.d("login_token", token)
                 if (response?.code() == 200) {
                     val user = response.body()
                     if (user != null) {
-                        if(user.access_token.equals("0")){
-                            intent.putExtra("fbToken", token)
-                            intent.putExtra("loginType", 2)
-                            startActivity(Intent(this@LoginActivity, SurveyActivity::class.java))
-                        }else{
-                            prefManager.userName = "fb"
+                        if(user.access_token.isNullOrEmpty()){
+                            Log.d("fb_login_user", user.toString())
+                            prefManager.userName = user.name
                             prefManager.fbToken = token
-                            prefManager.isLogin = true
-                            prefManager.loginType = 2
+                            prefManager.thirdUserId = user.third_user_id
+                            prefManager.userId = user.email
+                            prefManager.loginType = 0
+                            startActivity(Intent(this@LoginActivity, SurveyActivity::class.java))
+                            finish()
+                        }else{
+                            var get_call: Call<UserData> = retrofitService.get_user(user.access_token)
+                            get_call.enqueue(object : Callback<UserData> {
+                                override fun onResponse(call: Call<UserData>?, response: Response<UserData>?) {
+                                    progressDialog.dismiss()
+                                    if (response?.code() == 200) {
+                                        val fb_user = response.body()
+                                        if (fb_user != null) {
+                                            prefManager.userName = fb_user.username
+                                            prefManager.fbToken = token
+                                            prefManager.isLogin = true
+                                            prefManager.access_token = user.access_token
+                                            prefManager.loginType = 2
 
-                            intent.putExtra("token", user.access_token)
-                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                            intent.putExtra("token", user.access_token)
+                                            startActivity(Intent(this@LoginActivity, MainActivity::class.java))
+                                            finish()
+                                        }
+                                    } else {
+                                        Toast.makeText(this@LoginActivity, "로그인 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
+                                        Log.d("login_code", response.code().toString())
+                                    }
+                                }
 
+                                override fun onFailure(call: Call<UserData>?, t: Throwable?) {
+                                    progressDialog.dismiss()
+                                    Toast.makeText(this@LoginActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
+                                    Log.d("login_call", t.toString())
+                                }
+                            })
                         }
-                        finish()
                     }
                 } else if (response?.code() == 401) {
                     Log.d("login_call", "401")
@@ -161,7 +188,7 @@ class LoginActivity : AppCompatActivity() {
                 }
             }
 
-            override fun onFailure(call: Call<UserData>?, t: Throwable?) {
+            override fun onFailure(call: Call<FacebookUserData>?, t: Throwable?) {
                 Log.d("login_call", "onFailure")
                 Log.d("login_call", t.toString())
             }
@@ -230,7 +257,7 @@ class LoginActivity : AppCompatActivity() {
                 .create()
 
         val retrofit: Retrofit = Retrofit.Builder()
-                .baseUrl("http://dodam.koreacentral.cloudapp.azure.com")
+                .baseUrl("http://api.dodam.io")
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build()
         retrofitService = retrofit.create(RetrofitService::class.java)
@@ -243,5 +270,10 @@ class LoginActivity : AppCompatActivity() {
         } else if (System.currentTimeMillis() - time < 2000) {
             finish();
         }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent) {
+        super.onActivityResult(requestCode, resultCode, data)
+        callbackManager.onActivityResult(requestCode, resultCode, data)
     }
 }
