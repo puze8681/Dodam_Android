@@ -8,12 +8,15 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import kotlinx.android.synthetic.main.activity_register.*
+import kr.puze.dodam.Utils.PrefManager
 import kr.puze.dodam.databinding.ActivityRegisterBinding
 
 class RegisterActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var prefManager = PrefManager(this@RegisterActivity.applicationContext)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.statusBarColor = Color.parseColor("#fafafa")
         }
@@ -31,7 +34,7 @@ class RegisterActivity : AppCompatActivity() {
                 registerIntent.putExtra("name", register_edit_name.text.toString())
                 registerIntent.putExtra("id", register_edit_email.text.toString())
                 registerIntent.putExtra("pw", register_edit_pw_check.text.toString())
-                registerIntent.putExtra("loginType", 1)
+                prefManager.loginType = 1
                 startActivity(registerIntent)
             }else{
                 Toast.makeText(applicationContext, "입력창을 확인 해주세요.", Toast.LENGTH_LONG).show()

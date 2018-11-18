@@ -161,6 +161,7 @@ class SurveyActivity : AppCompatActivity() {
                         prefManager.userPassword = pw
                         prefManager.isLogin = true
                         prefManager.loginType = loginType
+                        prefManager.access_token = user.access_token
 
                         intent.putExtra("token", user.access_token)
                         LoginActivity::finish

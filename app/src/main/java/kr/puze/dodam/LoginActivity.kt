@@ -211,6 +211,7 @@ class LoginActivity : AppCompatActivity() {
                         prefManager.userPassword = pw
                         prefManager.isLogin = true
                         prefManager.loginType = 1
+                        prefManager.access_token = user.access_token
 
                         intent.putExtra("token", user.access_token)
                         startActivity(Intent(this@LoginActivity, MainActivity::class.java))

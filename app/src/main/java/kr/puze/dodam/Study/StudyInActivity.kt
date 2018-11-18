@@ -4,10 +4,12 @@ import android.annotation.SuppressLint
 import android.app.ProgressDialog
 import android.content.Context
 import android.graphics.Color
+import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.os.Build
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
@@ -81,6 +83,16 @@ class StudyInActivity : AppCompatActivity() {
                 study_title.text = "Phonetic"
                 study_sub.text = "Choose the right pronunciation"
                 phonetic_index = prefManager.phoneticId
+
+                study_image.visibility = View.GONE
+                study_text.text = ""
+                study_problem_one.text = ""
+                study_problem_two.text = ""
+                study_problem_three.text = ""
+                study_problem_four.text = ""
+                study_next.visibility = View.GONE
+                study_back.visibility = View.GONE
+
                 callPhoneticList()
             }
             "word" -> {
@@ -152,15 +164,6 @@ class StudyInActivity : AppCompatActivity() {
     private fun callPhonetic(index: Int) {
         Log.d("call_phonetic_index", index.toString())
         if (checkNetwork()) {
-            study_image.visibility = View.GONE
-            study_text.text = "Hotel"
-            study_problem_one.text = "자델"
-            study_problem_two.text = "호델"
-            study_problem_three.text = "후델"
-            study_problem_four.text = "호텔"
-            study_next.visibility = View.GONE
-            study_back.visibility = View.GONE
-
             var phonetic_index = 0
 
             call_phonetic = retrofitService.get_phonetic_id(prefManager.access_token, phonetic_list[index].id)
@@ -168,6 +171,14 @@ class StudyInActivity : AppCompatActivity() {
                 override fun onResponse(call: Call<PhoneticData>?, response: Response<PhoneticData>?) {
                     progressDialog.dismiss()
                     fun setView(phonetic: PhoneticData, question_index: Int) {
+                        study_problem_one.setBackgroundResource(R.drawable.layout_study_in_button)
+                        study_problem_one.isEnabled = true
+                        study_problem_two.setBackgroundResource(R.drawable.layout_study_in_button)
+                        study_problem_two.isEnabled = true
+                        study_problem_three.setBackgroundResource(R.drawable.layout_study_in_button)
+                        study_problem_three.isEnabled = true
+                        study_problem_four.setBackgroundResource(R.drawable.layout_study_in_button)
+                        study_problem_four.isEnabled = true
                         var question = phonetic.questions[question_index]
                         var answer = question.answer.number
                         study_text.text = question.sentence
@@ -177,19 +188,24 @@ class StudyInActivity : AppCompatActivity() {
                                 tts.speak(study_problem_one.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
                                 if (answer == 0) {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
-                                    if (phonetic_index == phonetic.questions.size) {
-                                        if (index == phonetic_list.size - 1) {
-                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                    val hd = Handler()
+                                    hd.postDelayed(Runnable {
+                                        if (phonetic_index < phonetic.questions.size) {
+                                            if (index == phonetic_list.size - 1) {
+                                                Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                            } else {
+                                                Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                                prefManager.phoneticId = (index + 1)
+                                                callPhonetic(index + 1)
+                                            }
                                         } else {
-                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
-                                            prefManager.phoneticId = (index + 1)
-                                            callPhonetic(index + 1)
+                                            phonetic_index += 1
+                                            setView(phonetic, phonetic_index)
                                         }
-                                    } else {
-                                        phonetic_index += 1
-                                        setView(phonetic, phonetic_index)
-                                    }
-                                }else{
+                                    }, 2000)
+                                } else {
+                                    study_problem_one.setBackgroundResource(R.drawable.layout_study_in_button_error)
+                                    study_problem_one.isEnabled = false
                                     Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -201,19 +217,24 @@ class StudyInActivity : AppCompatActivity() {
                                 tts.speak(study_problem_two.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
                                 if (answer == 1) {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
-                                    if (phonetic_index == phonetic.questions.size) {
-                                        if (index == phonetic_list.size - 1) {
-                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                    val hd = Handler()
+                                    hd.postDelayed(Runnable {
+                                        if (phonetic_index == phonetic.questions.size-1) {
+                                            if (index == phonetic_list.size - 1) {
+                                                Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                            } else {
+                                                Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                                prefManager.phoneticId = (index + 1)
+                                                callPhonetic(index + 1)
+                                            }
                                         } else {
-                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
-                                            prefManager.phoneticId = (index + 1)
-                                            callPhonetic(index + 1)
+                                            phonetic_index += 1
+                                            setView(phonetic, phonetic_index)
                                         }
-                                    } else {
-                                        phonetic_index += 1
-                                        setView(phonetic, phonetic_index)
-                                    }
-                                }else{
+                                    }, 2000)
+                                } else {
+                                    study_problem_two.setBackgroundResource(R.drawable.layout_study_in_button_error)
+                                    study_problem_two.isEnabled = false
                                     Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -225,44 +246,53 @@ class StudyInActivity : AppCompatActivity() {
                                 tts.speak(study_problem_three.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
                                 if (answer == 2) {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
-                                    if (phonetic_index == phonetic.questions.size) {
-                                        if (index == phonetic_list.size - 1) {
-                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                    val hd = Handler()
+                                    hd.postDelayed(Runnable {
+                                        if (phonetic_index == phonetic.questions.size-1) {
+                                            if (index == phonetic_list.size - 1) {
+                                                Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                            } else {
+                                                Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                                prefManager.phoneticId = (index + 1)
+                                                callPhonetic(index + 1)
+                                            }
                                         } else {
-                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
-                                            prefManager.phoneticId = (index + 1)
-                                            callPhonetic(index + 1)
+                                            phonetic_index += 1
+                                            setView(phonetic, phonetic_index)
                                         }
-                                    } else {
-                                        phonetic_index += 1
-                                        setView(phonetic, phonetic_index)
-                                    }
-                                }else{
+                                    }, 2000)
+                                } else {
+                                    study_problem_three.setBackgroundResource(R.drawable.layout_study_in_button_error)
+                                    study_problem_three.isEnabled = false
                                     Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
                                 }
                             }
                         }
 
                         study_problem_four.run {
-
                             study_problem_four.text = question.examples[3]
                             setOnClickListener {
                                 tts.speak(study_problem_four.text.toString(), TextToSpeech.QUEUE_FLUSH, null)
                                 if (answer == 3) {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
-                                    if (phonetic_index == phonetic.questions.size) {
-                                        if (index == phonetic_list.size - 1) {
-                                            Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                    val hd = Handler()
+                                    hd.postDelayed(Runnable {
+                                        if (phonetic_index == phonetic.questions.size-1) {
+                                            if (index == phonetic_list.size - 1) {
+                                                Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
+                                            } else {
+                                                Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
+                                                prefManager.phoneticId = (index + 1)
+                                                callPhonetic(index + 1)
+                                            }
                                         } else {
-                                            Toast.makeText(this@StudyInActivity, "다음 챕터로 넘어갑니다.", Toast.LENGTH_LONG).show()
-                                            prefManager.phoneticId = (index + 1)
-                                            callPhonetic(index + 1)
+                                            phonetic_index += 1
+                                            setView(phonetic, phonetic_index)
                                         }
-                                    } else {
-                                        phonetic_index += 1
-                                        setView(phonetic, phonetic_index)
-                                    }
-                                }else{
+                                    }, 2000)
+                                } else {
+                                    study_problem_four.setBackgroundResource(R.drawable.layout_study_in_button_error)
+                                    study_problem_four.isEnabled = false
                                     Toast.makeText(this@StudyInActivity, "오답입니다.", Toast.LENGTH_SHORT).show()
                                 }
                             }
@@ -369,7 +399,7 @@ class StudyInActivity : AppCompatActivity() {
                             setView(word.list[word_index].image, word.list[word_index].word)
 
                             study_next.setOnClickListener {
-                                if (word_index == word.list.size) {
+                                if (word_index == word.list.size-1) {
                                     if (index == word_list.size - 1) {
                                         Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. " + response.code().toString(), Toast.LENGTH_LONG).show()
                                     } else {

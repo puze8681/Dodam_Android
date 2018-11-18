@@ -70,24 +70,24 @@ class DebateThemeActivity : AppCompatActivity() {
                     if (response?.code() == 200) {
                         val data = response.body()
                         if (data != null) {
-                            Toast.makeText(this@DebateThemeActivity, "단어 리스트 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
+                            Toast.makeText(this@DebateThemeActivity, "채팅 테마 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
                             for (i in data.list){
                                 items.add(i)
                             }
-                            Log.d("word_list_data", data.list.toString())
+                            Log.d("theme_list_data", data.list.toString())
                             setRecyclerView(items)
                         }
                     } else {
                         Toast.makeText(this@DebateThemeActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
-                        Log.d("word_list_code", response.code().toString())
-                        Log.e("word_list_err", response.message())
+                        Log.d("theme_list_code", response.code().toString())
+                        Log.e("theme_list_err", response.message())
                     }
                 }
 
                 override fun onFailure(call: Call<DebateThemeListData>?, t: Throwable?) {
                     progressDialog.dismiss()
                     Toast.makeText(this@DebateThemeActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
-                    Log.d("word_list_call", t.toString())
+                    Log.d("theme_list_call", t.toString())
                 }
             })
         } else {
