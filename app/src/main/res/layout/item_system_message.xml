@@ -9,7 +9,7 @@
     android:background="@color/lineDark">
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/messageTextView"
+        android:id="@+id/messageTextView_system"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"

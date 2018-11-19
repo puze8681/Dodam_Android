@@ -28,7 +28,7 @@
         <activity android:name=".Study.ChatActivity" />
         <activity android:name=".Study.StudyInActivity" />
         <activity android:name=".Study.StudyAnswerActivity" />
-        <activity android:name=".Study.SyllableSelectActivity" />
+        <activity android:name=".Study.StudySelectActivity" />
         <activity android:name=".Study.DebateActivity"></activity>
 
         <meta-data android:name="com.facebook.sdk.ApplicationId" android:value="@string/facebook_app_id"/>

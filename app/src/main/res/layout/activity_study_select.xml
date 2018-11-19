@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/colorWhite"
     android:orientation="vertical"
-    tools:context=".Study.SyllableSelectActivity">
+    tools:context=".Study.StudySelectActivity">
 
     <include layout="@layout/actionbar_white" />
 
@@ -19,6 +19,7 @@
         android:orientation="vertical">
 
         <TextView
+            android:id="@+id/study_select_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Alphabet"
@@ -26,6 +27,7 @@
             android:textSize="24sp" />
 
         <TextView
+            android:id="@+id/study_select_sub_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
@@ -37,7 +39,7 @@
         <GridView
             android:scrollbars="none"
             android:gravity="center"
-            android:id="@+id/syllable_select_grid_view"
+            android:id="@+id/study_select_grid_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:columnWidth="96dp"

@@ -2,106 +2,132 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".LoginActivity">
+
     <data>
+
         <variable
             name="login"
             type="kr.puze.dodam.LoginActivity" />
     </data>
+
     <LinearLayout
-        android:weightSum="4"
-        android:orientation="vertical"
-        android:layout_margin="16dp"
+        android:background="@color/colorWhite"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <View
-            android:layout_weight="2"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <ImageView
-            android:layout_gravity="center"
-            android:id="@+id/login_logo"
-            android:src="@drawable/ic_logo_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
-        <TextView
-            android:layout_margin="8dp"
-            android:layout_gravity="center"
-            android:id="@+id/login_slogun"
-            android:textSize="14sp"
-            android:textColor="#222222"
-            android:text="Grab-a-Korean, dodam"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <View
-            android:layout_weight="1"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"/>
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+            android:weightSum="4">
 
-        <EditText
-            android:textSize="14sp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textAlignment="textStart"
-            android:layout_margin="4dp"
-            android:background="@drawable/layout_login_edit"
-            android:id="@+id/login_edit_id"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center"
-            android:hint="E-mail address"
-            tools:ignore="RtlCompat" />
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="2" />
 
-        <EditText
-            android:inputType="textPassword"
-            android:textSize="14sp"
-            android:paddingLeft="8dp"
-            android:paddingRight="8dp"
-            android:textAlignment="textStart"
-            android:layout_margin="4dp"
-            android:background="@drawable/layout_login_edit"
-            android:id="@+id/login_edit_pw"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center"
-            android:hint="Password"
-            tools:ignore="RtlCompat" />
+            <ImageView
+                android:id="@+id/login_logo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_logo_text" />
 
-        <Button
-            android:textColor="@color/colorWhite"
-            android:textSize="14sp"
-            android:background="@drawable/layout_login_button"
-            android:layout_margin="4dp"
-            android:id="@+id/login_button_login"
-            android:layout_width="match_parent"
-            android:layout_height="52dp"
-            android:gravity="center"
-            android:text="Sign in"/>
-        <View
-            android:layout_weight="1"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"/>
-        <Button
-            android:background="@color/colorWhite"
-            android:textSize="12sp"
-            android:layout_gravity="center"
-            android:id="@+id/login_button_facebook"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Login with Facebook"/>
-        <TextView
-            android:textSize="12sp"
-            android:background="@color/colorWhite"
-            android:layout_gravity="center"
-            android:id="@+id/login_button_register"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Register"/>
-        <com.facebook.login.widget.LoginButton
-            android:id="@+id/facebook_login"
-            android:layout_width="0dp"
-            android:layout_height="0dp" />
+            <TextView
+                android:id="@+id/login_slogun"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:text="Grab-a-Korean, dodam"
+                android:textColor="#222222"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <EditText
+                android:id="@+id/login_edit_id"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/layout_login_edit"
+                android:gravity="center"
+                android:hint="E-mail address"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                tools:ignore="RtlCompat" />
+
+            <EditText
+                android:id="@+id/login_edit_pw"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/layout_login_edit"
+                android:gravity="center"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:paddingLeft="8dp"
+                android:paddingRight="8dp"
+                android:textAlignment="textStart"
+                android:textSize="14sp"
+                tools:ignore="RtlCompat" />
+
+            <Button
+                android:id="@+id/login_button_login"
+                android:layout_width="match_parent"
+                android:layout_height="52dp"
+                android:layout_margin="4dp"
+                android:background="@drawable/layout_login_button"
+                android:gravity="center"
+                android:text="Sign in"
+                android:textColor="@color/colorWhite"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
+
+            <TextView
+                android:id="@+id/login_button_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:paddingBottom="8dp"
+                android:text="Login with Facebook"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/login_button_register"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="8dp"
+                android:background="@color/colorWhite"
+                android:gravity="center"
+                android:paddingTop="8dp"
+                android:text="Register with E-mail"
+                android:textSize="12sp" />
+
+            <com.facebook.login.widget.LoginButton
+                android:id="@+id/facebook_login"
+                android:layout_width="0dp"
+                android:layout_height="0dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5" />
+        </LinearLayout>
     </LinearLayout>
 </layout>

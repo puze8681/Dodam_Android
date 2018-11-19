@@ -24,6 +24,13 @@ class PrefManager(context: Context) {
             editor.apply()
         }
 
+    var account_id: String
+        get() = preferences.getString("account_id", "")
+        set(value) {
+            editor.putString("account_id", value)
+            editor.apply()
+        }
+
     var loginType: Int
         get() = preferences.getInt("type", -1)
         set(value) {

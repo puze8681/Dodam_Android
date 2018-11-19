@@ -92,7 +92,6 @@ class StudyInActivity : AppCompatActivity() {
                 study_problem_four.text = ""
                 study_next.visibility = View.GONE
                 study_back.visibility = View.GONE
-
                 callPhoneticList()
             }
             "word" -> {
@@ -162,7 +161,9 @@ class StudyInActivity : AppCompatActivity() {
     }
 
     private fun callPhonetic(index: Int) {
+        setProgressDialog("표음 로딩 중")
         Log.d("call_phonetic_index", index.toString())
+        study_sub.text = "Chapter." + (index+1).toString() + " Choose the right pronunciation"
         if (checkNetwork()) {
             var phonetic_index = 0
 
@@ -190,7 +191,7 @@ class StudyInActivity : AppCompatActivity() {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
                                     val hd = Handler()
                                     hd.postDelayed(Runnable {
-                                        if (phonetic_index < phonetic.questions.size) {
+                                        if (question_index == phonetic.questions.size-1) {
                                             if (index == phonetic_list.size - 1) {
                                                 Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
                                             } else {
@@ -199,8 +200,7 @@ class StudyInActivity : AppCompatActivity() {
                                                 callPhonetic(index + 1)
                                             }
                                         } else {
-                                            phonetic_index += 1
-                                            setView(phonetic, phonetic_index)
+                                            setView(phonetic, question_index+1)
                                         }
                                     }, 2000)
                                 } else {
@@ -219,7 +219,7 @@ class StudyInActivity : AppCompatActivity() {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
                                     val hd = Handler()
                                     hd.postDelayed(Runnable {
-                                        if (phonetic_index == phonetic.questions.size-1) {
+                                        if (question_index == phonetic.questions.size-1) {
                                             if (index == phonetic_list.size - 1) {
                                                 Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
                                             } else {
@@ -228,8 +228,7 @@ class StudyInActivity : AppCompatActivity() {
                                                 callPhonetic(index + 1)
                                             }
                                         } else {
-                                            phonetic_index += 1
-                                            setView(phonetic, phonetic_index)
+                                            setView(phonetic, question_index+1)
                                         }
                                     }, 2000)
                                 } else {
@@ -248,7 +247,7 @@ class StudyInActivity : AppCompatActivity() {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
                                     val hd = Handler()
                                     hd.postDelayed(Runnable {
-                                        if (phonetic_index == phonetic.questions.size-1) {
+                                        if (question_index == phonetic.questions.size-1) {
                                             if (index == phonetic_list.size - 1) {
                                                 Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
                                             } else {
@@ -257,8 +256,7 @@ class StudyInActivity : AppCompatActivity() {
                                                 callPhonetic(index + 1)
                                             }
                                         } else {
-                                            phonetic_index += 1
-                                            setView(phonetic, phonetic_index)
+                                            setView(phonetic, question_index+1)
                                         }
                                     }, 2000)
                                 } else {
@@ -277,7 +275,7 @@ class StudyInActivity : AppCompatActivity() {
                                     Toast.makeText(this@StudyInActivity, "정답입니다", Toast.LENGTH_SHORT).show()
                                     val hd = Handler()
                                     hd.postDelayed(Runnable {
-                                        if (phonetic_index == phonetic.questions.size-1) {
+                                        if (question_index == phonetic.questions.size-1) {
                                             if (index == phonetic_list.size - 1) {
                                                 Toast.makeText(this@StudyInActivity, "더 이상 다음 챕터로 갈 수 없습니다. ", Toast.LENGTH_LONG).show()
                                             } else {
@@ -286,8 +284,7 @@ class StudyInActivity : AppCompatActivity() {
                                                 callPhonetic(index + 1)
                                             }
                                         } else {
-                                            phonetic_index += 1
-                                            setView(phonetic, phonetic_index)
+                                            setView(phonetic, question_index+1)
                                         }
                                     }, 2000)
                                 } else {
@@ -303,7 +300,7 @@ class StudyInActivity : AppCompatActivity() {
                         val phonetic = response.body()
                         if (phonetic != null) {
                             Toast.makeText(this@StudyInActivity, "표음 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
-                            setView(phonetic, phonetic_index)
+                            setView(phonetic, 0)
                             Log.d("phonetic_data", phonetic.toString())
                         }
                     } else {
@@ -327,7 +324,7 @@ class StudyInActivity : AppCompatActivity() {
 
     private fun callPhoneticList() {
         if (checkNetwork()) {
-            setProgressDialog("단어 리스트 로딩 중")
+            setProgressDialog("표음 리스트 로딩 중")
             call_phonetic_list = retrofitService.get_phonetic(prefManager.access_token)
             call_phonetic_list.enqueue(object : Callback<PhoneticListData> {
                 override fun onResponse(call: Call<PhoneticListData>?, response: Response<PhoneticListData>?) {
@@ -339,7 +336,6 @@ class StudyInActivity : AppCompatActivity() {
                             phonetic_list = user.lectures
                             Log.d("phonetic_list_data", phonetic_list.toString())
                             Log.d("phonetic_list_data_size", phonetic_list.size.toString())
-                            Log.d("phonetic_index", phonetic_list.toString())
                             callPhonetic(phonetic_index)
                         }
                     } else {
@@ -362,6 +358,7 @@ class StudyInActivity : AppCompatActivity() {
     }
 
     private fun callWord(index: Int) {
+        study_sub.text = "Chapter." + (index+1).toString() + " Choose the right word to fill in the blank"
         if (checkNetwork()) {
             setProgressDialog("단어 로딩 중")
             study_text.visibility = View.GONE

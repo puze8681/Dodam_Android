@@ -4,6 +4,7 @@ import android.content.Context
 import android.view.ViewGroup
 import android.support.v7.widget.AppCompatTextView
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.View
 import android.view.LayoutInflater
 import kr.puze.dodam.R
@@ -78,15 +79,18 @@ class ChatMessageAdapter : RecyclerView.Adapter<ChatMessageAdapter.ViewHolder>()
         val (userAction, _, messageOwner, messageContent) = mData!!.get(position)
 
         if (viewType == SYSTEM_VIEW) {
+            Log.d("chat_message_adapter", viewType.toString())
             val systemHolder = holder as SystemHolder
 
             val messageSuffix = if (userAction == "entered") "님이 채팅방에 들어왔습니다." else "님이 채팅방을 나갔습니다."
             systemHolder.messageTextView!!.text = messageOwner + messageSuffix
         } else if (viewType == SELF_VIEW) {
+            Log.d("chat_message_adapter", viewType.toString())
             val selfHolder = holder as SelfHolder
 
             selfHolder.messageTextView!!.text = messageContent
         } else if (viewType == RECEIVED_VIEW) {
+            Log.d("chat_message_adapter", viewType.toString())
             val receivedHolder = holder as ReceivedHolder
 
             receivedHolder.messageOwnerTextView!!.text = messageOwner
@@ -97,21 +101,17 @@ class ChatMessageAdapter : RecyclerView.Adapter<ChatMessageAdapter.ViewHolder>()
     open class ViewHolder(itemView: View) : BaseViewHolder(itemView)
 
     class SystemHolder(itemView: View) : ViewHolder(itemView) {
-        @BindView(R.id.messageTextView)
-        internal var messageTextView: AppCompatTextView? = null
+        internal var messageTextView: AppCompatTextView = itemView.findViewById(R.id.messageTextView_system)
     }
 
 
     class SelfHolder(itemView: View) : ViewHolder(itemView) {
-        @BindView(R.id.messageTextView)
-        internal var messageTextView: AppCompatTextView? = null
+        internal var messageTextView: AppCompatTextView = itemView.findViewById(R.id.messageTextView_self)
     }
 
     class ReceivedHolder(itemView: View) : ViewHolder(itemView) {
-        @BindView(R.id.messageTextView)
-        internal var messageTextView: AppCompatTextView? = null
-        @BindView(R.id.messageOwnerTextView)
-        internal var messageOwnerTextView: AppCompatTextView? = null
+        internal var messageTextView: AppCompatTextView = itemView.findViewById(R.id.messageTextView_receive)
+        internal var messageOwnerTextView: AppCompatTextView = itemView.findViewById(R.id.messageOwnerTextView)
     }
 
 }

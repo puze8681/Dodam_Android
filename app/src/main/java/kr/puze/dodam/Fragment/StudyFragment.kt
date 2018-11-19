@@ -15,9 +15,7 @@ import kr.puze.dodam.Study.*
 import kr.puze.dodam.Utils.PrefManager
 
 
-
-
-class StudyFragment: Fragment() {
+class StudyFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view: View = inflater.inflate(R.layout.fragment_study, container, false)
@@ -43,15 +41,17 @@ class StudyFragment: Fragment() {
         }
 
         view.study_button_syllable.setOnClickListener {
-            startActivity(Intent(activity, SyllableSelectActivity::class.java))
+            val intent = Intent(activity, StudySelectActivity::class.java)
+            intent.putExtra("study", "syllable")
+            startActivity(intent)
         }
         view.study_button_phonogram.setOnClickListener {
-            val intent = Intent(activity, StudyInActivity::class.java)
+            val intent = Intent(activity, StudySelectActivity::class.java)
             intent.putExtra("study", "phonogram")
             startActivity(intent)
         }
         view.study_button_word.setOnClickListener {
-            val intent = Intent(activity, StudyInActivity::class.java)
+            val intent = Intent(activity, StudySelectActivity::class.java)
             intent.putExtra("study", "word")
             startActivity(intent)
         }

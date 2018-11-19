@@ -58,6 +58,7 @@ class DebateActivity : AppCompatActivity() {
 
         lateinit var chat_intent: Intent
         lateinit var token: String
+        lateinit var account_id: String
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -74,6 +75,7 @@ class DebateActivity : AppCompatActivity() {
         chat_intent = intent
         token = prefManager.access_token
         userName = prefManager.userName
+        account_id = prefManager.account_id
 
         constants = Constants()
         val theme_id = intent.getStringExtra("theme_id")
@@ -82,17 +84,12 @@ class DebateActivity : AppCompatActivity() {
         val theme_team = intent.getStringExtra("theme_team")
         debate_title.text = "THEME : $theme_title"
 
+        initializeView()
+        setupRecyclerView()
+
         getThemeRoom(theme_id, theme_team)
         actionbar_back_white.setOnClickListener {
             finish()
-        }
-
-        initializeView()
-        setupRecyclerView()
-        setupSocketClient()
-
-        debate_send.setOnClickListener {
-            sendButtonTouchUp()
         }
     }
 
@@ -106,6 +103,7 @@ class DebateActivity : AppCompatActivity() {
             override fun onTextChanged(charSequence: CharSequence, i: Int, i1: Int, i2: Int) {
                 debate_send.isEnabled = charSequence.isNotEmpty()
             }
+
             override fun afterTextChanged(editable: Editable) {}
         })
     }
@@ -131,6 +129,7 @@ class DebateActivity : AppCompatActivity() {
 
     private fun setupSocketClient() {
         try {
+            Log.d("socket_setup", room_id)
             mSocket = IO.socket(constants.SOCKET_URL)
             mSocket.on(Socket.EVENT_CONNECT, onConnect)
             mSocket.on(constants.EVENT_SYSTEM, onMessageReceived)
@@ -149,35 +148,13 @@ class DebateActivity : AppCompatActivity() {
     private var onConnect: Emitter.Listener = Emitter.Listener {
         val sendData = JSONObject()
         try {
+            debate_exit.isEnabled = true
+            Log.d("socket_onconnect", room_id)
+            Log.d("socket_onconnect_exit", debate_exit.isEnabled.toString())
             sendData.put("room", room_id)
-            sendData.put("user", token)
+            sendData.put("user", account_id)
             mSocket.emit(constants.EVENT_ENTERED_ROOM, sendData)
 
-            debate_exit.isEnabled = true
-            debate_exit.setOnClickListener {
-                if (checkNetwork()) {
-                    setProgressDialog("채팅 방 종료 중")
-
-                    call = retrofitService.get_room_quit(token, room_id)
-                    call.enqueue(object : Callback<RoomData> {
-                        override fun onResponse(call: Call<RoomData>?, response: Response<RoomData>?) {
-                            progressDialog.dismiss()
-                            if (response?.code() == 200) {
-                                Toast.makeText(this@DebateActivity, "채팅 방 나가기 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
-                            } else {
-                                Toast.makeText(this@DebateActivity, "채팅 방 나가기 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
-                            }
-                        }
-                        override fun onFailure(call: Call<RoomData>?, t: Throwable?) {
-                            progressDialog.dismiss()
-                            Toast.makeText(this@DebateActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
-                        }
-                    })
-                } else {
-                    finish()
-                    Toast.makeText(this@DebateActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
-                }
-            }
         } catch (e: JSONException) {
             e.printStackTrace()
         }
@@ -196,10 +173,10 @@ class DebateActivity : AppCompatActivity() {
         val messageOwnerProfile: String = rcvData.optJSONObject("sender").optString("profile")
 
         val message = ChatMessage(userAction, constants.MESSAGE_TYPE_RECEIVE, messageOwnerName, messageContent)
-        Log.d("action", "action: " + message.userAction())
-        Log.d("type", "type: " + message.messageType())
-        Log.d("owner", "owner: " + message.messageOwner())
-        Log.d("message", "message: " + message.messageContent())
+        Log.d("socket_receive_action", "action: " + message.userAction())
+        Log.d("socket_receive_type", "type: " + message.messageType())
+        Log.d("socket_receive_owner", "owner: " + message.messageOwner())
+        Log.d("socket_receive_message", "message: " + message.messageContent())
 
         runOnUiThread {
             mAdapter.addItems(message)
@@ -217,11 +194,12 @@ class DebateActivity : AppCompatActivity() {
         // 서버로 전송할 데이터 생성 및 메시지 이벤트 보냄.
         val sendData = JSONObject()
         try {
+            Log.d("socket_send", "")
             sendData.put(constants.SEND_DATA_MESSAGE, sendMessage)
             sendData.put(constants.SEND_DATA_USERNAME, userName)
             sendData.put(constants.EVENT_ENTERED_ROOM, room_id)
             mSocket.emit(constants.EVENT_MESSAGE, sendData)
-
+            Log.d("socket_send", sendData.toString())
             // 전송 후, EditText 초기화
             debate_edit.text = null
 
@@ -231,6 +209,33 @@ class DebateActivity : AppCompatActivity() {
             debate_recycler_view.smoothScrollToPosition(mAdapter.itemCount)
         } catch (e: JSONException) {
             e.printStackTrace()
+        }
+    }
+
+    private fun exitButtonTouchUp() {
+        Log.d("debate_exit", "onClick")
+        if (checkNetwork()) {
+            setProgressDialog("채팅 방 종료 중")
+
+            call = retrofitService.get_room_quit(token, room_id)
+            call.enqueue(object : Callback<RoomData> {
+                override fun onResponse(call: Call<RoomData>?, response: Response<RoomData>?) {
+                    progressDialog.dismiss()
+                    if (response?.code() == 200) {
+                        Toast.makeText(this@DebateActivity, "채팅 방 나가기 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
+                    } else {
+                        Toast.makeText(this@DebateActivity, "채팅 방 나가기 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()
+                    }
+                }
+
+                override fun onFailure(call: Call<RoomData>?, t: Throwable?) {
+                    progressDialog.dismiss()
+                    Toast.makeText(this@DebateActivity, "서버 연동 실패", Toast.LENGTH_LONG).show()
+                }
+            })
+        } else {
+            finish()
+            Toast.makeText(this@DebateActivity, "네트워크 연결 실패", Toast.LENGTH_LONG).show()
         }
     }
 
@@ -252,6 +257,15 @@ class DebateActivity : AppCompatActivity() {
                             Toast.makeText(this@DebateActivity, "채팅 방 로딩 성공 : " + response.code().toString(), Toast.LENGTH_LONG).show()
                             Log.d("chat_room_id", data.room_id)
                             room_id = data.room_id
+                            if (!room_id.isNullOrEmpty()) {
+                                setupSocketClient()
+                                debate_send.setOnClickListener {
+                                    sendButtonTouchUp()
+                                }
+                                debate_exit.setOnClickListener {
+                                    exitButtonTouchUp()
+                                }
+                            }
                         }
                     } else {
                         Toast.makeText(this@DebateActivity, "로딩 실패 : " + response!!.code().toString(), Toast.LENGTH_LONG).show()

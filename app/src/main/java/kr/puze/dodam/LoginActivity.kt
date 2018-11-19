@@ -161,6 +161,7 @@ class LoginActivity : AppCompatActivity() {
                                             prefManager.isLogin = true
                                             prefManager.access_token = user.access_token
                                             prefManager.loginType = 2
+                                            prefManager.account_id = fb_user.id
 
                                             intent.putExtra("token", user.access_token)
                                             startActivity(Intent(this@LoginActivity, MainActivity::class.java))
