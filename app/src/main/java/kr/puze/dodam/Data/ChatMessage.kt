@@ -1,10 +1,11 @@
 package kr.puze.dodam.Data
 
-data class ChatMessage(val userAction: String, val messageType: String, val messageOwner: String, val messageContent: String){
+data class ChatMessage(val type: String, val messageType: String, val messageContent: String, val messageOwner: String){
 
-    fun userAction(): String {
-        return userAction
+    fun type(): String{
+        return type
     }
+
     fun messageType(): String {
         return messageType
     }
@@ -12,6 +13,6 @@ data class ChatMessage(val userAction: String, val messageType: String, val mess
         return messageOwner
     }
     fun messageContent(): String {
-        return userAction
+        return messageContent
     }
 }

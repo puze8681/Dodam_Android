@@ -56,9 +56,10 @@ class StudyFragment : Fragment() {
             startActivity(intent)
         }
         view.study_button_chat_bot.setOnClickListener {
-            val intent = Intent(activity, ChatThemeActivity::class.java)
-            intent.putExtra("token", intent.getStringExtra("token"))
-            startActivity(intent)
+            Toast.makeText(activity, "아직 준비 중인 기능입니다.", Toast.LENGTH_LONG)
+//            val intent = Intent(activity, ChatThemeActivity::class.java)
+//            intent.putExtra("token", intent.getStringExtra("token"))
+//            startActivity(intent)
         }
         view.study_button_debate.setOnClickListener {
             startActivity(Intent(activity, DebateThemeActivity::class.java))

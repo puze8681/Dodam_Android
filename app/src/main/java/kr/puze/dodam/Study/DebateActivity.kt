@@ -132,8 +132,8 @@ class DebateActivity : AppCompatActivity() {
             Log.d("socket_setup", room_id)
             mSocket = IO.socket(constants.SOCKET_URL)
             mSocket.on(Socket.EVENT_CONNECT, onConnect)
-            mSocket.on(constants.EVENT_SYSTEM, onMessageReceived)
-            mSocket.on(constants.EVENT_MESSAGE, onMessageReceived)
+//            mSocket.on(constants.EVENT_SYSTEM, onMessageReceived)
+//            mSocket.on(constants.EVENT_MESSAGE, onMessageReceived)
 
             mSocket.connect()
         } catch (e: URISyntaxException) {
@@ -165,23 +165,33 @@ class DebateActivity : AppCompatActivity() {
      */
     private var onMessageReceived: Emitter.Listener = Emitter.Listener {
         val rcvData = JSONObject()
-        val userAction: String = rcvData.optString("action")
-        val messageType: String = rcvData.optString("type")
-        val messageContent: String = rcvData.optString("message")
-        val messageOwnerID: String = rcvData.optJSONObject("sender").optString("id")
-        val messageOwnerName: String = rcvData.optJSONObject("sender").optString("name")
-        val messageOwnerProfile: String = rcvData.optJSONObject("sender").optString("profile")
 
-        val message = ChatMessage(userAction, constants.MESSAGE_TYPE_RECEIVE, messageOwnerName, messageContent)
-        Log.d("socket_receive_action", "action: " + message.userAction())
-        Log.d("socket_receive_type", "type: " + message.messageType())
-        Log.d("socket_receive_owner", "owner: " + message.messageOwner())
-        Log.d("socket_receive_message", "message: " + message.messageContent())
+        try {
+            val messageType: String = rcvData.optString("type")
+            val messageContent: String = rcvData.optString("message")
+//            val messageOwnerID: String = rcvData.optJSONObject("sender").optString("id")
+            val messageOwnerJson: JSONObject = rcvData.optJSONObject("sender")
+            val messageOwnerName: String = messageOwnerJson.optString("name")
+//            val messageOwnerProfile: String = rcvData.optJSONObject("sender").optString("profile")
+            var type: String = {
+                when(messageType){
+                    "connect" -> constants.MESSAGE_TYPE_SYSTEM
+                    "normal" -> constants.MESSAGE_TYPE_RECEIVE
+                    else -> {
+                    }
+                }
+            }.toString()
+            val message = ChatMessage(messageType, type, messageOwnerName, messageContent)
+            Log.d("socket_receive_", message.toString())
 
-        runOnUiThread {
-            mAdapter.addItems(message)
-            debate_recycler_view.smoothScrollToPosition(mAdapter.itemCount)
+            runOnUiThread {
+                mAdapter.addItems(message)
+                debate_recycler_view.smoothScrollToPosition(mAdapter.itemCount)
+            }
+        }catch (e: NullPointerException){
+            Log.e("socket_receive", "onMessageReceived", e)
         }
+
     }
 
     /**

@@ -163,24 +163,21 @@ class ChatActivity : AppCompatActivity() {
      * Socket 메시지 받는 Listener
      */
     private var onMessageReceived: Emitter.Listener = Emitter.Listener {
-        val rcvData = JSONObject()
-        val userAction: String = rcvData.optString("action")
-        val messageType: String = rcvData.optString("type")
-        val messageContent: String = rcvData.optString("message")
-        val messageOwnerID: String = rcvData.optJSONObject("sender").optString("id")
-        val messageOwnerName: String = rcvData.optJSONObject("sender").optString("name")
-        val messageOwnerProfile: String = rcvData.optJSONObject("sender").optString("profile")
-
-        val message = ChatMessage(userAction, constants.MESSAGE_TYPE_RECEIVE, messageOwnerName, messageContent)
-        Log.d("action", "action: " + message.userAction())
-        Log.d("type", "type: " + message.messageType())
-        Log.d("owner", "owner: " + message.messageOwner())
-        Log.d("message", "message: " + message.messageContent())
-
-        runOnUiThread {
-            mAdapter.addItems(message)
-            chat_recycler_view.smoothScrollToPosition(mAdapter.itemCount)
-        }
+//        val rcvData = JSONObject()
+//        val userAction: String = rcvData.optString("action")
+//        val messageType: String = rcvData.optString("type")
+//        val messageContent: String = rcvData.optString("message")
+//        val messageOwnerID: String = rcvData.optJSONObject("sender").optString("id")
+//        val messageOwnerName: String = rcvData.optJSONObject("sender").optString("name")
+//        val messageOwnerProfile: String = rcvData.optJSONObject("sender").optString("profile")
+//
+//        val message = ChatMessage(userAction, constants.MESSAGE_TYPE_RECEIVE, messageOwnerName, messageContent)
+//        Log.d("socket_receive", message.toString())
+//
+//        runOnUiThread {
+//            mAdapter.addItems(message)
+//            chat_recycler_view.smoothScrollToPosition(mAdapter.itemCount)
+//        }
     }
 
     /**
